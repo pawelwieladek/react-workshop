@@ -1,0 +1,20 @@
+{
+  "name": "react-es6-workshop-presentation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cleaver index.md",
+    "start": "npm-watch",
+    "serve": "http-server public/ -p 9090"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cleaver": "^0.7.7",
+    "http-server": "^0.8.5"
+  },
+  "watch": {
+    "build": "index.md"
+  }
+}

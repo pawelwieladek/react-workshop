@@ -1,0 +1,17 @@
+.progress {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  height: 3px;
+  width: 0;
+  background-color: #a6e22e;
+  -webkit-transition: width .15s ease-out;
+     -moz-transition: width .15s ease-out;
+       -o-transition: width .15s ease-out;
+          transition: width .15s ease-out;
+}
