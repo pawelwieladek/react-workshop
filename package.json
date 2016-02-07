@@ -4,17 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cleaver index.md",
-    "start": "npm-watch",
+    "build": "cleaver presentation-es6.md presentation-react.md",
+    "start": "watch 'npm run build' . --wait=1",
     "serve": "http-server public/ -p 9090"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cleaver": "^0.7.7",
-    "http-server": "^0.8.5"
-  },
-  "watch": {
-    "build": "index.md"
+    "http-server": "^0.8.5",
+    "watch": "^0.17.1"
   }
 }
