@@ -16,11 +16,21 @@ progress: true
 
 --
 
-### Wstęp
+### Plac zabaw
 
-- Biblioteka odpowiedzialna tylko za **renderowanie**
+[Fork this pen](http://codepen.io/pawelwieladek/pen/BjGNxX/?editors=0010)
 
-- Wysoka **wydajność** głównym celem twórców
+### Dokumentacja
+
+[Facebook](https://facebook.github.io/react/docs/getting-started.html)
+
+--
+
+### Założenia
+
+- renderowanie
+
+- wydajność
 
 --
 
@@ -31,12 +41,6 @@ progress: true
 - Komponenty składają się z innych komponentów tworząc **drzewo komponentów**
 
 - Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty: **Single Responsibility Principle**
-
---
-
-### Komponenty 
-
-- Nie ma jednego szablonu całej strony
 
 - Mały komponent jest łatwy do **zrozumienia**, **utrzymania** i **testowania**
 
@@ -468,6 +472,32 @@ render() {
 
 --
 
+### Mixins
+  
+```js
+const AuthMixin = {
+    componentDidMount() {
+        if (!authorized()) {
+            // redirect to login page...
+        }
+    },
+    authorized() {
+        // do some oAuth...
+    }
+};
+
+const Page = React.createClass({
+    mixins: [ AuthMixin ],
+    render() {
+        return (
+            <div>You are {authorized() ? 'authorized' : 'not authorized'}</div>
+        );
+    }
+});
+```
+
+--
+
 ### Props types
 
  - Walidacja danych wejściowych komponentu
@@ -546,32 +576,6 @@ render() {
 
 <p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
-
---
-
-### Mixins
-
-```js
-const AuthMixin = {
-    componentDidMount() {
-        if (!authorized()) {
-            // redirect to login page...
-        }
-    },
-    authorized() {
-        // do some oAuth...
-    }
-};
-
-const Page = React.createClass({
-    mixins: [ AuthMixin ],
-    render() {
-        return (
-            <div>You are {authorized() ? 'authorized' : 'not authorized'}</div>
-        );
-    }
-});
-```
 
 --
 
