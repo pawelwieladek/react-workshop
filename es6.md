@@ -47,20 +47,15 @@ let exponentiation = {
 
 ### Template strings
 
-Plain string
-
 ```js
 `This is a plain string.`
 ```
 
-Multiline strings
-
 ```js
-`In ES5 this is
+`Multiline strings
+ in ES5 are
  not legal.`
 ```
-
-Interpolate variables
 
 ```js
 let name = 'world';
@@ -71,9 +66,9 @@ let name = 'world';
 
 ### Declaring variables
 
-- ```var``` is **hoisted** - moved to the top of current script or function
+- ```var``` is **hoisted**
 - ```let``` is **block-scoped**
-- ```const``` is **block-scoped** but only single-assignment
+- ```const``` is **block-scoped**
 
 --
 
@@ -124,8 +119,6 @@ PI = 3.141593;    // throws "PI" is read-only
 
 ### Enhanced objects
 
-Shorthand property names
-
 ```js
 // given
 var a = "foo", b = 42, c = {};
@@ -144,8 +137,6 @@ var o = {
 --
 
 ### Enhanced objects
-
-Shorthand method names
 
 ```js
 var me = {
@@ -206,9 +197,9 @@ console.log(me.name);     // Pablo
 
 ### Enhanced objects
 
-Computed property names
-
 ```js
+// Computed property names
+
 function createIconClasses(name, size) {
   return {
     [`fa-${name}`]: !!name,
@@ -225,9 +216,9 @@ console.log(iconClasses);   // { 'fa-square': true, 'fa-lg': true }
 
 ### Destructuring
 
-List matching
-
 ```js
+// List matching
+
 var [a, b, c] = [1, 2, 3, 4];
 console.log(a);   // 1;
 console.log(b);   // 2;
@@ -238,9 +229,8 @@ console.log(c);   // 3;
 
 ### Destructuring
 
-List matching with empty element
-
 ```js
+// List matching with empty element
 var [a, , c] = [1, 2, 3, 4];
 console.log(a);   // 1;
 console.log(c);   // 3;
@@ -250,9 +240,9 @@ console.log(c);   // 3;
 
 ### Destructuring
 
-Object matching
-
 ```js
+// Object matching
+
 function createPerson() {
   return { firstName: 'Pawel', lastName: 'Wieladek' };
 }
@@ -267,9 +257,9 @@ console.log(lastName);    // Wieladek
 
 ### Destructuring
 
-Object matching with rename
-
 ```js
+// Object matching with rename
+
 function createPerson() {
   return { firstName: 'Pawel', lastName: 'Wieladek' };
 }
@@ -284,9 +274,9 @@ console.log(l);           // Wieladek
 
 ### Destructuring
 
-Object matching in function parameter
-
 ```js
+// Object matching in function parameter
+
 function sayHi({ firstName, lastName }) {
   return `Hi, I'm ${firstName} ${lastName}!`;
 }

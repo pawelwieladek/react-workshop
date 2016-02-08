@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cleaver presentation-es6.md presentation-react.md",
+    "build": "cleaver es6.md react.md",
     "start": "watch 'npm run build' .",
     "serve": "http-server public/ -p 9090",
     "deploy": "gh-pages -d public/"
