@@ -546,23 +546,20 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
 </section>
   </div>
   <div class="slide hidden" id="slide-2">
-    <section class="slide-content"><h3 id="wst-p">Wstęp</h3>
-<ul>
-<li><p>Biblioteka odpowiedzialna tylko za <strong>renderowanie</strong></p>
-</li>
-<li><p>Wysoka <strong>wydajność</strong> głównym celem twórców</p>
-</li>
-</ul>
+    <section class="slide-content"><h3 id="plac-zabaw">Plac zabaw</h3>
+<p><a href="http://codepen.io/pawelwieladek/pen/BjGNxX/?editors=0010">Fork this pen</a></p>
+<h3 id="dokumentacja">Dokumentacja</h3>
+<p><a href="https://facebook.github.io/react/docs/getting-started.html">Facebook</a></p>
 </section>
   </div>
   <div class="slide hidden" id="slide-3">
-    <section class="slide-content"><h3 id="komponenty">Komponenty</h3>
+    <section class="slide-content"><h3 id="dlaczego-react-">Dlaczego React?</h3>
 <ul>
-<li><p>Layout podzielony na małe kawałki - <strong>komponenty</strong></p>
+<li><p>jeden cel: tworzenie interfejsu użytkownika</p>
 </li>
-<li><p>Komponenty składają się z innych komponentów tworząc <strong>drzewo komponentów</strong></p>
+<li><p>łatwy do zrozumienia przepływ danych w aplikacji</p>
 </li>
-<li><p>Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty: <strong>Single Responsibility Principle</strong></p>
+<li><p>wysoka wydajność</p>
 </li>
 </ul>
 </section>
@@ -570,7 +567,11 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
   <div class="slide hidden" id="slide-4">
     <section class="slide-content"><h3 id="komponenty">Komponenty</h3>
 <ul>
-<li><p>Nie ma jednego szablonu całej strony</p>
+<li><p>Layout podzielony na małe kawałki - <strong>komponenty</strong></p>
+</li>
+<li><p>Komponenty składają się z innych komponentów tworząc <strong>drzewo komponentów</strong></p>
+</li>
+<li><p>Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty: <strong>Single Responsibility Principle</strong></p>
 </li>
 <li><p>Mały komponent jest łatwy do <strong>zrozumienia</strong>, <strong>utrzymania</strong> i <strong>testowania</strong></p>
 </li>
@@ -965,6 +966,29 @@ render() {
 </section>
   </div>
   <div class="slide hidden" id="slide-35">
+    <section class="slide-content"><h3 id="mixins">Mixins</h3>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> AuthMixin = {
+    componentDidMount() {
+        <span class="hljs-keyword">if</span> (!authorized()) {
+            <span class="hljs-comment">// redirect to login page...</span>
+        }
+    },
+    authorized() {
+        <span class="hljs-comment">// do some oAuth...</span>
+    }
+};
+
+<span class="hljs-keyword">const</span> Page = React.createClass({
+    mixins: [ AuthMixin ],
+    render() {
+        <span class="hljs-keyword">return</span> (
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>You are {authorized() ? 'authorized' : 'not authorized'}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        )</span>;
+    }
+});</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-36">
     <section class="slide-content"><h3 id="props-types">Props types</h3>
 <ul>
 <li><p>Walidacja danych wejściowych komponentu</p>
@@ -994,7 +1018,7 @@ render() {
 <p><a href="https://facebook.github.io/react/docs/reusable-components.html">Prop Types reference</a></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-36">
+  <div class="slide hidden" id="slide-37">
     <section class="slide-content"><h3 id="referencje">Referencje</h3>
 <ul>
 <li><p>Za pomocą atrybutu <code>ref</code> można przechować referencję do instancji komponentu potomnego</p>
@@ -1012,7 +1036,7 @@ render() {
 }</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-37">
+  <div class="slide hidden" id="slide-38">
     <section class="slide-content"><h3 id="uncontrolled-component">Uncontrolled Component</h3>
 <ul>
 <li><p>Komponent ma swój stan</p>
@@ -1031,38 +1055,15 @@ render() {
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-38">
+  <div class="slide hidden" id="slide-39">
     <section class="slide-content"><h3 id="uncontrolled-component">Uncontrolled Component</h3>
 <p><p data-height="500" data-theme-id="0" data-slug-hash="YwRXJd" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/YwRXJd/'>React Uncontrolled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script></section>
   </div>
-  <div class="slide hidden" id="slide-39">
+  <div class="slide hidden" id="slide-40">
     <section class="slide-content"><h3 id="controlled-component">Controlled Component</h3>
 <p><p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script></section>
-  </div>
-  <div class="slide hidden" id="slide-40">
-    <section class="slide-content"><h3 id="mixins">Mixins</h3>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> AuthMixin = {
-    componentDidMount() {
-        <span class="hljs-keyword">if</span> (!authorized()) {
-            <span class="hljs-comment">// redirect to login page...</span>
-        }
-    },
-    authorized() {
-        <span class="hljs-comment">// do some oAuth...</span>
-    }
-};
-
-<span class="hljs-keyword">const</span> Page = React.createClass({
-    mixins: [ AuthMixin ],
-    render() {
-        <span class="hljs-keyword">return</span> (
-            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>You are {authorized() ? 'authorized' : 'not authorized'}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        )</span>;
-    }
-});</code></pre>
-</section>
   </div>
   <div class="slide hidden" id="slide-41">
     <section class="slide-content"><h3 id="case-study">Case study</h3>
