@@ -6,12 +6,14 @@
   "scripts": {
     "build": "cleaver presentation-es6.md presentation-react.md",
     "start": "watch 'npm run build' .",
-    "serve": "http-server public/ -p 9090"
+    "serve": "http-server public/ -p 9090",
+    "deploy": "gh-pages -d public/"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cleaver": "^0.7.7",
+    "gh-pages": "^0.9.0",
     "http-server": "^0.8.5",
     "watch": "^0.17.1"
   }

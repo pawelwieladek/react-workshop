@@ -19,6 +19,18 @@
 
 .slide-content {
   overflow: visible;
+  margin: 60px auto 0 auto;
+}
+
+p, h4 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+ul {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 li {
@@ -42,7 +54,6 @@ h1:not(:first-child) {
 pre {
   display: block;
   overflow-x: auto;
-  padding: 0.5em;
   background: #2b2b2b;
   padding: 20px;
 }
@@ -59,91 +70,108 @@ pre > code {
 
 /*
 
-Darkula color scheme from the JetBrains family of IDEs
+Railscasts-like style (c) Visoft, Inc. (Damien White)
 
 */
-
 
 .hljs {
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  background: #2b2b2b;
+  background: #232323;
+  color: #e6e1dc;
 }
 
-.hljs {
-  color: #bababa;
+.hljs-comment,
+.hljs-quote {
+  color: #bc9458;
+  font-style: italic;
 }
 
-.hljs-tag {
-  color: #cb7832;
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #c26230;
 }
 
-.hljs-strong,
-.hljs-emphasis {
-  color: #a8a8a2;
-}
-
-.hljs-bullet,
-.hljs-quote,
-.hljs-link,
+.hljs-string,
 .hljs-number,
 .hljs-regexp,
-.hljs-literal {
-  color: #6896ba;
+.hljs-variable,
+.hljs-template-variable {
+  color: #a5c261;
 }
 
-.hljs-code,
+.hljs-subst {
+  color: #519f50;
+}
+
+.hljs-tag,
+.hljs-name {
+  color: #e8bf6a;
+}
+
+.hljs-type {
+  color: #da4939;
+}
+
+
+.hljs-symbol,
+.hljs-bullet,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-attr,
+.hljs-link {
+  color: #6d9cbe;
+}
+
+.hljs-params {
+  color: #d0d0ff;
+}
+
+.hljs-attribute {
+  color: #cda869;
+}
+
+.hljs-meta {
+  color: #9b859d;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #ffc66d;
+}
+
+.hljs-addition {
+  background-color: #144212;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
+}
+
+.hljs-deletion {
+  background-color: #600;
+  color: #e6e1dc;
+  display: inline-block;
+  width: 100%;
+}
+
 .hljs-selector-class {
-  color: #a6e22e;
+  color: #9b703f;
+}
+
+.hljs-selector-id {
+  color: #8b98ab;
 }
 
 .hljs-emphasis {
   font-style: italic;
 }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-section,
-.hljs-attribute,
-.hljs-name,
-.hljs-variable {
-  color: #cb7832;
+.hljs-strong {
+  font-weight: bold;
 }
 
-.hljs-params {
-  color: #b9b9b9;
+.hljs-link {
+  text-decoration: underline;
 }
 
-.hljs-string,
-.hljs-subst,
-.hljs-type,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-symbol,
-.hljs-selector-id,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-template-tag,
-.hljs-template-variable,
-.hljs-addition {
-  color: #e0c46c;
-}
-
-.hljs-comment,
-.hljs-deletion,
-.hljs-meta {
-  color: #7f7f7f;
-}
-
-.hljs-title, .hljs-section, .hljs-selector-id {
-  color: #e0c46c;
-}
-
-.hljs-class > .hljs-title {
-  color: #e0c46c;
-}
-
-.hljs-tag > .hljs-attr {
-  color: #b9b9b9;
-}

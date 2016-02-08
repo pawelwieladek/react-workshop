@@ -18,9 +18,7 @@ progress: true
 
 ### Wstęp
 
-- Przede wszystkim **koncepcja**, biblioteka jest tylko jej implementacją
-
-- Odpowiedzialny tylko za **renderowanie**
+- Biblioteka odpowiedzialna tylko za **renderowanie**
 
 - Wysoka **wydajność** głównym celem twórców
 
@@ -92,11 +90,15 @@ Komponenty są porównywane za pomocą podanych kluczy.
 
 --
 
-### Entry point renderowania
+### Punkt wejścia aplikacji
+
+index.html
 
 ```html
 <div id="main"></div>
 ```
+
+main.js
 
 ```js
 import React from 'react';
@@ -246,21 +248,88 @@ React.createClass({
 
 **Autobinding:** Każda funkcja ma automatycznie dowiązany kontekst ```this```
 
---
-
-### State: dobra praktyka
-
-Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.
+**Dobra praktyka:** Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.
 
 --
 
 ### State: złe praktyki
  
- - Zduplikowane dane z ```props```
-
- - Zmodyfikowane dane z istniejącego stanu
+Zduplikowane dane wejściowe ```props```
  
- - Komponenty jako zawartość stanu
+```js
+// so bad!
+getInitialState() {
+    return {
+        name: this.props.name  
+    };
+}
+```
+
+--
+
+### State: złe praktyki
+
+Nadmiarowe dane
+ 
+```js
+// so bad!
+handleChange(firstName, lastName) {
+    return {
+        firstName: firstName,
+        lastName: lastName,
+        fullName: `${firstName} ${lastName}`
+    };
+}
+```
+
+```js
+// instead modify in render
+render() {
+    let fullName = `${firstName} ${lastName}`;
+    return (
+        <div>{fullName}</div>
+    );
+}
+```
+
+--
+
+### State: złe praktyki
+ 
+Komponenty jako zawartość stanu
+ 
+```js
+// so bad!
+showForm() {
+    this.setState({
+        formComponent: <Form />
+    });
+}
+```
+
+```js
+// instead handle condition in render
+showForm() {
+    this.setState({
+        formEnabled: true
+    });
+}
+
+rednerForm() {
+    if (this.state.formEnabled) {
+        return <Form />;
+    }
+}
+
+render() {
+    let form = this.rednerForm();
+    return (
+        <div>
+            {form}
+        </div>
+    );
+}
+```
 
 --
 
@@ -272,7 +341,7 @@ Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowan
 
 3. Odmontowanie
 
- - [Component Specs and Lifecycle](https://facebook.github.io/react/docs/component-specs.html)
+[Component Specs and Lifecycle reference](https://facebook.github.io/react/docs/component-specs.html)
 
 --
 
@@ -394,7 +463,7 @@ render() {
             {results}
         </ul>
     );
-  }
+}
 ```
 
 --
@@ -402,6 +471,8 @@ render() {
 ### Props types
 
  - Walidacja danych wejściowych komponentu
+ 
+ - Bardzo przydatne przy dużych aplikacjach
 
 ```js
 React.createClass({
@@ -425,7 +496,82 @@ React.createClass({
 });
 ```
 
- - [Prop Types](https://facebook.github.io/react/docs/reusable-components.html)
+[Prop Types reference](https://facebook.github.io/react/docs/reusable-components.html)
+ 
+--
+
+### Referencje
+
+- Za pomocą atrybutu ```ref``` można przechować referencję do instancji komponentu potomnego
+
+- Referencje są dostępne w ```this.refs```
+
+```js
+getValue() {
+    return ReactDOM.findDOMNode(this.refs.input).value;
+},
+render() {
+    return (
+        <input type="text" ref="input" />
+    );
+}
+```
+
+--
+
+### Uncontrolled Component
+
+- Komponent ma swój stan
+
+- Stan komponentu może być dostępny na zewnątrz
+
+### Controlled Component
+
+- Komponent nie ma stanu
+
+- Udostępnia dane za pomocą *event handlers* np. ```onChange```
+
+- Dane muszą zostać obsłużone przez komponent nadrzędny
+
+--
+
+### Uncontrolled Component
+
+<p data-height="500" data-theme-id="0" data-slug-hash="YwRXJd" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/YwRXJd/'>React Uncontrolled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+--
+
+### Controlled Component
+
+<p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<script async src="//assets.codepen.io/assets/embed/ei.js"></script>
+
+--
+
+### Mixins
+
+```js
+const AuthMixin = {
+    componentDidMount() {
+        if (!authorized()) {
+            // redirect to login page...
+        }
+    },
+    authorized() {
+        // do some oAuth...
+    }
+};
+
+const Page = React.createClass({
+    mixins: [ AuthMixin ],
+    render() {
+        return (
+            <div>You are {authorized() ? 'authorized' : 'not authorized'}</div>
+        );
+    }
+});
+```
 
 --
 
@@ -444,4 +590,12 @@ React.createClass({
 ### Case study
 
 ![Lower level components](../images/bottom-components.png "Lower level components")
+
+--
+
+### Flux
+
+![Flux](../images/flux-diagram.png "Flux")
+
+
 
