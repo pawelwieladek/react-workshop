@@ -26,11 +26,13 @@ progress: true
 
 --
 
-### Założenia
+### Dlaczego React?
 
-- renderowanie
+- jeden cel: tworzenie interfejsu użytkownika
 
-- wydajność
+- łatwy do zrozumienia przepływ danych w aplikacji
+
+- wysoka wydajność
 
 --
 
