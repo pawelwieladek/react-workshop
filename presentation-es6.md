@@ -10,6 +10,8 @@ progress: true
 
 --
 
+![ES6](../images/js-logo.png "ES6")
+
 # ES6
 
 --
@@ -67,7 +69,7 @@ let name = 'world';
 
 --
 
-### Let & const
+### Declaring variables
 
 - ```var``` is **hoisted** - moved to the top of current script or function
 - ```let``` is **block-scoped**
@@ -75,7 +77,7 @@ let name = 'world';
 
 --
 
-### Let & const
+### Declaring variables
 
 #### Var hoisting
 
@@ -92,7 +94,7 @@ console.log(b);   // 2
 
 --
 
-### Let & const
+### Declaring variables
 
 #### Let
 
@@ -109,7 +111,7 @@ console.log(d);   // ReferenceError: d is not defined
 
 --
 
-### Let & const
+### Declaring variables
 
 #### Const
 

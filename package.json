@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "cleaver presentation-es6.md presentation-react.md",
-    "start": "watch 'npm run build' . --wait=1",
+    "start": "watch 'npm run build' .",
     "serve": "http-server public/ -p 9090"
   },
   "author": "",
