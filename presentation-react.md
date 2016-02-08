@@ -190,7 +190,7 @@ ReactDOM.render(<Hello name="Pawel" />, document.querySelector('#main'));
 ### State
 
 ```js
-var Counter = React.createClass({
+React.createClass({
     getInitialState() {
         return {
             count: 5
@@ -225,7 +225,7 @@ var Counter = React.createClass({
 ### State: interaktywny UI
 
 ```js
-var Counter = React.createClass({
+React.createClass({
     getInitialState() {
         return {
             count: 5
@@ -271,6 +271,8 @@ Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowan
 2. Modyfikacja
 
 3. Odmontowanie
+
+ - [Component Specs and Lifecycle](https://facebook.github.io/react/docs/component-specs.html)
 
 --
 
@@ -373,6 +375,57 @@ Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowan
  - Wywoływana tuż po odmontowaniu komponentu
  
  - Miejsce na cleanup
+ 
+--
+
+### Dynamiczne komponenty
+
+ - Każdy dynamiczny komponent powinien zawierać unikalny klucz ```key```
+ 
+ - Jeżeli klucz komponentu w danym miejscu w drzewie ulegnie zmianie to komponent zostaje odmontowany
+
+```js
+render() {
+    let results = this.props.results.map(result => {
+        return <li key={result.id}>{result.text}</li>;
+    });
+    return (
+        <ul>
+            {results}
+        </ul>
+    );
+  }
+```
+
+--
+
+### Props types
+
+ - Walidacja danych wejściowych komponentu
+
+```js
+React.createClass({
+    propTypes: {
+        name: React.PropTypes.string,
+        onClick: React.PropTypes.func.isRequired
+    },
+    getDefaultProps() {
+        return {
+            onClick: () => {}
+        };
+    },
+    render() {
+        return (
+            <div>
+                <h1>Hello, {this.props.name}!</h1>
+                <button onClick={this.props.onClick}>Click me</button>
+            </div>
+        );
+    }
+});
+```
+
+ - [Prop Types](https://facebook.github.io/react/docs/reusable-components.html)
 
 --
 
