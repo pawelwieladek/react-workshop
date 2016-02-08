@@ -16,59 +16,57 @@ progress: true
 
 --
 
-### Introduction
+### Wstęp
 
-- React is firstly a **concept** and then a library 
+- Przede wszystkim **koncepcja**, biblioteka jest tylko jej implementacją
 
-- Responsible only for **rendering**
+- Odpowiedzialny tylko za **renderowanie**
 
-- **Performance** is the primary goal
-
---
-
-### Components
-
-- You should break down the layout into smaller pieces - **components**
-
-- Components are built on top of other components - **components tree**
-
-- When problem becomes more challenging you should split a component into smaller components
+- Wysoka **wydajność** głównym celem twórców
 
 --
 
-### Components 
+### Komponenty
 
-- In the component-driven development, you won't see the whole site in one template.
+- Layout podzielony na małe kawałki - **komponenty**
 
-- It makes things easier to **understand**, to **maintain** and to cover with **tests**.
+- Komponenty składają się z innych komponentów tworząc **drzewo komponentów**
 
-- Each component should respect **Single Responsibility Principle**.
+- Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty: **Single Responsibility Principle**
 
 --
 
-### Virtual DOM
+### Komponenty 
 
-- Operating on DOM is heavy so React introduces **Virtual DOM** and **diff algorithm**.
+- Nie ma jednego szablonu całej strony
 
-- DOM elements are untouched as much as possible.
-
-- React isolates the changes between the old and new virtual DOM and then only **updates the real DOM with the necessary changes**.
+- Mały komponent jest łatwy do **zrozumienia**, **utrzymania** i **testowania**
 
 --
 
 ### Virtual DOM
 
-- Finding the minimal number of modifications between two arbitrary trees is a O(n<sup>3</sup>) problem.
+- Operacje na DOM są kosztowne
 
-- React uses simple and yet powerful heuristics to find a very good approximation in O(n).
+- Rozwiązaniem jest wirtualne drzewo komponentów **(Virtual DOM)**
+
+- Podczas renderowania React porównuje stare i nowe drzewo i **modyfikuje tylko niezbędne elementy w DOM**
+
+--
+
+### Virtual DOM
+
+- Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność O(n<sup>3</sup>)
+
+- React używa kilku heurystyk optymalizując złożoność do O(n)
 
 --
 
 ### Diff algorithm
 
-#### Components
+#### Klasy komponentów
 
-React will match only components with the same class.
+Dwa komponenty o różnych klasach na pewno są różne.
 
 ![Components](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/3.png "Components")
 
@@ -76,9 +74,9 @@ React will match only components with the same class.
 
 ### Diff algorithm
 
-#### Level by Level
+#### Poziom po poziomie
 
-React only tries to reconcile trees level by level.
+Porównywane są komponenty tylko z tych samych poziomów.
 
 ![Level by Level](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/1.png "Level by Level")
 
@@ -86,23 +84,19 @@ React only tries to reconcile trees level by level.
 
 ### Diff algorithm
 
-#### List
+#### Listy
 
-Components are matched by provided keys. 
+Komponenty są porównywane za pomocą podanych kluczy.
 
 ![List](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/2.png "List")
 
 --
 
-### Rendering entry point
-
-Mounting DOM element
+### Entry point renderowania
 
 ```html
 <div id="main"></div>
 ```
-
-Render entry point
 
 ```js
 import React from 'react';
@@ -115,7 +109,7 @@ ReactDOM.render(<App />, document.querySelector('#main'));
 
 --
 
-### React Component
+### Przykładowy komponent
 
 ```js
 const App = React.createClass({
@@ -129,15 +123,11 @@ const App = React.createClass({
 });
 ```
 
-**Important:** ```render``` method requires single root element.
-
 --
 
 ### JSX
 
-JavaScript syntax extension
-
-###### With JSX
+###### Input
 
 ```xml
 <Nav>
@@ -147,7 +137,7 @@ JavaScript syntax extension
 </Nav>
 ```
 
-###### Without JSX
+###### Output
 
 ```js
 React.createElement(Nav, null,
@@ -161,11 +151,11 @@ React.createElement(Nav, null,
 
 ### Props
 
- - **Unidirectional data flow** from the top to the bottom of the components tree.
+ - **Jednokierunkowy przepływ danych** z góry do dołu drzewa komponentów
 
- - Component's input is called **props**
+ - Dane komponentu na wejściu
   
- - Props are available as ```this.props```
+ - Dostępne za pomocą ```this.props```
 
 --
 
@@ -187,13 +177,13 @@ ReactDOM.render(<Hello name="Pawel" />, document.querySelector('#main'));
 
 ### State
 
- - Every component can have its own **state**.
+ - Każdy komponent może mieć swój stan **(state)**
  
- - State can be set only with the ```setState``` method.
+ - Stan powinien być modyfikowany tylko za pomocą metody ```setState```
  
- - Calling ```setState``` triggers re-rendering the component and all of its children.
+ - Wywoływanie ```setState``` wyzwala przerenderowanie komponentu i wszystkich jego dzieci
  
- - To set an initial state before any interaction occurs use the ```getInitialState``` method.
+ - Do ustawienia stanu początkowego służy metoda ```getInitialState```
 
 --
 
@@ -218,11 +208,11 @@ var Counter = React.createClass({
 
 ### State
 
- - Components are just **state machines**
+ - O komponentach można myśleć jak o **maszynach stanu**
  
- - Try to keep as many of your components as possible **stateless**
+ - Jak najwięcej komponentów powinno być **bezstanowych**
  
- - Common pattern: several stateless components that just render data, and a stateful component above them all
+ - Dobra praktyka: Korzeń drzewa powinien zawierać stan i implementować logikę biznesową a jego dzieci powinny używać tylko propsów do wyrenderowania.
 
 --
 
@@ -232,7 +222,7 @@ var Counter = React.createClass({
 
 --
 
-### State: interactivity
+### State: interaktywny UI
 
 ```js
 var Counter = React.createClass({
@@ -254,31 +244,135 @@ var Counter = React.createClass({
 });
 ```
 
-**Autobinding:** event handlers have automatically bound ```this```
+**Autobinding:** Każda funkcja ma automatycznie dowiązany kontekst ```this```
 
 --
 
-### State: best practices
+### State: dobra praktyka
 
-State should contain data that a component's event handlers may change to trigger a UI update.
+Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.
 
 --
 
-### State: anti-patterns
-
- - **Computed data:** Instead, recalculate data in ```render``` method.
+### State: złe praktyki
  
- - **React components:** Build them in ```render``` method.
+ - Zduplikowane dane z ```props```
+
+ - Zmodyfikowane dane z istniejącego stanu
  
- - **Duplicated data from props**: Props in ```getInitialState``` is an anti-pattern. **Use props as the source of truth where possible.** 
+ - Komponenty jako zawartość stanu
 
 --
 
-### Component Lifecycle
+### Cykl życia komponentu
+
+1. Montowanie
+
+2. Modyfikacja
+
+3. Odmontowanie
+
+--
+
+### Cykl życia komponentu
 
 #### ```render```
 
- - The only **required** method
+ - Jedyna wymagana metoda
+ 
+ - Może zwracać ```null```, ```false``` lub ```undefined``` jeżeli nie chcemy nic nie renderować
+ 
+ - Konstruuje poddrzewo komponentów, dlatego musi zawierać tylko jeden węzeł korzenia
+
+--
+
+### Cykl życia komponentu
+
+#### ```getInitialState```
+
+ - Wywoływana raz, przed zamontowaniem komponentu.
+ 
+ - Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego renderowania
+
+--
+
+### Cykl życia komponentu
+
+#### ```getDefaultProps```
+
+ - Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy
+ 
+ - Zwraca domyslne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu
+
+--
+
+### Cykl życia komponentu
+
+#### ```componentWillMount```
+
+ - Wywoływana raz, tuż przed pierwszym renderowaniem komponentu
+ 
+--
+
+### Cykl życia komponentu
+
+#### ```componentDidMount```
+
+ - Wywoływana raz, tuż po pierwszym renderowaniu komponentu
+ 
+ - Miejsce na integrację z innymi bibliotekami np. jQuery, D3 oraz wysyłanie requestów
+ 
+--
+
+### Cykl życia komponentu
+
+#### ```componentWillReceiveProps```
+
+ - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe
+ 
+ - Nie wywoływana podczas pierwszego renderowania
+ 
+--
+
+### Cykl życia komponentu
+
+#### ```shouldComponentUpdate```
+
+ - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan
+ 
+ - Nie wywoływana podczas pierwszego renderowania
+ 
+ - Jeżeli zwróci ```false``` to nie zostaną wywołane metody ```render```, ```componentWillUpdate``` oraz ```componentDidUpdate```
+ 
+--
+
+### Cykl życia komponentu
+
+#### ```componentWillUpdate```
+
+ - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem
+ 
+ - Nie wywoływana podczas pierwszego renderowania
+ 
+--
+
+### Cykl życia komponentu
+
+#### ```componentWillUpdate```
+
+ - Wywoływana tuż po zaaplikowaniu zmian w DOM
+ 
+ - Nie wywoływana podczas pierwszego renderowania
+ 
+--
+
+### Cykl życia komponentu
+
+#### ```componentWillUnmount```
+
+ - Wywoływana tuż po odmontowaniu komponentu
+ 
+ - Miejsce na cleanup
 
 --
 
@@ -288,13 +382,13 @@ State should contain data that a component's event handlers may change to trigge
 
 --
 
-### Case study: Top level components
+### Case study
 
 ![Top level components](../images/top-components.png "Top level components")
 
 --
 
-### Case study: Lower level components
+### Case study
 
 ![Lower level components](../images/bottom-components.png "Lower level components")
 
