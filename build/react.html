@@ -853,6 +853,7 @@ render() {
   <div class="slide hidden" id="slide-25">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <h4 id="-getinitialstate-"><code>getInitialState</code></h4>
+<pre><code class="lang-js">object getInitialState()</code></pre>
 <ul>
 <li><p>Wywoływana raz, przed zamontowaniem komponentu.</p>
 </li>
@@ -864,6 +865,7 @@ render() {
   <div class="slide hidden" id="slide-26">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <h4 id="-getdefaultprops-"><code>getDefaultProps</code></h4>
+<pre><code class="lang-js">object getDefaultProps()</code></pre>
 <ul>
 <li><p>Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy</p>
 </li>
@@ -875,6 +877,7 @@ render() {
   <div class="slide hidden" id="slide-27">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <h4 id="-componentwillmount-"><code>componentWillMount</code></h4>
+<pre><code class="lang-js"><span class="hljs-keyword">void</span> componentWillMount()</code></pre>
 <ul>
 <li>Wywoływana raz, tuż przed pierwszym renderowaniem komponentu</li>
 </ul>
@@ -883,6 +886,7 @@ render() {
   <div class="slide hidden" id="slide-28">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <h4 id="-componentdidmount-"><code>componentDidMount</code></h4>
+<pre><code class="lang-js"><span class="hljs-keyword">void</span> componentDidMount()</code></pre>
 <ul>
 <li><p>Wywoływana raz, tuż po pierwszym renderowaniu komponentu</p>
 </li>
@@ -894,6 +898,9 @@ render() {
   <div class="slide hidden" id="slide-29">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <h4 id="-componentwillreceiveprops-"><code>componentWillReceiveProps</code></h4>
+<pre><code class="lang-js"><span class="hljs-keyword">void</span> componentWillReceiveProps(
+  object nextProps
+)</code></pre>
 <ul>
 <li><p>Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe</p>
 </li>
@@ -905,6 +912,9 @@ render() {
   <div class="slide hidden" id="slide-30">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <h4 id="-shouldcomponentupdate-"><code>shouldComponentUpdate</code></h4>
+<pre><code class="lang-js">boolean shouldComponentUpdate(
+  object nextProps, object nextState
+)</code></pre>
 <ul>
 <li><p>Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan</p>
 </li>
@@ -918,6 +928,9 @@ render() {
   <div class="slide hidden" id="slide-31">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <h4 id="-componentwillupdate-"><code>componentWillUpdate</code></h4>
+<pre><code class="lang-js"><span class="hljs-keyword">void</span> componentWillUpdate(
+  object nextProps, object nextState
+)</code></pre>
 <ul>
 <li><p>Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem</p>
 </li>
@@ -928,7 +941,10 @@ render() {
   </div>
   <div class="slide hidden" id="slide-32">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
-<h4 id="-componentwillupdate-"><code>componentWillUpdate</code></h4>
+<h4 id="-componentdidupdate-"><code>componentDidUpdate</code></h4>
+<pre><code class="lang-js"><span class="hljs-keyword">void</span> componentDidUpdate(
+  object prevProps, object prevState
+)</code></pre>
 <ul>
 <li><p>Wywoływana tuż po zaaplikowaniu zmian w DOM</p>
 </li>
@@ -940,6 +956,7 @@ render() {
   <div class="slide hidden" id="slide-33">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <h4 id="-componentwillunmount-"><code>componentWillUnmount</code></h4>
+<pre><code class="lang-js"><span class="hljs-keyword">void</span> componentWillUnmount()</code></pre>
 <ul>
 <li><p>Wywoływana tuż po odmontowaniu komponentu</p>
 </li>
