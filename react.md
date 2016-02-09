@@ -367,6 +367,10 @@ render() {
 
 #### ```getInitialState```
 
+```js
+object getInitialState()
+```
+
  - Wywoływana raz, przed zamontowaniem komponentu.
  
  - Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego renderowania
@@ -376,6 +380,10 @@ render() {
 ### Cykl życia komponentu
 
 #### ```getDefaultProps```
+
+```js
+object getDefaultProps()
+```
 
  - Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy
  
@@ -387,6 +395,10 @@ render() {
 
 #### ```componentWillMount```
 
+```js
+void componentWillMount()
+```
+
  - Wywoływana raz, tuż przed pierwszym renderowaniem komponentu
  
 --
@@ -394,6 +406,10 @@ render() {
 ### Cykl życia komponentu
 
 #### ```componentDidMount```
+
+```js
+void componentDidMount()
+```
 
  - Wywoływana raz, tuż po pierwszym renderowaniu komponentu
  
@@ -405,6 +421,12 @@ render() {
 
 #### ```componentWillReceiveProps```
 
+```js
+void componentWillReceiveProps(
+  object nextProps
+)
+```
+
  - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe
  
  - Nie wywoływana podczas pierwszego renderowania
@@ -414,6 +436,12 @@ render() {
 ### Cykl życia komponentu
 
 #### ```shouldComponentUpdate```
+
+```js
+boolean shouldComponentUpdate(
+  object nextProps, object nextState
+)
+```
 
  - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan
  
@@ -427,6 +455,12 @@ render() {
 
 #### ```componentWillUpdate```
 
+```js
+void componentWillUpdate(
+  object nextProps, object nextState
+)
+```
+
  - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem
  
  - Nie wywoływana podczas pierwszego renderowania
@@ -435,7 +469,13 @@ render() {
 
 ### Cykl życia komponentu
 
-#### ```componentWillUpdate```
+#### ```componentDidUpdate```
+
+```js
+void componentDidUpdate(
+  object prevProps, object prevState
+)
+```
 
  - Wywoływana tuż po zaaplikowaniu zmian w DOM
  
@@ -446,6 +486,10 @@ render() {
 ### Cykl życia komponentu
 
 #### ```componentWillUnmount```
+
+```js
+void componentWillUnmount()
+```
 
  - Wywoływana tuż po odmontowaniu komponentu
  
