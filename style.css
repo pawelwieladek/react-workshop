@@ -175,3 +175,6 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
   text-decoration: underline;
 }
 
+.hljs-class > .hljs-title {
+  color: #cda869;
+}

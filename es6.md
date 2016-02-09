@@ -50,8 +50,8 @@ if (a === 1) {
   var b = 2;
 }
 
-console.log(a);   // 1
-console.log(b);   // 2
+console.log(a);     // 1
+console.log(b);     // 2
 ```
 
 --
@@ -67,8 +67,14 @@ if (c === 1) {
   let d = 2;
 }
 
-console.log(c);   // 1
-console.log(d);   // ReferenceError: d is not defined
+console.log(c);     // 1
+console.log(d);     // ReferenceError: d is not defined
+
+for (let i = 0; i < 10; i++) {
+    console.log(i);
+}
+
+console.log(i);     // ReferenceError: i is not defined
 ```
 
 --
@@ -79,7 +85,26 @@ console.log(d);   // ReferenceError: d is not defined
 
 ```js
 const PI = 3.14;
-PI = 3.141593;    // throws "PI" is read-only
+PI = 3.141593;      // throws "PI" is read-only
+```
+
+--
+
+### Template strings
+
+```js
+`This is a plain string.`
+```
+
+```js
+`Multiline strings
+ in ES5 are
+ not legal.`
+```
+
+```js
+let name = 'world';
+`Hello ${name}!`;     // Hello world!
 ```
 
 --
@@ -87,9 +112,10 @@ PI = 3.141593;    // throws "PI" is read-only
 ### Nowe własności obiektów
 
 ```js
-var name = "Pawel", age = 24;
+var name = 'Pawel', age = 24;
 
-var me = { name, age };
+var me = { name, age, city: 'Warsaw' };
+// var me = { name: name, age: age, city: 'Warsaw' };
 
 console.log(me.name);           // Pawel
 console.log(me.age);            // 24
@@ -100,14 +126,21 @@ console.log(me.age);            // 24
 ### Nowe własności obiektów
 
 ```js
+// old
 var me = {
-  name: 'Pawel',
-  sayHi() {
-    return `Hi, I'm ${this.name}!`;
+  sayHi: function(name) {
+    return 'Hi, ' + name;
   }
 };
 
-console.log(me.sayHi());        // Hi, I'm Pawel!
+// new
+var me = {
+  sayHi(name) {
+    return 'Hi, ' + name;
+  }
+};
+
+console.log(me.sayHi('Pawel'));        // Hi, Pawel!
 ```
 
 --
@@ -177,10 +210,28 @@ console.log(iconClasses);   // { 'fa-square': true, 'fa-lg': true }
 ### Arrow functions
 
 ```js
-[1, 2, 3, 4].map(x => Math.pow(x, 2));    // [1, 4, 9, 16]
+[1, 2, 3, 4].map(x => x * 2);    
 
-['a', 'b', 'c', 'd'].map((value, index) => [index, value]);    
-// [[0, 'a'], [1, 'b'], [2, 'c'], [3, 'd']]
+// [2, 4, 6, 8]
+```
+
+```js
+['a', 'b', 'c', 'd'].map((value, index) => {
+    index = index + 1;
+    return [index, value];
+}); 
+
+// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]
+```
+
+```js
+[[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']].map(([index, value]) => {
+    return {
+        [value]: index 
+    };
+});
+
+// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]
 ```
 
 --
@@ -188,39 +239,19 @@ console.log(iconClasses);   // { 'fa-square': true, 'fa-lg': true }
 ### Arrow functions
 
 ```js
-
-function Exp(base, exponents) {
+function Exp(base, exponentsList) {
     this.base = base;
-    this.exponents = exponents;
+    this.exponentsList = exponentsList;
 }
 
 Exp.prototype.calculate = function() {
-    return this.exponents.map(n => {
+    return this.exponentsList.map(n => {
         return Math.pow(this.base, n);
     });
 };
 
-var e = new Exp(2, [1, 2, 3, 4]);
-console.log(e.calculate());        // [1, 4, 9, 16]
-```
-
---
-
-### Template strings
-
-```js
-`This is a plain string.`
-```
-
-```js
-`Multiline strings
- in ES5 are
- not legal.`
-```
-
-```js
-let name = 'world';
-`Hello ${name}!`;     // Hello world!
+var exp = new Exp(2, [1, 2, 3, 4]);
+console.log(exp.calculate());        // [2, 4, 8, 16]
 ```
 
 --
@@ -320,7 +351,7 @@ function append(a, ...b) {
     return a + ', ' + b.join(', ');
 }
 
-console.log(append('apple', 'orange', 'plum', 'kiwi));      // apple, orange, plum, kiwi
+console.log(append('apple', 'orange', 'plum', 'kiwi'));      // apple, orange, plum, kiwi
 ```
 
 --
@@ -355,6 +386,7 @@ class Point {
     this.x = x;
     this.y = y;
   }
+  
   toString() {
     return 'x = ' + this.x + ', y = ' + this.y;
   }
@@ -365,6 +397,7 @@ console.log(p.toString());      // x = 1, y = 2
 
 // toString overridden
 console.log('' + p);            // x = 1, y = 2
+console.log(`${p}`);            // x = 1, y = 2
 ```
 
 --
@@ -377,9 +410,11 @@ class ColorPoint extends Point {
     super(x, y);
     this.color = color;
   }
+  
   static createDefault() {
     return new ColorPoint(0, 0, 'black');
   }
+  
   toString() {
     return super.toString() + ', color = ' + this.color;
   }
