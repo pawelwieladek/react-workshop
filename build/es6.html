@@ -532,6 +532,9 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
   text-decoration: underline;
 }
 
+.hljs-class > .hljs-title {
+  color: #cda869;
+}
 
   </style>
 </head>
@@ -573,8 +576,8 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
   <span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>;
 }
 
-<span class="hljs-built_in">console</span>.log(a);   <span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">console</span>.log(b);   <span class="hljs-comment">// 2</span></code></pre>
+<span class="hljs-built_in">console</span>.log(a);     <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">console</span>.log(b);     <span class="hljs-comment">// 2</span></code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-5">
@@ -586,40 +589,64 @@ Railscasts-like style (c) Visoft, Inc. (Damien White)
   <span class="hljs-keyword">let</span> d = <span class="hljs-number">2</span>;
 }
 
-<span class="hljs-built_in">console</span>.log(c);   <span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">console</span>.log(d);   <span class="hljs-comment">// ReferenceError: d is not defined</span></code></pre>
+<span class="hljs-built_in">console</span>.log(c);     <span class="hljs-comment">// 1</span>
+<span class="hljs-built_in">console</span>.log(d);     <span class="hljs-comment">// ReferenceError: d is not defined</span>
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) {
+    <span class="hljs-built_in">console</span>.log(i);
+}
+
+<span class="hljs-built_in">console</span>.log(i);     <span class="hljs-comment">// ReferenceError: i is not defined</span></code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-6">
     <section class="slide-content"><h3 id="deklaracje-zmiennych">Deklaracje zmiennych</h3>
 <h4 id="const">Const</h4>
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> PI = <span class="hljs-number">3.14</span>;
-PI = <span class="hljs-number">3.141593</span>;    <span class="hljs-comment">// throws "PI" is read-only</span></code></pre>
+PI = <span class="hljs-number">3.141593</span>;      <span class="hljs-comment">// throws "PI" is read-only</span></code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="template-strings">Template strings</h3>
+<pre><code class="lang-js"><span class="hljs-string">`This is a plain string.`</span></code></pre>
+<pre><code class="lang-js"><span class="hljs-string">`Multiline strings
+ in ES5 are
+ not legal.`</span></code></pre>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'world'</span>;
+<span class="hljs-string">`Hello <span class="hljs-subst">${name}</span>!`</span>;     <span class="hljs-comment">// Hello world!</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
     <section class="slide-content"><h3 id="nowe-w-asno-ci-obiekt-w">Nowe własności obiektów</h3>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> name = <span class="hljs-string">"Pawel"</span>, age = <span class="hljs-number">24</span>;
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> name = <span class="hljs-string">'Pawel'</span>, age = <span class="hljs-number">24</span>;
 
-<span class="hljs-keyword">var</span> me = { name, age };
+<span class="hljs-keyword">var</span> me = { name, age, city: <span class="hljs-string">'Warsaw'</span> };
+<span class="hljs-comment">// var me = { name: name, age: age, city: 'Warsaw' };</span>
 
 <span class="hljs-built_in">console</span>.log(me.name);           <span class="hljs-comment">// Pawel</span>
 <span class="hljs-built_in">console</span>.log(me.age);            <span class="hljs-comment">// 24</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-8">
+  <div class="slide hidden" id="slide-9">
     <section class="slide-content"><h3 id="nowe-w-asno-ci-obiekt-w">Nowe własności obiektów</h3>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> me = {
-  name: <span class="hljs-string">'Pawel'</span>,
-  sayHi() {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">`Hi, I'm <span class="hljs-subst">${this.name}</span>!`</span>;
+<pre><code class="lang-js"><span class="hljs-comment">// old</span>
+<span class="hljs-keyword">var</span> me = {
+  sayHi: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'Hi, '</span> + name;
   }
 };
 
-<span class="hljs-built_in">console</span>.log(me.sayHi());        <span class="hljs-comment">// Hi, I'm Pawel!</span></code></pre>
+<span class="hljs-comment">// new</span>
+<span class="hljs-keyword">var</span> me = {
+  sayHi(name) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'Hi, '</span> + name;
+  }
+};
+
+<span class="hljs-built_in">console</span>.log(me.sayHi(<span class="hljs-string">'Pawel'</span>));        <span class="hljs-comment">// Hi, Pawel!</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-9">
+  <div class="slide hidden" id="slide-10">
     <section class="slide-content"><h3 id="nowe-w-asno-ci-obiekt-w">Nowe własności obiektów</h3>
 <p>Getter</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> me = {
@@ -633,7 +660,7 @@ PI = <span class="hljs-number">3.141593</span>;    <span class="hljs-comment">//
 <span class="hljs-built_in">console</span>.log(me.name);     <span class="hljs-comment">// Pawel Wieladek</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-10">
+  <div class="slide hidden" id="slide-11">
     <section class="slide-content"><h3 id="nowe-w-asno-ci-obiekt-w">Nowe własności obiektów</h3>
 <p>Setter</p>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> me = {
@@ -654,7 +681,7 @@ me.name = <span class="hljs-string">'Pablo'</span>;
 <span class="hljs-built_in">console</span>.log(me.counter);            <span class="hljs-comment">// 1</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-11">
+  <div class="slide hidden" id="slide-12">
     <section class="slide-content"><h3 id="nowe-w-asno-ci-obiekt-w">Nowe własności obiektów</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// Computed property names</span>
 
@@ -670,40 +697,41 @@ me.name = <span class="hljs-string">'Pablo'</span>;
 <span class="hljs-built_in">console</span>.log(iconClasses);   <span class="hljs-comment">// { 'fa-square': true, 'fa-lg': true }</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-12">
-    <section class="slide-content"><h3 id="arrow-functions">Arrow functions</h3>
-<pre><code class="lang-js">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>].map(x =&gt; <span class="hljs-built_in">Math</span>.pow(x, <span class="hljs-number">2</span>));    <span class="hljs-comment">// [1, 4, 9, 16]</span>
-
-[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>].map((value, index) =&gt; [index, value]);    
-<span class="hljs-comment">// [[0, 'a'], [1, 'b'], [2, 'c'], [3, 'd']]</span></code></pre>
-</section>
-  </div>
   <div class="slide hidden" id="slide-13">
     <section class="slide-content"><h3 id="arrow-functions">Arrow functions</h3>
-<pre><code class="lang-js">
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Exp</span>(<span class="hljs-params">base, exponents</span>) </span>{
+<pre><code class="lang-js">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>].map(x =&gt; x * <span class="hljs-number">2</span>);    
+
+<span class="hljs-comment">// [2, 4, 6, 8]</span></code></pre>
+<pre><code class="lang-js">[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>].map((value, index) =&gt; {
+    index = index + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> [index, value];
+}); 
+
+<span class="hljs-comment">// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]</span></code></pre>
+<pre><code class="lang-js">[[<span class="hljs-number">1</span>, <span class="hljs-string">'a'</span>], [<span class="hljs-number">2</span>, <span class="hljs-string">'b'</span>], [<span class="hljs-number">3</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-number">4</span>, <span class="hljs-string">'d'</span>]].map(([index, value]) =&gt; {
+    <span class="hljs-keyword">return</span> {
+        [value]: index 
+    };
+});
+
+<span class="hljs-comment">// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="arrow-functions">Arrow functions</h3>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Exp</span>(<span class="hljs-params">base, exponentsList</span>) </span>{
     <span class="hljs-keyword">this</span>.base = base;
-    <span class="hljs-keyword">this</span>.exponents = exponents;
+    <span class="hljs-keyword">this</span>.exponentsList = exponentsList;
 }
 
 Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.exponents.map(n =&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.exponentsList.map(n =&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.pow(<span class="hljs-keyword">this</span>.base, n);
     });
 };
 
-<span class="hljs-keyword">var</span> e = <span class="hljs-keyword">new</span> Exp(<span class="hljs-number">2</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
-<span class="hljs-built_in">console</span>.log(e.calculate());        <span class="hljs-comment">// [1, 4, 9, 16]</span></code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-14">
-    <section class="slide-content"><h3 id="template-strings">Template strings</h3>
-<pre><code class="lang-js"><span class="hljs-string">`This is a plain string.`</span></code></pre>
-<pre><code class="lang-js"><span class="hljs-string">`Multiline strings
- in ES5 are
- not legal.`</span></code></pre>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'world'</span>;
-<span class="hljs-string">`Hello <span class="hljs-subst">${name}</span>!`</span>;     <span class="hljs-comment">// Hello world!</span></code></pre>
+<span class="hljs-keyword">var</span> exp = <span class="hljs-keyword">new</span> Exp(<span class="hljs-number">2</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
+<span class="hljs-built_in">console</span>.log(exp.calculate());        <span class="hljs-comment">// [2, 4, 8, 16]</span></code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-15">
@@ -782,7 +810,7 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
     <span class="hljs-keyword">return</span> a + <span class="hljs-string">', '</span> + b.join(<span class="hljs-string">', '</span>);
 }
 
-<span class="hljs-built_in">console</span>.log(append(<span class="hljs-string">'apple'</span>, <span class="hljs-string">'orange'</span>, <span class="hljs-string">'plum'</span>, <span class="hljs-string">'kiwi));      // apple, orange, plum, kiwi</span></code></pre>
+<span class="hljs-built_in">console</span>.log(append(<span class="hljs-string">'apple'</span>, <span class="hljs-string">'orange'</span>, <span class="hljs-string">'plum'</span>, <span class="hljs-string">'kiwi'</span>));      <span class="hljs-comment">// apple, orange, plum, kiwi</span></code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-22">
@@ -812,6 +840,7 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
     <span class="hljs-keyword">this</span>.x = x;
     <span class="hljs-keyword">this</span>.y = y;
   }
+
   toString() {
     <span class="hljs-keyword">return</span> <span class="hljs-string">'x = '</span> + <span class="hljs-keyword">this</span>.x + <span class="hljs-string">', y = '</span> + <span class="hljs-keyword">this</span>.y;
   }
@@ -821,7 +850,8 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 <span class="hljs-built_in">console</span>.log(p.toString());      <span class="hljs-comment">// x = 1, y = 2</span>
 
 <span class="hljs-comment">// toString overridden</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">''</span> + p);            <span class="hljs-comment">// x = 1, y = 2</span></code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">''</span> + p);            <span class="hljs-comment">// x = 1, y = 2</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${p}</span>`</span>);            <span class="hljs-comment">// x = 1, y = 2</span></code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-25">
@@ -831,9 +861,11 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
     <span class="hljs-keyword">super</span>(x, y);
     <span class="hljs-keyword">this</span>.color = color;
   }
+
   static createDefault() {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-string">'black'</span>);
   }
+
   toString() {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.toString() + <span class="hljs-string">', color = '</span> + <span class="hljs-keyword">this</span>.color;
   }
