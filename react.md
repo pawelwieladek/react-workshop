@@ -220,7 +220,7 @@ React.createClass({
  
  - Jak najwięcej komponentów powinno być **bezstanowych**
  
- - Dobra praktyka: Korzeń drzewa powinien zawierać stan i implementować logikę biznesową a jego dzieci powinny używać tylko propsów do wyrenderowania.
+ - Dobra praktyka: Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci powinny używać tylko propsów do wyrenderowania.
 
 --
 
@@ -387,7 +387,7 @@ object getDefaultProps()
 
  - Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy
  
- - Zwraca domyslne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu
+ - Zwraca domyślne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu
 
 --
 
@@ -427,7 +427,7 @@ void componentWillReceiveProps(
 )
 ```
 
- - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe
+ - Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych przed komponent
  
  - Nie wywoływana podczas pierwszego renderowania
  
@@ -491,7 +491,7 @@ void componentDidUpdate(
 void componentWillUnmount()
 ```
 
- - Wywoływana tuż po odmontowaniu komponentu
+ - Wywoływana tuż przed odmontowaniem komponentu
  
  - Miejsce na cleanup
  
