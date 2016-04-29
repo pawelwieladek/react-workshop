@@ -59,10 +59,18 @@ img {
     margin: 0 auto;
 }
 
+code {
+    color: #a71d5d;
+}
+
 pre {
     font-size: 90%;
     background-color: #f7f7f7;
     padding: 20px;
+}
+
+pre > code {
+    color: inherit;
 }
 
 /**

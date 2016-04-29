@@ -466,6 +466,7 @@ console.log(p.toString());
 // x = 2, y = 3, color = red
 
 let q = ColorPoint.createDefault();
+
 console.log(q.toString());      
 // x = 0, y = 0, color = black
 ```
@@ -577,11 +578,17 @@ function main() {
 
 ### Dlaczego React?
 
-- jeden cel: warstwa widoku
+#### Tylko UI
 
-- łatwy do zrozumienia przepływ danych
+Najważniejszym celem jest renderowanie. Pozostałe elementy aplikacji można dowolnie skonfigurować. 
 
-- wysoka wydajność
+#### Łatwy do zrozumienia przepływ danych
+
+Wynik renderowania jest funkcją stanu i danych wejściowych. 
+
+#### Wysoka wydajność - Virtual DOM
+
+Dodatkowa warstwa abstrakcji nad DOM upraszcza komunikację z przeglądarką.
 
 --
 
@@ -591,7 +598,7 @@ function main() {
 
 - Komponenty składają się z innych komponentów tworząc **drzewo komponentów**
 
-- Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty: **Single Responsibility Principle**
+- Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty (**Single Responsibility Principle**)
 
 - Mały komponent jest łatwy do **zrozumienia**, **utrzymania** i **testowania**
 
@@ -601,17 +608,13 @@ function main() {
 
 - Operacje na DOM są kosztowne
 
-- Rozwiązaniem jest wirtualne drzewo komponentów **(Virtual DOM)**
+- Rozwiązaniem jest wirtualne drzewo komponentów (**Virtual DOM**)
 
 - Podczas renderowania React porównuje stare i nowe drzewo i **modyfikuje tylko niezbędne elementy w DOM**
 
---
+- Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność *O(n<sup>3</sup>)*
 
-### Virtual DOM
-
-- Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność O(n<sup>3</sup>)
-
-- React używa kilku heurystyk optymalizując złożoność do O(n)
+- React używa kilku heurystyk optymalizując złożoność do *O(n)*
 
 --
 
@@ -619,13 +622,15 @@ function main() {
 
 #### Klasy komponentów
 
-Dwa komponenty o różnych klasach na pewno są różne.
+Dwa komponenty o różnych klasach na tych samych miejscach w drzewie są różne.
 
 ![Components](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/3.png "Components")
 
---
+#### Listy
 
-### Diff algorithm
+Komponenty są porównywane za pomocą podanych kluczy.
+
+![List](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/2.png "List")
 
 #### Poziom po poziomie
 
@@ -635,28 +640,11 @@ Porównywane są komponenty tylko z tych samych poziomów.
 
 --
 
-### Diff algorithm
-
-#### Listy
-
-Komponenty są porównywane za pomocą podanych kluczy.
-
-![List](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/2.png "List")
-
---
-
 ### Punkt wejścia aplikacji
 
-index.html
-
-```html
-<div id="main"></div>
-```
-
-main.js
-
 ```js
-import React from 'react';
+// <div id="main"></div>
+
 import ReactDOM from 'react-dom';
 
 import App from './app';
@@ -669,13 +657,31 @@ ReactDOM.render(<App />, document.querySelector('#main'));
 ### Przykładowy komponent
 
 ```js
-const App = React.createClass({
+// ES5
+var React = require('react');
+
+var App = React.createClass({
+    render: function() {
+        return (
+            <div className="app">
+                App
+            </div>
+        );
+    }
+});
+```
+
+```js
+// ES6
+import { Component } from 'react';
+
+class App extends Component {
     render() {
         return (
             <div className="app">
                 App
             </div>
-        )
+        );
     }
 });
 ```
@@ -684,7 +690,7 @@ const App = React.createClass({
 
 ### JSX
 
-###### Input
+#### Input
 
 ```xml
 <Nav>
@@ -694,7 +700,7 @@ const App = React.createClass({
 </Nav>
 ```
 
-###### Output
+#### Output
 
 ```js
 React.createElement(Nav, null,
@@ -708,15 +714,11 @@ React.createElement(Nav, null,
 
 ### Props
 
- - **Jednokierunkowy przepływ danych** z góry do dołu drzewa komponentów
-
  - Dane komponentu na wejściu
+ 
+ - **Jednokierunkowy przepływ danych** z góry do dołu drzewa komponentów
   
  - Dostępne za pomocą ```this.props```
-
---
-
-### Props
 
 ```js
 var Hello = React.createClass({
@@ -734,19 +736,13 @@ ReactDOM.render(<Hello name="Pawel" />, document.querySelector('#main'));
 
 ### State
 
- - Każdy komponent może mieć swój stan **(state)**
+ - Każdy komponent może mieć swój **stan**.
  
- - Stan powinien być modyfikowany tylko za pomocą metody ```setState```
- 
- - Wywoływanie ```setState``` wyzwala przerenderowanie komponentu i wszystkich jego dzieci
- 
- - Do ustawienia stanu początkowego służy metoda ```getInitialState```
-
---
-
-### State
+ - Stan powinien być modyfikowany tylko za pomocą metody ```setState```. Wywoływanie ```setState``` wyzwala przerenderowanie komponentu i wszystkich jego dzieci.
 
 ```js
+// ES5
+
 React.createClass({
     getInitialState() {
         return {
@@ -761,9 +757,27 @@ React.createClass({
 });
 ```
 
+```js
+// ES6
+
+class CountComponent {
+    constructor() {
+        this.state = {
+            count: 5
+        };
+    }
+    
+    render() {
+        return (
+            <h1>{this.state.count}</h1>
+        );
+    }
+});
+```
+
 --
 
-### State
+### Props vs State
 
  - O komponentach można myśleć jak o **maszynach stanu**
  
@@ -771,15 +785,11 @@ React.createClass({
  
  - Dobra praktyka: Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci powinny używać tylko propsów do wyrenderowania.
 
---
-
-### Props vs State
-
 ![Unidirectional flow](./images/unidirectional-flow.png "Unidirectional flow")
 
 --
 
-### State: interaktywny UI
+### Interaktywny UI
 
 ```js
 React.createClass({
@@ -809,7 +819,7 @@ React.createClass({
 
 ### State: złe praktyki
  
-Zduplikowane dane wejściowe ```props```
+#### Przypisywanie ```props``` do stanu
  
 ```js
 // so bad!
@@ -820,11 +830,7 @@ getInitialState() {
 }
 ```
 
---
-
-### State: złe praktyki
-
-Nadmiarowe dane
+#### Nadmiarowe dane
  
 ```js
 // so bad!
@@ -846,12 +852,8 @@ render() {
     );
 }
 ```
-
---
-
-### State: złe praktyki
  
-Komponenty jako zawartość stanu
+#### Komponenty jako zawartość stanu
  
 ```js
 // so bad!
@@ -897,24 +899,20 @@ render() {
 3. Odmontowanie
 
 [Component Specs and Lifecycle reference](https://facebook.github.io/react/docs/component-specs.html)
-
+ 
 --
 
-### Cykl życia komponentu
-
-#### ```render```
+### ```render```
 
  - Jedyna wymagana metoda
  
  - Może zwracać ```null```, ```false``` lub ```undefined``` jeżeli nie chcemy nic nie renderować
  
  - Konstruuje poddrzewo komponentów, dlatego musi zawierać tylko jeden węzeł korzenia
-
+ 
 --
 
-### Cykl życia komponentu
-
-#### ```getInitialState```
+### ```getInitialState```
 
 ```js
 object getInitialState()
@@ -923,12 +921,10 @@ object getInitialState()
  - Wywoływana raz, przed zamontowaniem komponentu.
  
  - Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego renderowania
-
+ 
 --
 
-### Cykl życia komponentu
-
-#### ```getDefaultProps```
+### ```getDefaultProps```
 
 ```js
 object getDefaultProps()
@@ -937,12 +933,10 @@ object getDefaultProps()
  - Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy
  
  - Zwraca domyślne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu
-
+ 
 --
 
-### Cykl życia komponentu
-
-#### ```componentWillMount```
+### ```componentWillMount```
 
 ```js
 void componentWillMount()
@@ -952,9 +946,7 @@ void componentWillMount()
  
 --
 
-### Cykl życia komponentu
-
-#### ```componentDidMount```
+### ```componentDidMount```
 
 ```js
 void componentDidMount()
@@ -966,9 +958,7 @@ void componentDidMount()
  
 --
 
-### Cykl życia komponentu
-
-#### ```componentWillReceiveProps```
+### ```componentWillReceiveProps```
 
 ```js
 void componentWillReceiveProps(
@@ -982,9 +972,7 @@ void componentWillReceiveProps(
  
 --
 
-### Cykl życia komponentu
-
-#### ```shouldComponentUpdate```
+### ```shouldComponentUpdate```
 
 ```js
 boolean shouldComponentUpdate(
@@ -1000,9 +988,7 @@ boolean shouldComponentUpdate(
  
 --
 
-### Cykl życia komponentu
-
-#### ```componentWillUpdate```
+### ```componentWillUpdate```
 
 ```js
 void componentWillUpdate(
@@ -1016,9 +1002,7 @@ void componentWillUpdate(
  
 --
 
-### Cykl życia komponentu
-
-#### ```componentDidUpdate```
+### ```componentDidUpdate```
 
 ```js
 void componentDidUpdate(
@@ -1032,9 +1016,7 @@ void componentDidUpdate(
  
 --
 
-### Cykl życia komponentu
-
-#### ```componentWillUnmount```
+### ```componentWillUnmount```
 
 ```js
 void componentWillUnmount()
@@ -1077,7 +1059,7 @@ const AuthMixin = {
         }
     },
     authorized() {
-        // do some oAuth...
+        // do some OAuth...
     }
 };
 
@@ -1174,25 +1156,25 @@ render() {
 
 --
 
-### Case study
+# Case study
+
+--
 
 ![Sample app](./images/wireframe.png "Sample app")
 
 --
 
-### Case study
-
 ![Top level components](./images/top-components.png "Top level components")
 
 --
-
-### Case study
 
 ![Lower level components](./images/bottom-components.png "Lower level components")
 
 --
 
-### Flux
+# Flux
+
+--
 
 ![Flux](./images/flux-diagram.png "Flux")
 
