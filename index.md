@@ -1,36 +1,585 @@
-title: React ES6 Workshop
+title: React Workshop
 author:
   name: Pawel Wieladek
   twitter: pawelwieladek
   url: http://pawelwieladek.com
-style: style.css
-output: public/build/react.html
+style: style/style.css
+output: index.html
 controls: false
 progress: true
 
 --
 
-![React](../images/react-logo.png "React")
-
-# React
+# Szkolenie React
 
 --
 
-### Plac zabaw
+### Agenda
 
-[Fork this pen](http://codepen.io/pawelwieladek/pen/BjGNxX/?editors=0010)
+1. ES6
+2. React
+3. Flux
 
-### Dokumentacja
+--
 
-[Facebook](https://facebook.github.io/react/docs/getting-started.html)
+# ES6
+
+<img src="images/js-logo.png" width="200" />
+
+--
+
+### Przydatne linki
+
+[JS Bin](http://jsbin.com/?js,console) - Playground (Zmień język na ES6 / Babel)
+
+[Learn Babel](http://babeljs.io/docs/learn-es2015/) - Dokumentacja Babel
+
+[MDN](https://developer.mozilla.org/en-US/) - Mozilla Developer Network
+
+[2ality](http://www.2ality.com/) - Blog o nowinkach w ES6
+
+--
+
+### Deklaracje zmiennych
+
+```js
+// ES5
+var hoisted;
+```
+
+```js
+// ES6
+let blockScoped;
+```
+
+```js
+// ES6
+const blockScoped;
+```
+
+#### Var
+
+```js
+var a = 1;
+
+if (a === 1) {
+  var b = 2;
+}
+
+console.log(a);
+// 1
+console.log(b);
+// 2
+```
+
+#### Let
+
+```js
+let c = 1;
+
+if (c === 1) {
+  let d = 2;
+}
+
+console.log(c);
+// 1
+console.log(d);
+// ReferenceError: d is not defined
+
+for (let i = 0; i < 10; i++) {
+    console.log(i);
+}
+
+console.log(i);
+// ReferenceError: i is not defined
+```
+
+#### Const
+
+```js
+const PI = 3.14;
+PI = 3.141593;
+// throws "PI" is read-only
+```
+
+--
+
+### Template strings
+
+```js
+`This is a plain string.`
+```
+
+```js
+`Multiline strings
+ in ES5 are
+ not legal.`
+```
+
+```js
+let name = 'world';
+`Hello ${name}!`;     
+// Hello world!
+```
+
+--
+
+### Enhanced Object Literals
+
+#### Properties
+
+```js
+let name = 'Pawel';
+
+// ES5
+var me = { 
+    name: name
+};
+
+// ES6
+let me = { 
+    name
+};
+
+console.log(me.name);
+// Pawel
+```
+
+#### Methods
+
+```js
+// old
+var me = {
+    sayHello: function(name) {
+        return 'Hi, ' + name;
+    }
+};
+
+// new
+let me = {
+    sayHello(name) {
+        return `Hi, ${name}`;
+    }
+};
+
+console.log(me.sayHello('everyone'));
+// Hello, everyone!
+```
+
+#### Getter
+
+```js
+let me = {
+    firstName: 'Pawel',
+    lastName: 'Wieladek',
+    get name() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+};
+
+console.log(me.name);     // Pawel Wieladek
+```
+
+#### Setter
+
+```js
+let me = {
+    counter: 0,
+    firstName: 'Pawel',
+    lastName: 'Wieladek',
+    get greeting() {
+        return `Hello, I'm ${this.firstName} ${this.lastName}`;
+    }
+    set name(value) {
+        this.firstName = value;
+        this.counter++;
+    }
+};
+
+me.name = 'Pablo';
+
+console.log(me.greeting);
+// Hello, I'm Pablo Wieladek!
+
+console.log(me.counter);
+// 1
+```
+
+#### Computed property names
+
+```js
+function createIconClassNames(name, size) {
+    return {
+        [`icon-${name}`]: !!name,
+        [`icon-${size}`]: !!size
+    });
+}
+
+let iconClassNames = createIconClassNames('square', 'large');
+
+console.log(iconClassNames);
+// { 'icon-square': true, 'icon-large': true }
+```
+
+--
+
+### Arrow functions
+
+#### Single argument
+
+```js
+[1, 2, 3, 4].map(x => x * 2);    
+
+// [2, 4, 6, 8]
+```
+
+#### Multiple arguments
+
+```js
+['a', 'b', 'c', 'd'].map((value, index) => {
+    index = index + 1;
+    return [index, value];
+}); 
+
+// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]
+```
+
+#### Multiple arguments + destructuring
+
+```js
+[[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']].map(([index, value]) => {
+    return {
+        [value]: index 
+    };
+});
+
+// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]
+```
+
+#### ```this``` autobinding
+
+```js
+function Exp(base, exponentsList) {
+    this.base = base;
+    this.exponentsList = exponentsList;
+}
+
+Exp.prototype.calculate = function() {
+    return this.exponentsList.map(n => {
+        return Math.pow(this.base, n);
+    });
+};
+
+let exp = new Exp(2, [1, 2, 3, 4]);
+console.log(exp.calculate());
+// [2, 4, 8, 16]
+```
+
+--
+
+### Destructuring
+
+#### List matching
+```js
+var [a, b, c] = [1, 2, 3, 4];
+console.log(a);   // 1;
+console.log(b);   // 2;
+console.log(c);   // 3;
+```
+
+#### List matching with empty element
+
+```js
+let [a, , c] = [1, 2, 3, 4];
+console.log(a);   // 1;
+console.log(c);   // 3;
+```
+
+### Destructuring
+
+#### Object matching
+
+```js
+function createPerson() {
+    return { 
+        firstName: 'Pawel',
+        lastName: 'Wieladek'
+    };
+}
+
+let { firstName, lastName } = createPerson();
+
+console.log(firstName);
+// Pawel
+console.log(lastName);
+// Wieladek
+```
+
+#### Object matching with rename
+
+```js
+function createPerson() {
+    return { 
+        firstName: 'Pawel',
+        lastName: 'Wieladek'
+    };
+}
+
+let { firstName: f, lastName: l } = createPerson();
+
+console.log(f);
+// Pawel
+console.log(l);
+// Wieladek
+```
+
+#### Object matching in function parameter
+
+```js
+function sayHello({ first, last }) {
+    // first and last are variables from now
+    return `Hello, I'm ${first} ${last}!`;
+}
+
+let greeting = sayHello({ 
+    first: 'Pawel', 
+    last: 'Wieladek'
+});
+
+console.log(greeting);
+// Hi, I'm Pawel Wieladek!
+```
+
+--
+
+### Default arguments
+
+```js
+function multiply(a, b = 1) {
+    return a * b;
+}
+
+console.log(multiply(5));
+// 5
+console.log(multiply(2, 3));
+// 6
+```
+
+--
+
+### Rest arguments
+
+```js
+function append(a, ...b) {
+    // b is an Array
+    return a + ', ' + b.join(', ');
+}
+
+console.log(append('apple', 'orange', 'plum', 'kiwi'));
+// apple, orange, plum, kiwi
+```
+
+--
+
+### Spread operator
+
+```js
+function add(x, y, z) {
+  return x + y + z;
+}
+
+let args = [1, 2, 3];
+console.log(add(...args));
+// 6
+```
+
+--
+
+### Klasy
+
+- dziedziczenie oparte na prototypach
+- konstruktor
+- metody klasy bazowej
+- metody statyczne i metody instancji
+
+ES6 **nie udostępnia** poniższych funkcji języka:
+
+- interfejsy
+- wielodziedziczenie
+- przeciążanie konstruktora
+
+### Klasa bazowa
+
+```js
+class Point {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    distance() {
+        reutrn Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
+  
+    toString() {
+        return `x = ${this.x}, y = ${this.y}`;
+    }
+}
+
+let p = new Point(3, 4);
+
+console.log(p.distance());      
+// 5
+
+console.log(p.toString());      
+// x = 3, y = 4
+
+// toString overridden
+console.log('' + p);            
+// x = 3, y = 4
+
+console.log(`${p}`);            
+// x = 3, y = 4
+```
+
+### Klasa pochodna
+
+```js
+class ColorPoint extends Point {
+    constructor(x, y, color) {
+        super(x, y);
+        this.color = color;
+    }
+  
+    static createDefault() {
+        return new ColorPoint(0, 0, 'black');
+    }
+  
+    toString() {
+        return `${super.toString()}, color = ${this.color}`;
+    }
+}
+
+let p = new ColorPoint(2, 3, 'red');
+
+console.log(p.toString());      
+// x = 2, y = 3, color = red
+
+let q = ColorPoint.createDefault();
+console.log(q.toString());      
+// x = 0, y = 0, color = black
+```
+
+--
+
+### Moduły
+
+#### Named exports
+
+```js
+// math.js
+
+export const PI = 3.14;
+
+export function square(x) {
+    return x * x;
+}
+```
+
+```js
+// main.js
+
+import { square, PI } from './math';
+
+console.log(PI);
+// 3.14
+console.log(square(8));
+// 64
+```
+
+```js
+// main.js
+
+import * as math from './math';
+
+console.log(maths.PI);
+// 3.14
+console.log(maths.square(8));
+// 64
+```
+
+--
+
+### Moduły
+
+#### Default exports
+
+```js
+// square.js
+
+export default function square(x) {
+    return x * x;
+}
+```
+
+```js
+// main.js
+
+import square from './square';
+
+console.log(square(8));                     // 64
+```
+
+[ECMAScript 6 modules: the final syntax](http://www.2ality.com/2014/09/es6-modules-final.html)
+
+--
+
+### Promise
+
+```js
+function fetch() {
+    return new Promise((resolve, reject) => {
+        request
+            .get('https://api.github.com/zen')
+            .end((error, response) => {
+                if (error) reject();
+                resolve(response);
+            });
+    });
+}
+
+function main() {
+    return fetch()
+        .then(response => {
+           console.log(response);
+        })
+        .catch(error => {
+           console.log(error);
+        });
+}
+```
+
+--
+
+# React
+
+<img src="images/react-logo.png" width="200" />
+
+--
+
+### Przydatne linki
+
+[CodePen](http://codepen.io/pawelwieladek/pen/BjGNxX/?editors=0010)
+
+[React Docs](https://facebook.github.io/react/docs/getting-started.html)
 
 --
 
 ### Dlaczego React?
 
-- jeden cel: tworzenie interfejsu użytkownika
+- jeden cel: warstwa widoku
 
-- łatwy do zrozumienia przepływ danych w aplikacji
+- łatwy do zrozumienia przepływ danych
 
 - wysoka wydajność
 
@@ -226,7 +775,7 @@ React.createClass({
 
 ### Props vs State
 
-![Unidirectional flow](../images/unidirectional-flow.png "Unidirectional flow")
+![Unidirectional flow](./images/unidirectional-flow.png "Unidirectional flow")
 
 --
 
@@ -627,25 +1176,25 @@ render() {
 
 ### Case study
 
-![Sample app](../images/wireframe.png "Sample app")
+![Sample app](./images/wireframe.png "Sample app")
 
 --
 
 ### Case study
 
-![Top level components](../images/top-components.png "Top level components")
+![Top level components](./images/top-components.png "Top level components")
 
 --
 
 ### Case study
 
-![Lower level components](../images/bottom-components.png "Lower level components")
+![Lower level components](./images/bottom-components.png "Lower level components")
 
 --
 
 ### Flux
 
-![Flux](../images/flux-diagram.png "Flux")
+![Flux](./images/flux-diagram.png "Flux")
 
 
 
