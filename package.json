@@ -1,7 +1,7 @@
 {
-  "name": "react-es6-workshop-presentation",
+  "name": "react-workshop",
   "version": "1.0.0",
-  "description": "",
+  "description": "React basics workshop",
   "main": "index.js",
   "scripts": {
     "build": "cleaver es6.md react.md",
@@ -9,12 +9,26 @@
     "serve": "http-server public/ -p 9090",
     "deploy": "gh-pages -d public/"
   },
-  "author": "",
+  "author": "Pawel Wieladek <pawelwieladek@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "cleaver": "^0.7.7",
     "gh-pages": "^0.9.0",
     "http-server": "^0.8.5",
     "watch": "^0.17.1"
-  }
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawelwieladek/react-workshop.git"
+  },
+  "keywords": [
+    "react",
+    "workshop",
+    "es6"
+  ],
+  "bugs": {
+    "url": "https://github.com/pawelwieladek/react-workshop/issues"
+  },
+  "homepage": "https://github.com/pawelwieladek/react-workshop"
 }
