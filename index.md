@@ -40,7 +40,7 @@ progress: true
 
 --
 
-### Deklaracje zmiennych
+### Zmienne
 
 ```js
 // ES5
@@ -104,29 +104,44 @@ PI = 3.141593;
 
 --
 
-### Template strings
+### String
 
 ```js
-`This is a plain string.`
+'This ia a plain string.'
+`This is a plain string as well.`
 ```
 
 ```js
+// ES5
+'Multiline strings' +
+'in ES5 are' +
+'not legal.'
+
+// ES6
 `Multiline strings
- in ES5 are
- not legal.`
+ in ES6 are
+ legal from now.`
 ```
 
+#### Interpolacja
+
 ```js
-let name = 'world';
-`Hello ${name}!`;     
-// Hello world!
+var name = 'world';
+
+// ES5
+'Hello ' + name + '!';
+
+// ES6
+`Hello ${name}!`; 
 ```
+
+Więcej: [Template literals @ MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
 
 --
 
-### Enhanced Object Literals
+### Obiekty
 
-#### Properties
+#### Pola
 
 ```js
 let name = 'Pawel';
@@ -145,17 +160,17 @@ console.log(me.name);
 // Pawel
 ```
 
-#### Methods
+#### Metody
 
 ```js
-// old
+// ES5
 var me = {
     sayHello: function(name) {
         return 'Hi, ' + name;
     }
 };
 
-// new
+// ES6
 let me = {
     sayHello(name) {
         return `Hi, ${name}`;
@@ -177,7 +192,8 @@ let me = {
     }
 };
 
-console.log(me.name);     // Pawel Wieladek
+console.log(me.name);
+// Pawel Wieladek
 ```
 
 #### Setter
@@ -205,9 +221,18 @@ console.log(me.counter);
 // 1
 ```
 
-#### Computed property names
+#### *Computed property names*
 
 ```js
+// ES5
+function createIconClassNames(name, size) {
+    var classNames = {};
+    classNames['icon-' + name] = !!name;
+    classNames['icon-' + size] = !!size;
+    return classNames;
+}
+
+// ES6
 function createIconClassNames(name, size) {
     return {
         [`icon-${name}`]: !!name,
@@ -223,81 +248,32 @@ console.log(iconClassNames);
 
 --
 
-### Arrow functions
+### *Destructuring*
 
-#### Single argument
-
-```js
-[1, 2, 3, 4].map(x => x * 2);    
-
-// [2, 4, 6, 8]
-```
-
-#### Multiple arguments
-
-```js
-['a', 'b', 'c', 'd'].map((value, index) => {
-    index = index + 1;
-    return [index, value];
-}); 
-
-// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]
-```
-
-#### Multiple arguments + destructuring
-
-```js
-[[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']].map(([index, value]) => {
-    return {
-        [value]: index 
-    };
-});
-
-// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]
-```
-
-#### ```this``` autobinding
-
-```js
-function Exp(base, exponentsList) {
-    this.base = base;
-    this.exponentsList = exponentsList;
-}
-
-Exp.prototype.calculate = function() {
-    return this.exponentsList.map(n => {
-        return Math.pow(this.base, n);
-    });
-};
-
-let exp = new Exp(2, [1, 2, 3, 4]);
-console.log(exp.calculate());
-// [2, 4, 8, 16]
-```
-
---
-
-### Destructuring
-
-#### List matching
+#### *List matching*
 ```js
 var [a, b, c] = [1, 2, 3, 4];
-console.log(a);   // 1;
-console.log(b);   // 2;
-console.log(c);   // 3;
+
+console.log(a);
+// 1;
+console.log(b);
+// 2;
+console.log(c);
+// 3;
 ```
 
-#### List matching with empty element
+#### *List matching* z pominięciem elementów
 
 ```js
 let [a, , c] = [1, 2, 3, 4];
-console.log(a);   // 1;
-console.log(c);   // 3;
+
+console.log(a);
+// 1;
+console.log(c);
+// 3;
 ```
 
-### Destructuring
-
-#### Object matching
+#### *Object matching*
 
 ```js
 function createPerson() {
@@ -315,7 +291,7 @@ console.log(lastName);
 // Wieladek
 ```
 
-#### Object matching with rename
+#### *Object matching* ze zmianą nazwy
 
 ```js
 function createPerson() {
@@ -333,7 +309,7 @@ console.log(l);
 // Wieladek
 ```
 
-#### Object matching in function parameter
+#### *Object matching* jako argument funkcji
 
 ```js
 function sayHello({ first, last }) {
@@ -352,7 +328,9 @@ console.log(greeting);
 
 --
 
-### Default arguments
+### Argumenty domyślne i zmienna liczba argumentów
+
+#### Argument domyślny
 
 ```js
 function multiply(a, b = 1) {
@@ -365,9 +343,7 @@ console.log(multiply(2, 3));
 // 6
 ```
 
---
-
-### Rest arguments
+#### Zmienna liczba argumentów
 
 ```js
 function append(a, ...b) {
@@ -379,9 +355,7 @@ console.log(append('apple', 'orange', 'plum', 'kiwi'));
 // apple, orange, plum, kiwi
 ```
 
---
-
-### Spread operator
+#### Operator *spread*
 
 ```js
 function add(x, y, z) {
@@ -391,6 +365,70 @@ function add(x, y, z) {
 let args = [1, 2, 3];
 console.log(add(...args));
 // 6
+```
+
+--
+
+### Wyrażenia lambda
+
+#### Jeden argument
+
+```js
+[1, 2, 3, 4].map(x => x * 2);    
+
+// [2, 4, 6, 8]
+```
+
+#### Wiele argumentów
+
+```js
+['a', 'b', 'c', 'd'].map((value, index) => {
+    index = index + 1;
+    return [index, value];
+}); 
+
+// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]
+```
+
+#### Wiele argumentów + *destructuring*
+
+```js
+[[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']].map(([index, value]) => {
+    return {
+        [value]: index 
+    };
+});
+
+// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]
+```
+
+#### ```this``` *autobinding*
+
+```js
+// ES5
+function AsyncCounter(initialValue) {
+    this.value = initialValue;
+}
+
+AsyncCounter.prototype.increment = function() {
+    setTimeout(function() {
+        this.value++;
+    }.bind(this), 100);
+};
+
+// ES6
+class AsyncCounter {
+    constructor(initialValue) {
+        this.value = initialValue;
+    }
+    
+    increment() {
+        setTimeout(() => {
+            // `this` is bound to the value of current context
+            this.value++;
+        }, 100);
+    }
+}
 ```
 
 --
@@ -416,10 +454,6 @@ class Point {
         this.x = x;
         this.y = y;
     }
-    
-    distance() {
-        reutrn Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
-    }
   
     toString() {
         return `x = ${this.x}, y = ${this.y}`;
@@ -427,9 +461,6 @@ class Point {
 }
 
 let p = new Point(3, 4);
-
-console.log(p.distance());      
-// 5
 
 console.log(p.toString());      
 // x = 3, y = 4
@@ -475,7 +506,26 @@ console.log(q.toString());
 
 ### Moduły
 
-#### Named exports
+#### Eksport domyślny
+
+```js
+// square.js
+
+export default function square(x) {
+    return x * x;
+}
+```
+
+```js
+// main.js
+
+import sq from './square';
+
+console.log(sq(8));
+// 64
+```
+
+#### Eksport nazwany
 
 ```js
 // math.js
@@ -501,37 +551,18 @@ console.log(square(8));
 ```js
 // main.js
 
-import * as math from './math';
+import * as common from './math';
 
-console.log(maths.PI);
+console.log(common.PI);
 // 3.14
-console.log(maths.square(8));
+console.log(common.square(8));
 // 64
 ```
 
---
+#### Dobra praktyka
+**Eksport nazwany** wymusza używanie dokładnej nazwy klasy, co pomaga w utrzymaniu spójności kodu.
 
-### Moduły
-
-#### Default exports
-
-```js
-// square.js
-
-export default function square(x) {
-    return x * x;
-}
-```
-
-```js
-// main.js
-
-import square from './square';
-
-console.log(square(8));                     // 64
-```
-
-[ECMAScript 6 modules: the final syntax](http://www.2ality.com/2014/09/es6-modules-final.html)
+[ECMAScript 6 modules: the final syntax @ 2ality](http://www.2ality.com/2014/09/es6-modules-final.html)
 
 --
 
@@ -594,27 +625,30 @@ Dodatkowa warstwa abstrakcji nad DOM upraszcza komunikację z przeglądarką.
 
 ### Komponenty
 
-- Layout podzielony na małe kawałki - **komponenty**
+Każdy komponent, z którego składa się layout aplikacji to niezależny klocek.
+Komponenty składają się z innych komponentów tworząc **drzewo komponentów**
 
-- Komponenty składają się z innych komponentów tworząc **drzewo komponentów**
+#### Single Responsibility Principle
 
-- Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty (**Single Responsibility Principle**)
+Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty.
+Mały komponent jest łatwy do **zrozumienia**, **utrzymania** i **testowania**.
 
-- Mały komponent jest łatwy do **zrozumienia**, **utrzymania** i **testowania**
+<img src="images/components-layout.png" width="800" />
 
 --
 
 ### Virtual DOM
 
-- Operacje na DOM są kosztowne
+**Operacje na DOM są kosztowne**.
 
-- Rozwiązaniem jest wirtualne drzewo komponentów (**Virtual DOM**)
+Zamiast operować na poszczególnych elementach DOM, React tworzy wirtualne drzewo komponentów (**Virtual DOM**), wykrywa zmiany i podmienia drzewo.
 
-- Podczas renderowania React porównuje stare i nowe drzewo i **modyfikuje tylko niezbędne elementy w DOM**
+<img src="images/virtual-dom.svg" width="600" />
 
-- Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność *O(n<sup>3</sup>)*
+Podczas renderowania React porównuje stare i nowe drzewo i **modyfikuje tylko niezbędne elementy w DOM**.
+Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność *O(n<sup>3</sup>)*
 
-- React używa kilku heurystyk optymalizując złożoność do *O(n)*
+React używa kilku heurystyk optymalizując złożoność do *O(n)*.
 
 --
 
@@ -714,14 +748,10 @@ React.createElement(Nav, null,
 
 ### Props
 
- - Dane komponentu na wejściu
- 
- - **Jednokierunkowy przepływ danych** z góry do dołu drzewa komponentów
-  
- - Dostępne za pomocą ```this.props```
+*Props* to **dane wejściowe** komponentu.
 
 ```js
-var Hello = React.createClass({
+const Hello = React.createClass({
     render() {
         return (
             <h1>Hello, {this.props.name}!</h1>
@@ -736,14 +766,15 @@ ReactDOM.render(<Hello name="Pawel" />, document.querySelector('#main'));
 
 ### State
 
- - Każdy komponent może mieć swój **stan**.
+Każdy komponent może mieć swój **stan**.
  
- - Stan powinien być modyfikowany tylko za pomocą metody ```setState```. Wywoływanie ```setState``` wyzwala przerenderowanie komponentu i wszystkich jego dzieci.
+Stan powinien być modyfikowany tylko za pomocą metody ```setState```. 
+
+Wywoływanie ```setState``` wyzwala przerenderowanie komponentu i wszystkich jego dzieci.
 
 ```js
 // ES5
-
-React.createClass({
+const Counter = React.createClass({
     getInitialState() {
         return {
             count: 5
@@ -759,8 +790,7 @@ React.createClass({
 
 ```js
 // ES6
-
-class CountComponent {
+class Counter {
     constructor() {
         this.state = {
             count: 5
@@ -777,22 +807,26 @@ class CountComponent {
 
 --
 
-### Props vs State
+### Przepływ danych
 
- - O komponentach można myśleć jak o **maszynach stanu**
+Komponent to **funkcja dwóch zmiennych zmiennych**: *props* i *state* zwracająca wynik renderowania - drzewo węzłów DOM.
+
+Przepływ danych jest **jednokierunkowy** - od góry do dołu drzewa komponentów.
+
+#### Dobre praktyki
+
+Jak najwięcej komponentów powinno być **bezstanowych**.
  
- - Jak najwięcej komponentów powinno być **bezstanowych**
- 
- - Dobra praktyka: Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci powinny używać tylko propsów do wyrenderowania.
+Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci do wyrenderowania powinny używać wyłącznie propsów.
 
 ![Unidirectional flow](./images/unidirectional-flow.png "Unidirectional flow")
 
 --
 
-### Interaktywny UI
+### Events
 
 ```js
-React.createClass({
+const Counter = React.createClass({
     getInitialState() {
         return {
             count: 5
@@ -811,15 +845,29 @@ React.createClass({
 });
 ```
 
-**Autobinding:** Każda funkcja ma automatycznie dowiązany kontekst ```this```
+#### Dobra praktyka
 
-**Dobra praktyka:** Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.
+Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.
+
+#### Autobinding**
+
+Metody komponentu utworzonego poprzez ```createClass``` mają **automatycznie dowiązany kontekst ```this```**.
+
+Tworząc komponent za pomocą dziedzieczenia po klasie ```Component``` należy pamiętać o **ręcznym dowiązaniu kontekstu do funkcji**, które nie należą do specyfikacji komponentu.
+
+Najprostszy sposób to zamiast tworzenia metody metody, **utworzenie pola, które jest funkcją lambda**.
+
+```js
+handleClick: (event) => {
+    event.stopPropagation();
+}
+```
 
 --
 
-### State: złe praktyki
+### Złe praktyki
  
-#### Przypisywanie ```props``` do stanu
+#### Przepisywanie wartości ```props```
  
 ```js
 // so bad!
@@ -853,7 +901,7 @@ render() {
 }
 ```
  
-#### Komponenty jako zawartość stanu
+#### Przetrzymywanie komponentów w stanie
  
 ```js
 // so bad!
@@ -892,11 +940,7 @@ render() {
 
 ### Cykl życia komponentu
 
-1. Montowanie
-
-2. Modyfikacja
-
-3. Odmontowanie
+<img src="images/component-lifecycle.png" alt="Component Lifecycle" width="600" />
 
 [Component Specs and Lifecycle reference](https://facebook.github.io/react/docs/component-specs.html)
  
@@ -904,11 +948,11 @@ render() {
 
 ### ```render```
 
- - Jedyna wymagana metoda
+Jedyna wymagana metoda.
  
- - Może zwracać ```null```, ```false``` lub ```undefined``` jeżeli nie chcemy nic nie renderować
+Może zwracać ```null``` lub ```false``` jeżeli komponent ma nic nie renderować.
  
- - Konstruuje poddrzewo komponentów, dlatego musi zawierać tylko jeden węzeł korzenia
+Musi zawierać dokładnie jeden węzeł korzenia zwracanego drzewa.
  
 --
 
@@ -918,9 +962,9 @@ render() {
 object getInitialState()
 ```
 
- - Wywoływana raz, przed zamontowaniem komponentu.
+Wywoływana raz, przed zamontowaniem komponentu.
  
- - Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego renderowania
+Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego renderowania.
  
 --
 
@@ -930,9 +974,9 @@ object getInitialState()
 object getDefaultProps()
 ```
 
- - Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy
+Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy.
  
- - Zwraca domyślne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu
+Zwraca domyślne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu.
  
 --
 
@@ -942,7 +986,7 @@ object getDefaultProps()
 void componentWillMount()
 ```
 
- - Wywoływana raz, tuż przed pierwszym renderowaniem komponentu
+Wywoływana raz, tuż przed pierwszym renderowaniem komponentu.
  
 --
 
@@ -952,9 +996,11 @@ void componentWillMount()
 void componentDidMount()
 ```
 
- - Wywoływana raz, tuż po pierwszym renderowaniu komponentu
+Wywoływana raz, tuż po pierwszym renderowaniu komponentu.
  
- - Miejsce na integrację z innymi bibliotekami np. jQuery, D3 oraz wysyłanie requestów
+#### Dobra praktyka
+
+Miejsce na integrację z innymi bibliotekami np. jQuery, D3 oraz wysyłanie requestów.
  
 --
 
@@ -966,9 +1012,9 @@ void componentWillReceiveProps(
 )
 ```
 
- - Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych przed komponent
+Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych.
  
- - Nie wywoływana podczas pierwszego renderowania
+Nie wywoływana podczas pierwszego renderowania.
  
 --
 
@@ -980,11 +1026,11 @@ boolean shouldComponentUpdate(
 )
 ```
 
- - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan
+Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan.
  
- - Nie wywoływana podczas pierwszego renderowania
+Nie wywoływana podczas pierwszego renderowania.
  
- - Jeżeli zwróci ```false``` to nie zostaną wywołane metody ```render```, ```componentWillUpdate``` oraz ```componentDidUpdate```
+Jeżeli zwróci ```false``` to nie zostaną wywołane metody ```render```, ```componentWillUpdate``` oraz ```componentDidUpdate```.
  
 --
 
@@ -996,9 +1042,9 @@ void componentWillUpdate(
 )
 ```
 
- - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem
+Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem.
  
- - Nie wywoływana podczas pierwszego renderowania
+Nie wywoływana podczas pierwszego renderowania.
  
 --
 
@@ -1010,9 +1056,9 @@ void componentDidUpdate(
 )
 ```
 
- - Wywoływana tuż po zaaplikowaniu zmian w DOM
+Wywoływana tuż po zaaplikowaniu zmian w DOM.
  
- - Nie wywoływana podczas pierwszego renderowania
+Nie wywoływana podczas pierwszego renderowania.
  
 --
 
@@ -1022,17 +1068,17 @@ void componentDidUpdate(
 void componentWillUnmount()
 ```
 
- - Wywoływana tuż przed odmontowaniem komponentu
- 
- - Miejsce na cleanup
+Wywoływana tuż przed odmontowaniem komponentu.
+
+#### Dobra praktyka
+
+Miejsce na cleanup.
  
 --
 
 ### Dynamiczne komponenty
 
- - Każdy dynamiczny komponent powinien zawierać unikalny klucz ```key```
- 
- - Jeżeli klucz komponentu w danym miejscu w drzewie ulegnie zmianie to komponent zostaje odmontowany
+Każdy dynamicznie tworzony komponent powinien zawierać unikalny klucz ```key```.
 
 ```js
 render() {
@@ -1049,7 +1095,7 @@ render() {
 
 --
 
-### Mixins
+### *Mixins*
   
 ```js
 const AuthMixin = {
@@ -1075,11 +1121,9 @@ const Page = React.createClass({
 
 --
 
-### Props types
+### *PropTypes*
 
- - Walidacja danych wejściowych komponentu
- 
- - Bardzo przydatne przy dużych aplikacjach
+Walidacja danych wejściowych komponentu.
 
 ```js
 React.createClass({
@@ -1103,15 +1147,21 @@ React.createClass({
 });
 ```
 
-[Prop Types reference](https://facebook.github.io/react/docs/reusable-components.html)
+#### Dobra praktyka
+
+Każdy element ```this.props``` powinien zostać zwalidowany w ```propsTypes```.
+
+Walidacja danych wejściowych powinna być **wyłączona** na produkcji, ponieważ istotnie spowalnia renderowanie strony.
+
+[Prop Types reference @ React Docs](https://facebook.github.io/react/docs/reusable-components.html)
+
+[Performance Engineering with React](http://benchling.engineering/performance-engineering-with-react/)
  
 --
 
 ### Referencje
 
-- Za pomocą atrybutu ```ref``` można przechować referencję do instancji komponentu potomnego
-
-- Referencje są dostępne w ```this.refs```
+Za pomocą atrybutu ```ref``` można przechować referencję do instancji komponentu potomnego.
 
 ```js
 getValue() {
@@ -1126,30 +1176,30 @@ render() {
 
 --
 
-### Uncontrolled Component
+### *Uncontrolled Component*
 
-- Komponent ma swój stan
+- Komponent stanowy
 
-- Stan komponentu może być dostępny na zewnątrz
+- Nie ma możliwości zmiany prezentowanej wartości z zewnątrz
 
-### Controlled Component
+### *Controlled Component*
 
-- Komponent nie ma stanu
+- Komponent bezstanowy
 
-- Udostępnia dane za pomocą *event handlers* np. ```onChange```
+- Wartość musi zostać obsłużona w stanie jednego z komponentów nadrzędnych
 
-- Dane muszą zostać obsłużone przez komponent nadrzędny
+- Pełna kontrola nad prezentowaną wartością
 
 --
 
-### Uncontrolled Component
+### *Uncontrolled Component*
 
 <p data-height="500" data-theme-id="0" data-slug-hash="YwRXJd" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/YwRXJd/'>React Uncontrolled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 --
 
-### Controlled Component
+### *Controlled Component*
 
 <p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
