@@ -1000,18 +1000,16 @@ render() {
 <img src="images/component-lifecycle.svg" alt="Component Lifecycle" width="600" />
 
 [Component Specs and Lifecycle reference](https://facebook.github.io/react/docs/component-specs.html)
- 
---
 
 ### ```render```
 
-Jedyna wymagana metoda.
+ - **Wymagana metoda** (jedyna).
  
-Może zwracać ```null``` lub ```false``` jeżeli komponent ma nic nie renderować.
+ - Może zwracać ```null``` lub ```false``` jeżeli komponent ma nic nie renderować.
  
-Musi zawierać dokładnie jeden węzeł korzenia zwracanego drzewa.
- 
---
+ - Musi zawierać dokładnie jeden węzeł korzenia zwracanego drzewa.
+
+### Mount
 
 ### ```getInitialState```
 
@@ -1019,11 +1017,9 @@ Musi zawierać dokładnie jeden węzeł korzenia zwracanego drzewa.
 object getInitialState()
 ```
 
-Wywoływana raz, przed zamontowaniem komponentu.
+ - Wywoływana raz, przed zamontowaniem komponentu.
  
-Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego renderowania.
- 
---
+ - Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego renderowania.
 
 ### ```getDefaultProps```
 
@@ -1031,11 +1027,9 @@ Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego r
 object getDefaultProps()
 ```
 
-Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy.
+ - Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy.
  
-Zwraca domyślne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu.
- 
---
+ - Zwraca domyślne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu.
 
 ### ```componentWillMount```
 
@@ -1043,9 +1037,7 @@ Zwraca domyślne wartości dostępne w ```this.props``` jeżeli nie zostaną pod
 void componentWillMount()
 ```
 
-Wywoływana raz, tuż przed pierwszym renderowaniem komponentu.
- 
---
+ - Wywoływana raz, tuż przed pierwszym renderowaniem komponentu.
 
 ### ```componentDidMount```
 
@@ -1053,13 +1045,13 @@ Wywoływana raz, tuż przed pierwszym renderowaniem komponentu.
 void componentDidMount()
 ```
 
-Wywoływana raz, tuż po pierwszym renderowaniu komponentu.
+ - Wywoływana raz, tuż po pierwszym renderowaniu komponentu.
  
 #### Dobra praktyka
 
 Miejsce na integrację z innymi bibliotekami np. jQuery, D3 oraz wysyłanie requestów.
- 
---
+
+### Update
 
 ### ```componentWillReceiveProps```
 
@@ -1069,11 +1061,9 @@ void componentWillReceiveProps(
 )
 ```
 
-Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych.
+ - Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych.
  
-Nie wywoływana podczas pierwszego renderowania.
- 
---
+ - Nie wywoływana podczas pierwszego renderowania.
 
 ### ```shouldComponentUpdate```
 
@@ -1083,13 +1073,11 @@ boolean shouldComponentUpdate(
 )
 ```
 
-Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan.
+ - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan.
  
-Nie wywoływana podczas pierwszego renderowania.
+ - Nie wywoływana podczas pierwszego renderowania.
  
-Jeżeli zwróci ```false``` to nie zostaną wywołane metody ```render```, ```componentWillUpdate``` oraz ```componentDidUpdate```.
- 
---
+ - Jeżeli zwróci ```false``` to nie zostaną wywołane metody ```render```, ```componentWillUpdate``` oraz ```componentDidUpdate```.
 
 ### ```componentWillUpdate```
 
@@ -1099,11 +1087,9 @@ void componentWillUpdate(
 )
 ```
 
-Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem.
+ - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem.
  
-Nie wywoływana podczas pierwszego renderowania.
- 
---
+ - Nie wywoływana podczas pierwszego renderowania.
 
 ### ```componentDidUpdate```
 
@@ -1113,11 +1099,11 @@ void componentDidUpdate(
 )
 ```
 
-Wywoływana tuż po zaaplikowaniu zmian w DOM.
+ - Wywoływana tuż po zaaplikowaniu zmian w DOM.
  
-Nie wywoływana podczas pierwszego renderowania.
- 
---
+ - Nie wywoływana podczas pierwszego renderowania.
+
+### Unmount
 
 ### ```componentWillUnmount```
 
@@ -1125,7 +1111,7 @@ Nie wywoływana podczas pierwszego renderowania.
 void componentWillUnmount()
 ```
 
-Wywoływana tuż przed odmontowaniem komponentu.
+ - Wywoływana tuż przed odmontowaniem komponentu.
 
 #### Dobra praktyka
 
@@ -1135,7 +1121,7 @@ Miejsce na cleanup.
 
 ### Dynamiczne komponenty
 
-Każdy dynamicznie tworzony komponent powinien zawierać unikalny klucz ```key```.
+Każdy dynamicznie tworzony komponent powinien zawierać unikalny klucz ```key```, aby React mógł w optymalny sposób porównać drzewa komponentów.
 
 ```js
 render() {
@@ -1150,31 +1136,9 @@ render() {
 }
 ```
 
---
+#### Dobra praktyka
 
-### *Mixins*
-  
-```js
-const AuthMixin = {
-    componentDidMount() {
-        if (!authorized()) {
-            // redirect to login page...
-        }
-    },
-    authorized() {
-        // do some OAuth...
-    }
-};
-
-const Page = React.createClass({
-    mixins: [ AuthMixin ],
-    render() {
-        return (
-            <div>You are {authorized() ? 'authorized' : 'not authorized'}</div>
-        );
-    }
-});
-```
+Dobór klucza dla dynamicznych komponentów nie jest trywialny. Klucz powinien być unikalny, dlatego renderowany model powinien dostarczać swój unikalny id.
 
 --
 
@@ -1218,7 +1182,7 @@ Walidacja danych wejściowych powinna być **wyłączona** na produkcji, poniewa
 
 ### Referencje
 
-Za pomocą atrybutu ```ref``` można przechować referencję do instancji komponentu potomnego.
+Za pomocą atrybutu ```ref``` można przechować referencję do komponentów potomnych.
 
 ```js
 getValue() {
@@ -1226,9 +1190,40 @@ getValue() {
 },
 render() {
     return (
-        <input type="text" ref="input" />
+        <form>
+            <input type="text" ref="input" />
+        </form>
     );
 }
+```
+
+Referencje wykorzystuje się do integracji komponentu z bibliotekami, które wymagają elementów DOM np. jQuery lub d3.
+
+```js
+const list = ReactDOM.findDOMNode(this.refs.list);
+d3.select(list);
+```
+
+--
+
+### Style i klasy CSS
+
+Komponenty DOM udostępniają dwa atrybuty do obsługi styli: ```classNames``` oraz ```style```.
+
+Atrybut ```classNames``` przyjmuje stringa z nazwami klas, podobnie jak w HTML.
+
+Pomocną biblioteką do obsługi klas CSS jest pakiet [classnames](https://github.com/JedWatson/classnames).
+
+Atrybut ```style``` przyjmuje obiekt z polami odpowiednimi dla właściwości CSS.
+
+```js
+<div 
+    style={{
+        color: 'red',
+        borderWidth: 10,
+        textDecoration: 'underline'
+    }}>
+</div>
 ```
 
 --
@@ -1251,14 +1246,14 @@ render() {
 
 ### *Uncontrolled Component*
 
-<p data-height="500" data-theme-id="0" data-slug-hash="YwRXJd" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/YwRXJd/'>React Uncontrolled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<p data-height="500" data-theme-id="0" data-slug-hash="YwRXJd" data-default-tab="js,result" data-user="pawelwieladek" data-embed-version="2" class="codepen">See the Pen <a href='http://codepen.io/pawelwieladek/pen/YwRXJd/'>React Uncontrolled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 --
 
 ### *Controlled Component*
 
-<p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
+<p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js,result" data-user="pawelwieladek" data-embed-version="2" class="codepen">See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script>
 
 --
@@ -1276,6 +1271,201 @@ render() {
 --
 
 ![Lower level components](./images/bottom-components.png "Lower level components")
+
+--
+
+### Komponent jako funkcja
+
+Jeżeli komponent nie ma swojego wewnętrznego stanu, ani nie nadpisuje metod z cyklu życia komponentu może być zapisany jako czysta funkcja.
+
+```js
+import React, { PropTypes } from 'react';
+
+const Todo = ({ onClick, completed, text }) => (
+    <li
+        onClick={onClick}
+        style={{
+            textDecoration: completed ? 'line-through' : 'none'
+        }}>
+        {text}
+    </li>
+);
+
+Todo.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    completed: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired
+};
+
+export default Todo;
+```
+
+--
+
+### Testy jednostkowe
+
+- [**Mocha**](https://mochajs.org/) - test runner
+- [**Chai**](http://chaijs.com/) - TDD/BDD
+- [**Sinon**](http://sinonjs.org/) - spy, stub, mock
+- [**Enzyme**](http://airbnb.io/enzyme/) - React Component wrapper
+
+#### Source
+
+```js
+class Counter extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            value: this.props.initialValue
+        };
+    }
+
+    static propTypes = {
+        initialValue: PropTypes.number
+    };
+
+    static defaultProps = {
+        initialValue: 0
+    };
+
+    increment = () => {
+        this.setState({
+            value: this.state.value + 1
+        });
+    };
+
+    reset = () => {
+        this.setState({
+            value: this.props.initialValue
+        });
+    };
+
+    render() {
+        return (
+            <div>
+                <h1 ref="value">{this.state.value}</h1>
+                <button ref="increment" onClick={this.increment}>Increment</button>
+                <button ref="reset" onClick={this.reset}>Reset</button>
+            </div>
+        );
+    }
+}
+```
+
+[CodePen example](http://codepen.io/pawelwieladek/pen/vGvKXK)
+
+#### Unit tests
+
+```js
+describe('<Counter /> should', () => {
+    it('render header and two buttons', () => {
+        const counter = mount(<Counter />);
+        expect(counter.find('h1')).to.have.length(1);
+        expect(counter.find('button')).to.have.length(2);
+    });
+
+    it('render default value', () => {
+        const counter = mount(<Counter />);
+        expect(counter.ref('value').text()).equal('0');
+    });
+
+    it('render initial value', () => {
+        const counter = mount(<Counter initialValue={3} />);
+        expect(counter.find('h1').text()).equal('3');
+    });
+
+    it('increment value', () => {
+        const counter = mount(<Counter />);
+        counter.find('button').first().simulate('click');
+        expect(counter.state().value).equal(1);
+    });
+
+    it('increment value multiple times', () => {
+        const counter = mount(<Counter />);
+        counter.ref('increment').simulate('click');
+        counter.ref('increment').simulate('click');
+        counter.ref('increment').simulate('click');
+        expect(counter.ref('value').text()).equal('3');
+    });
+
+    it('reset value to default value', () => {
+        const counter = mount(<Counter />);
+        counter.ref('increment').simulate('click');
+        counter.ref('reset').simulate('click');
+        expect(counter.state().value).equal(0);
+    });
+
+    it('reset value to initial value', () => {
+        const counter = mount(<Counter initialValue={3} />);
+        counter.find('button').at(0).simulate('click');
+        counter.find('button').at(1).simulate('click');
+        expect(counter.ref('value').text()).equal('3');
+    });
+});
+```
+
+--
+
+### Mixin / Dekorator
+ 
+#### Mixin
+
+Mixin może nadpisywać metody komponentu lub dodawać nowe metody do klasy.
+Nadpisane metody wykonywane są w kolejności występowania w tablicy ```mixins```, a na końcu wykonuje się metoda z definicji klasy.
+
+```js
+const LogMixin = {
+    componentDidMount() {
+        console.log('Mixin log');
+    },
+    
+    warn() {
+        console.warn('Warning!');
+    }
+};
+
+const Page = React.createClass({
+    mixins: [ LogMixin ],
+    
+    componentDidMount() {
+        console.log('Class log');
+        // method `warn` from `LogMixin` is available here
+        this.warn();
+    }
+});
+
+// 'Mixin log'
+// 'Class log'
+// 'Warning!'
+```
+
+#### Dekorator
+
+```js
+function log(DecoratedComponent) {
+    const componentDidMount = DecoratedComponent.prototype.componentDidMount;
+    
+    DecoratedComponent.prototype.componentDidMount = function() {
+        console.log('Decorator log');
+        componentDidMount.call(DecoratedComponent);
+    };
+}
+
+@log
+class Page extends Component {
+    componentDidMount() {
+        console.log('Class log');
+    }
+}
+
+// 'Decorator log'
+// 'Class log'
+```
+
+##### Uwaga
+
+Dekoratory nie są oficjalną częścią języka ES6, ani ES7. Prawdopodobnie wejdą w jednej z kolejnych iteracji.
+Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela. 
 
 --
 
