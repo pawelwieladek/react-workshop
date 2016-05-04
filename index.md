@@ -362,9 +362,17 @@ function add(x, y, z) {
   return x + y + z;
 }
 
-let args = [1, 2, 3];
-console.log(add(...args));
+let a = [1, 2, 3];
+console.log(add(...a));
 // 6
+
+let b = [
+    ...a,
+    4,
+    5
+];
+console.log(b);
+// 1, 2, 3, 4, 5
 ```
 
 --
@@ -528,34 +536,44 @@ console.log(sq(8));
 #### Eksport nazwany
 
 ```js
-// math.js
+// lib.js
 
 export const PI = 3.14;
 
 export function square(x) {
     return x * x;
 }
+
+export class Circle {
+    constructor(x, y, r) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+}
 ```
 
 ```js
 // main.js
 
-import { square, PI } from './math';
+import { square, PI, Circle } from './lib';
 
 console.log(PI);
 // 3.14
 console.log(square(8));
 // 64
+console.log(new Circle(3, 4, 5));
+// { x: 3, y: 4, r: 5 }
 ```
 
 ```js
 // main.js
 
-import * as common from './math';
+import * as lib from './lib';
 
-console.log(common.PI);
+console.log(lib.PI);
 // 3.14
-console.log(common.square(8));
+console.log(lib.square(8));
 // 64
 ```
 
@@ -567,6 +585,8 @@ console.log(common.square(8));
 --
 
 ### Promise
+
+Obsługa wywołań asynchronicznych.
 
 ```js
 function fetch() {
@@ -633,7 +653,7 @@ Komponenty składają się z innych komponentów tworząc **drzewo komponentów*
 Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty.
 Mały komponent jest łatwy do **zrozumienia**, **utrzymania** i **testowania**.
 
-<img src="images/components-layout.png" width="800" />
+<img src="images/components-layout.svg" width="800" />
 
 --
 
@@ -658,19 +678,19 @@ React używa kilku heurystyk optymalizując złożoność do *O(n)*.
 
 Dwa komponenty o różnych klasach na tych samych miejscach w drzewie są różne.
 
-![Components](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/3.png "Components")
+<img src="images/react-diff-class.svg" width="600" />
 
 #### Listy
 
 Komponenty są porównywane za pomocą podanych kluczy.
 
-![List](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/2.png "List")
+<img src="images/react-diff-list.svg" width="600" />
 
 #### Poziom po poziomie
 
 Porównywane są komponenty tylko z tych samych poziomów.
 
-![Level by Level](http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/1.png "Level by Level")
+<img src="images/react-diff-levels.svg" width="600" />
 
 --
 
@@ -724,7 +744,13 @@ class App extends Component {
 
 ### JSX
 
-#### Input
+Tag ```<div>``` tworzy instancję klasy ```div```.
+
+```ReactDOM``` implementuje wszystkie tagi HTML wraz z odpowiednimi atrybutami jako pochodne klasy ```React.Component```.
+
+#### Przykład
+
+##### Input
 
 ```xml
 <Nav>
@@ -734,7 +760,7 @@ class App extends Component {
 </Nav>
 ```
 
-#### Output
+##### Output
 
 ```js
 React.createElement(Nav, null,
@@ -743,6 +769,37 @@ React.createElement(Nav, null,
     React.createElement(Logo, null),
 );
 ```
+
+#### Uwaga
+
+Dowolny kod JavaScript może być umieszczony wewnątrz nawiasów ```{ }```.
+
+#### Wartość atrybutu typu *string*
+ 
+```xml
+<div className="container"><div>
+```
+
+#### Wartość atrybutu typu *boolean*
+ 
+```xml
+<button disabled></button>
+```
+
+#### Dowolna wartość atrybutu
+ 
+```xml
+<textarea cols={6} onChange={this.handleChange}></textarea>
+```
+
+#### *Self-closing tag*
+ 
+```xml
+<input type="text" value="XYZ" />
+```
+
+#### Ważne
+JSX nie jest częścią języka JavaScript w żadnej wersji (w tym ES6), dlatego do poprawnego działania w przeglądarce potrzebny jest kod po transpilacji.
 
 --
 
@@ -819,7 +876,7 @@ Jak najwięcej komponentów powinno być **bezstanowych**.
  
 Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci do wyrenderowania powinny używać wyłącznie propsów.
 
-![Unidirectional flow](./images/unidirectional-flow.png "Unidirectional flow")
+<img src="images/top-down.svg" alt="Jednokierunkowy przepływ danych" width="800" />
 
 --
 
@@ -940,7 +997,7 @@ render() {
 
 ### Cykl życia komponentu
 
-<img src="images/component-lifecycle.png" alt="Component Lifecycle" width="600" />
+<img src="images/component-lifecycle.svg" alt="Component Lifecycle" width="600" />
 
 [Component Specs and Lifecycle reference](https://facebook.github.io/react/docs/component-specs.html)
  
@@ -1226,7 +1283,9 @@ render() {
 
 --
 
-![Flux](./images/flux-diagram.png "Flux")
+### Flux
+
+<img src="images/flux.svg" width="600" />
 
 
 
