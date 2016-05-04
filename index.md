@@ -798,6 +798,27 @@ Dowolny kod JavaScript może być umieszczony wewnątrz nawiasów ```{ }```.
 <input type="text" value="XYZ" />
 ```
 
+#### Spread
+
+```js
+const props = {
+    title,
+    onClick
+};
+```
+
+then
+
+```xml
+<Component {...props} />
+```
+
+is equal to
+
+```xml
+<Component title={title} onClick={onClick} />
+```
+
 #### Ważne
 JSX nie jest częścią języka JavaScript w żadnej wersji (w tym ES6), dlatego do poprawnego działania w przeglądarce potrzebny jest kod po transpilacji.
 
@@ -906,7 +927,7 @@ const Counter = React.createClass({
 
 Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.
 
-#### Autobinding**
+#### Autobinding
 
 Metody komponentu utworzonego poprzez ```createClass``` mają **automatycznie dowiązany kontekst ```this```**.
 
@@ -1477,5 +1498,29 @@ Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela.
 
 <img src="images/flux.svg" width="600" />
 
+#### View
 
+Widok (np. ```React.Component```) ma dostęp do stanu, ale **nie może go modyfikować**.
+Może natomiast wywoływać akcje.
 
+#### Action
+
+Akcja jest asynchroniczną porcją informacji mówiącej o tym co ma się wydarzyć (i z jakimi argumentami).
+
+#### Dispatcher
+
+Do niego trafiają wszystkie oddelegowane akcje. Zachowuje kolejność wywoływanych akcji.
+
+#### Store
+
+Główne źródło prawdy. Przetrzymuje i udostępnia informacje o stanie aplikacji. Wie jak dana akcja modyfikuje stan.
+
+--
+
+### Implementacje
+
+Flux to wzorzec projektowy, który ma różne modyfikacje implementacyjne.
+
+#### Facebook Flux
+
+#### Redux
