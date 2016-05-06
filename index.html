@@ -383,8 +383,13 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     width: 1000px;
     height: auto;
     overflow: visible;
-    margin: 30px auto;
+    padding: 30px;
+    margin: 0 auto;
     font-size: 170%;
+}
+
+body {
+    padding: 0;
 }
 
 h3 {
@@ -517,6 +522,7 @@ pre > code {
 <ol>
 <li>ES6</li>
 <li>React</li>
+<li>Case study (kodowanie)</li>
 <li>Flux</li>
 </ol>
 </section>
@@ -535,7 +541,7 @@ pre > code {
 </section>
   </div>
   <div class="slide hidden" id="slide-5">
-    <section class="slide-content"><h3 id="deklaracje-zmiennych">Deklaracje zmiennych</h3>
+    <section class="slide-content"><h3 id="zmienne">Zmienne</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
 <span class="hljs-keyword">var</span> hoisted;</code></pre>
 <pre><code class="lang-js"><span class="hljs-comment">// ES6</span>
@@ -578,19 +584,32 @@ PI = <span class="hljs-number">3.141593</span>;
 </section>
   </div>
   <div class="slide hidden" id="slide-6">
-    <section class="slide-content"><h3 id="template-strings">Template strings</h3>
-<pre><code class="lang-js"><span class="hljs-string">`This is a plain string.`</span></code></pre>
-<pre><code class="lang-js"><span class="hljs-string">`Multiline strings
- in ES5 are
- not legal.`</span></code></pre>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'world'</span>;
-<span class="hljs-string">`Hello <span class="hljs-subst">${name}</span>!`</span>;     
-<span class="hljs-comment">// Hello world!</span></code></pre>
+    <section class="slide-content"><h3 id="string">String</h3>
+<pre><code class="lang-js"><span class="hljs-string">'This ia a plain string.'</span>
+<span class="hljs-string">`This is a plain string as well.`</span></code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
+<span class="hljs-string">'Multiline strings'</span> +
+<span class="hljs-string">'in ES5 are'</span> +
+<span class="hljs-string">'not legal.'</span>
+
+<span class="hljs-comment">// ES6</span>
+<span class="hljs-string">`Multiline strings
+ in ES6 are
+ legal from now.`</span></code></pre>
+<h4 id="interpolacja">Interpolacja</h4>
+<pre><code class="lang-js"><span class="hljs-keyword">var</span> name = <span class="hljs-string">'world'</span>;
+
+<span class="hljs-comment">// ES5</span>
+<span class="hljs-string">'Hello '</span> + name + <span class="hljs-string">'!'</span>;
+
+<span class="hljs-comment">// ES6</span>
+<span class="hljs-string">`Hello <span class="hljs-subst">${name}</span>!`</span>;</code></pre>
+<p>Więcej: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">Template literals @ MDN</a></p>
 </section>
   </div>
   <div class="slide hidden" id="slide-7">
-    <section class="slide-content"><h3 id="enhanced-object-literals">Enhanced Object Literals</h3>
-<h4 id="properties">Properties</h4>
+    <section class="slide-content"><h3 id="obiekty">Obiekty</h3>
+<h4 id="pola">Pola</h4>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> name = <span class="hljs-string">'Pawel'</span>;
 
 <span class="hljs-comment">// ES5</span>
@@ -605,15 +624,15 @@ PI = <span class="hljs-number">3.141593</span>;
 
 <span class="hljs-built_in">console</span>.log(me.name);
 <span class="hljs-comment">// Pawel</span></code></pre>
-<h4 id="methods">Methods</h4>
-<pre><code class="lang-js"><span class="hljs-comment">// old</span>
+<h4 id="metody">Metody</h4>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
 <span class="hljs-keyword">var</span> me = {
     sayHello: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">name</span>) </span>{
         <span class="hljs-keyword">return</span> <span class="hljs-string">'Hi, '</span> + name;
     }
 };
 
-<span class="hljs-comment">// new</span>
+<span class="hljs-comment">// ES6</span>
 <span class="hljs-keyword">let</span> me = {
     sayHello(name) {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`Hi, <span class="hljs-subst">${name}</span>`</span>;
@@ -631,7 +650,8 @@ PI = <span class="hljs-number">3.141593</span>;
     }
 };
 
-<span class="hljs-built_in">console</span>.log(me.name);     <span class="hljs-comment">// Pawel Wieladek</span></code></pre>
+<span class="hljs-built_in">console</span>.log(me.name);
+<span class="hljs-comment">// Pawel Wieladek</span></code></pre>
 <h4 id="setter">Setter</h4>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> me = {
     counter: <span class="hljs-number">0</span>,
@@ -653,8 +673,17 @@ me.name = <span class="hljs-string">'Pablo'</span>;
 
 <span class="hljs-built_in">console</span>.log(me.counter);
 <span class="hljs-comment">// 1</span></code></pre>
-<h4 id="computed-property-names">Computed property names</h4>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createIconClassNames</span>(<span class="hljs-params">name, size</span>) </span>{
+<h4 id="-computed-property-names-"><em>Computed property names</em></h4>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createIconClassNames</span>(<span class="hljs-params">name, size</span>) </span>{
+    <span class="hljs-keyword">var</span> classNames = {};
+    classNames[<span class="hljs-string">'icon-'</span> + name] = !!name;
+    classNames[<span class="hljs-string">'icon-'</span> + size] = !!size;
+    <span class="hljs-keyword">return</span> classNames;
+}
+
+<span class="hljs-comment">// ES6</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createIconClassNames</span>(<span class="hljs-params">name, size</span>) </span>{
     <span class="hljs-keyword">return</span> {
         [<span class="hljs-string">`icon-<span class="hljs-subst">${name}</span>`</span>]: !!name,
         [<span class="hljs-string">`icon-<span class="hljs-subst">${size}</span>`</span>]: !!size
@@ -668,56 +697,24 @@ me.name = <span class="hljs-string">'Pablo'</span>;
 </section>
   </div>
   <div class="slide hidden" id="slide-8">
-    <section class="slide-content"><h3 id="arrow-functions">Arrow functions</h3>
-<h4 id="single-argument">Single argument</h4>
-<pre><code class="lang-js">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>].map(x =&gt; x * <span class="hljs-number">2</span>);    
-
-<span class="hljs-comment">// [2, 4, 6, 8]</span></code></pre>
-<h4 id="multiple-arguments">Multiple arguments</h4>
-<pre><code class="lang-js">[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>].map((value, index) =&gt; {
-    index = index + <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">return</span> [index, value];
-}); 
-
-<span class="hljs-comment">// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]</span></code></pre>
-<h4 id="multiple-arguments-destructuring">Multiple arguments + destructuring</h4>
-<pre><code class="lang-js">[[<span class="hljs-number">1</span>, <span class="hljs-string">'a'</span>], [<span class="hljs-number">2</span>, <span class="hljs-string">'b'</span>], [<span class="hljs-number">3</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-number">4</span>, <span class="hljs-string">'d'</span>]].map(([index, value]) =&gt; {
-    <span class="hljs-keyword">return</span> {
-        [value]: index 
-    };
-});
-
-<span class="hljs-comment">// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]</span></code></pre>
-<h4 id="-this-autobinding"><code>this</code> autobinding</h4>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Exp</span>(<span class="hljs-params">base, exponentsList</span>) </span>{
-    <span class="hljs-keyword">this</span>.base = base;
-    <span class="hljs-keyword">this</span>.exponentsList = exponentsList;
-}
-
-Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.exponentsList.map(n =&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.pow(<span class="hljs-keyword">this</span>.base, n);
-    });
-};
-
-<span class="hljs-keyword">let</span> exp = <span class="hljs-keyword">new</span> Exp(<span class="hljs-number">2</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]);
-<span class="hljs-built_in">console</span>.log(exp.calculate());
-<span class="hljs-comment">// [2, 4, 8, 16]</span></code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-9">
-    <section class="slide-content"><h3 id="destructuring">Destructuring</h3>
-<h4 id="list-matching">List matching</h4>
+    <section class="slide-content"><h3 id="-destructuring-"><em>Destructuring</em></h3>
+<h4 id="-list-matching-"><em>List matching</em></h4>
 <pre><code class="lang-js"><span class="hljs-keyword">var</span> [a, b, c] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-<span class="hljs-built_in">console</span>.log(a);   <span class="hljs-comment">// 1;</span>
-<span class="hljs-built_in">console</span>.log(b);   <span class="hljs-comment">// 2;</span>
-<span class="hljs-built_in">console</span>.log(c);   <span class="hljs-comment">// 3;</span></code></pre>
-<h4 id="list-matching-with-empty-element">List matching with empty element</h4>
+
+<span class="hljs-built_in">console</span>.log(a);
+<span class="hljs-comment">// 1;</span>
+<span class="hljs-built_in">console</span>.log(b);
+<span class="hljs-comment">// 2;</span>
+<span class="hljs-built_in">console</span>.log(c);
+<span class="hljs-comment">// 3;</span></code></pre>
+<h4 id="-list-matching-z-pomini-ciem-element-w"><em>List matching</em> z pominięciem elementów</h4>
 <pre><code class="lang-js"><span class="hljs-keyword">let</span> [a, , c] = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
-<span class="hljs-built_in">console</span>.log(a);   <span class="hljs-comment">// 1;</span>
-<span class="hljs-built_in">console</span>.log(c);   <span class="hljs-comment">// 3;</span></code></pre>
-<h3 id="destructuring">Destructuring</h3>
-<h4 id="object-matching">Object matching</h4>
+
+<span class="hljs-built_in">console</span>.log(a);
+<span class="hljs-comment">// 1;</span>
+<span class="hljs-built_in">console</span>.log(c);
+<span class="hljs-comment">// 3;</span></code></pre>
+<h4 id="-object-matching-"><em>Object matching</em></h4>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createPerson</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> { 
         firstName: <span class="hljs-string">'Pawel'</span>,
@@ -731,7 +728,7 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 <span class="hljs-comment">// Pawel</span>
 <span class="hljs-built_in">console</span>.log(lastName);
 <span class="hljs-comment">// Wieladek</span></code></pre>
-<h4 id="object-matching-with-rename">Object matching with rename</h4>
+<h4 id="-object-matching-ze-zmian-nazwy"><em>Object matching</em> ze zmianą nazwy</h4>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createPerson</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> { 
         firstName: <span class="hljs-string">'Pawel'</span>,
@@ -745,7 +742,7 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 <span class="hljs-comment">// Pawel</span>
 <span class="hljs-built_in">console</span>.log(l);
 <span class="hljs-comment">// Wieladek</span></code></pre>
-<h4 id="object-matching-in-function-parameter">Object matching in function parameter</h4>
+<h4 id="-object-matching-jako-argument-funkcji"><em>Object matching</em> jako argument funkcji</h4>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span>(<span class="hljs-params">{ first, last }</span>) </span>{
     <span class="hljs-comment">// first and last are variables from now</span>
     <span class="hljs-keyword">return</span> <span class="hljs-string">`Hello, I'm <span class="hljs-subst">${first}</span> <span class="hljs-subst">${last}</span>!`</span>;
@@ -760,8 +757,9 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 <span class="hljs-comment">// Hi, I'm Pawel Wieladek!</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-10">
-    <section class="slide-content"><h3 id="default-arguments">Default arguments</h3>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="argumenty-domy-lne-i-zmienna-liczba-argument-w">Argumenty domyślne i zmienna liczba argumentów</h3>
+<h4 id="argument-domy-lny">Argument domyślny</h4>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">multiply</span>(<span class="hljs-params">a, b = 1</span>) </span>{
     <span class="hljs-keyword">return</span> a * b;
 }
@@ -770,10 +768,7 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 <span class="hljs-comment">// 5</span>
 <span class="hljs-built_in">console</span>.log(multiply(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>));
 <span class="hljs-comment">// 6</span></code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-11">
-    <section class="slide-content"><h3 id="rest-arguments">Rest arguments</h3>
+<h4 id="zmienna-liczba-argument-w">Zmienna liczba argumentów</h4>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">append</span>(<span class="hljs-params">a, ...b</span>) </span>{
     <span class="hljs-comment">// b is an Array</span>
     <span class="hljs-keyword">return</span> a + <span class="hljs-string">', '</span> + b.join(<span class="hljs-string">', '</span>);
@@ -781,20 +776,73 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 
 <span class="hljs-built_in">console</span>.log(append(<span class="hljs-string">'apple'</span>, <span class="hljs-string">'orange'</span>, <span class="hljs-string">'plum'</span>, <span class="hljs-string">'kiwi'</span>));
 <span class="hljs-comment">// apple, orange, plum, kiwi</span></code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-12">
-    <section class="slide-content"><h3 id="spread-operator">Spread operator</h3>
+<h4 id="operator-spread-">Operator <em>spread</em></h4>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y, z</span>) </span>{
   <span class="hljs-keyword">return</span> x + y + z;
 }
 
-<span class="hljs-keyword">let</span> args = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-built_in">console</span>.log(add(...args));
-<span class="hljs-comment">// 6</span></code></pre>
+<span class="hljs-keyword">let</span> a = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
+<span class="hljs-built_in">console</span>.log(add(...a));
+<span class="hljs-comment">// 6</span>
+
+<span class="hljs-keyword">let</span> b = [
+    ...a,
+    <span class="hljs-number">4</span>,
+    <span class="hljs-number">5</span>
+];
+<span class="hljs-built_in">console</span>.log(b);
+<span class="hljs-comment">// 1, 2, 3, 4, 5</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-13">
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="wyra-enia-lambda">Wyrażenia lambda</h3>
+<h4 id="jeden-argument">Jeden argument</h4>
+<pre><code class="lang-js">[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>].map(x =&gt; x * <span class="hljs-number">2</span>);    
+
+<span class="hljs-comment">// [2, 4, 6, 8]</span></code></pre>
+<h4 id="wiele-argument-w">Wiele argumentów</h4>
+<pre><code class="lang-js">[<span class="hljs-string">'a'</span>, <span class="hljs-string">'b'</span>, <span class="hljs-string">'c'</span>, <span class="hljs-string">'d'</span>].map((value, index) =&gt; {
+    index = index + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> [index, value];
+}); 
+
+<span class="hljs-comment">// [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]</span></code></pre>
+<h4 id="wiele-argument-w-destructuring-">Wiele argumentów + <em>destructuring</em></h4>
+<pre><code class="lang-js">[[<span class="hljs-number">1</span>, <span class="hljs-string">'a'</span>], [<span class="hljs-number">2</span>, <span class="hljs-string">'b'</span>], [<span class="hljs-number">3</span>, <span class="hljs-string">'c'</span>], [<span class="hljs-number">4</span>, <span class="hljs-string">'d'</span>]].map(([index, value]) =&gt; {
+    <span class="hljs-keyword">return</span> {
+        [value]: index 
+    };
+});
+
+<span class="hljs-comment">// [ { a: 1 }, { b: 2 }, { c: 3 }, { d: 4 } ]</span></code></pre>
+<h4 id="-this-autobinding-"><code>this</code> <em>autobinding</em></h4>
+<pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AsyncCounter</span>(<span class="hljs-params">initialValue</span>) </span>{
+    <span class="hljs-keyword">this</span>.value = initialValue;
+}
+
+AsyncCounter.prototype.increment = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">this</span>.value++;
+    }.bind(<span class="hljs-keyword">this</span>), <span class="hljs-number">100</span>);
+};
+
+<span class="hljs-comment">// ES6</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncCounter</span> </span>{
+    <span class="hljs-keyword">constructor</span>(initialValue) {
+        <span class="hljs-keyword">this</span>.value = initialValue;
+    }
+
+    increment() {
+        setTimeout(() =&gt; {
+            <span class="hljs-comment">// `this` is bound to the value of current context</span>
+            <span class="hljs-keyword">this</span>.value++;
+        }, <span class="hljs-number">100</span>);
+    }
+}</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
     <section class="slide-content"><h3 id="klasy">Klasy</h3>
 <ul>
 <li>dziedziczenie oparte na prototypach</li>
@@ -815,19 +863,12 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
         <span class="hljs-keyword">this</span>.y = y;
     }
 
-    distance() {
-        reutrn <span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-built_in">Math</span>.pow(<span class="hljs-keyword">this</span>.x, <span class="hljs-number">2</span>) + <span class="hljs-built_in">Math</span>.pow(<span class="hljs-keyword">this</span>.y, <span class="hljs-number">2</span>));
-    }
-
     toString() {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`x = <span class="hljs-subst">${this.x}</span>, y = <span class="hljs-subst">${this.y}</span>`</span>;
     }
 }
 
 <span class="hljs-keyword">let</span> p = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
-
-<span class="hljs-built_in">console</span>.log(p.distance());      
-<span class="hljs-comment">// 5</span>
 
 <span class="hljs-built_in">console</span>.log(p.toString());      
 <span class="hljs-comment">// x = 3, y = 4</span>
@@ -865,37 +906,9 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 <span class="hljs-comment">// x = 0, y = 0, color = black</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-14">
+  <div class="slide hidden" id="slide-12">
     <section class="slide-content"><h3 id="modu-y">Moduły</h3>
-<h4 id="named-exports">Named exports</h4>
-<pre><code class="lang-js"><span class="hljs-comment">// math.js</span>
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> PI = <span class="hljs-number">3.14</span>;
-
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">square</span>(<span class="hljs-params">x</span>) </span>{
-    <span class="hljs-keyword">return</span> x * x;
-}</code></pre>
-<pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
-
-<span class="hljs-keyword">import</span> { square, PI } <span class="hljs-keyword">from</span> <span class="hljs-string">'./math'</span>;
-
-<span class="hljs-built_in">console</span>.log(PI);
-<span class="hljs-comment">// 3.14</span>
-<span class="hljs-built_in">console</span>.log(square(<span class="hljs-number">8</span>));
-<span class="hljs-comment">// 64</span></code></pre>
-<pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
-
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> math <span class="hljs-keyword">from</span> <span class="hljs-string">'./math'</span>;
-
-<span class="hljs-built_in">console</span>.log(maths.PI);
-<span class="hljs-comment">// 3.14</span>
-<span class="hljs-built_in">console</span>.log(maths.square(<span class="hljs-number">8</span>));
-<span class="hljs-comment">// 64</span></code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-15">
-    <section class="slide-content"><h3 id="modu-y">Moduły</h3>
-<h4 id="default-exports">Default exports</h4>
+<h4 id="eksport-domy-lny">Eksport domyślny</h4>
 <pre><code class="lang-js"><span class="hljs-comment">// square.js</span>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">square</span>(<span class="hljs-params">x</span>) </span>{
@@ -903,14 +916,52 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 }</code></pre>
 <pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
 
-<span class="hljs-keyword">import</span> square <span class="hljs-keyword">from</span> <span class="hljs-string">'./square'</span>;
+<span class="hljs-keyword">import</span> sq <span class="hljs-keyword">from</span> <span class="hljs-string">'./square'</span>;
 
-<span class="hljs-built_in">console</span>.log(square(<span class="hljs-number">8</span>));                     <span class="hljs-comment">// 64</span></code></pre>
-<p><a href="http://www.2ality.com/2014/09/es6-modules-final.html">ECMAScript 6 modules: the final syntax</a></p>
+<span class="hljs-built_in">console</span>.log(sq(<span class="hljs-number">8</span>));
+<span class="hljs-comment">// 64</span></code></pre>
+<h4 id="eksport-nazwany">Eksport nazwany</h4>
+<pre><code class="lang-js"><span class="hljs-comment">// lib.js</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> PI = <span class="hljs-number">3.14</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">square</span>(<span class="hljs-params">x</span>) </span>{
+    <span class="hljs-keyword">return</span> x * x;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span> </span>{
+    <span class="hljs-keyword">constructor</span>(x, y, r) {
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.y = y;
+        <span class="hljs-keyword">this</span>.r = r;
+    }
+}</code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
+
+<span class="hljs-keyword">import</span> { square, PI, Circle } <span class="hljs-keyword">from</span> <span class="hljs-string">'./lib'</span>;
+
+<span class="hljs-built_in">console</span>.log(PI);
+<span class="hljs-comment">// 3.14</span>
+<span class="hljs-built_in">console</span>.log(square(<span class="hljs-number">8</span>));
+<span class="hljs-comment">// 64</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">new</span> Circle(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>));
+<span class="hljs-comment">// { x: 3, y: 4, r: 5 }</span></code></pre>
+<pre><code class="lang-js"><span class="hljs-comment">// main.js</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> lib <span class="hljs-keyword">from</span> <span class="hljs-string">'./lib'</span>;
+
+<span class="hljs-built_in">console</span>.log(lib.PI);
+<span class="hljs-comment">// 3.14</span>
+<span class="hljs-built_in">console</span>.log(lib.square(<span class="hljs-number">8</span>));
+<span class="hljs-comment">// 64</span></code></pre>
+<h4 id="dobra-praktyka">Dobra praktyka</h4>
+<p><strong>Eksport nazwany</strong> wymusza używanie dokładnej nazwy klasy, co pomaga w utrzymaniu spójności kodu.</p>
+<p><a href="http://www.2ality.com/2014/09/es6-modules-final.html">ECMAScript 6 modules: the final syntax @ 2ality</a></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-16">
+  <div class="slide hidden" id="slide-13">
     <section class="slide-content"><h3 id="promise">Promise</h3>
+<p>Obsługa wywołań asynchronicznych.</p>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetch</span>(<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>((resolve, reject) =&gt; {
         request
@@ -933,18 +984,18 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 }</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-17">
+  <div class="slide hidden" id="slide-14">
     <section class="slide-content"><h1 id="react">React</h1>
 <p><img src="images/react-logo.png" width="200" /></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-18">
+  <div class="slide hidden" id="slide-15">
     <section class="slide-content"><h3 id="przydatne-linki">Przydatne linki</h3>
 <p><a href="http://codepen.io/pawelwieladek/pen/BjGNxX/?editors=0010">CodePen</a></p>
 <p><a href="https://facebook.github.io/react/docs/getting-started.html">React Docs</a></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-19">
+  <div class="slide hidden" id="slide-16">
     <section class="slide-content"><h3 id="dlaczego-react-">Dlaczego React?</h3>
 <h4 id="tylko-ui">Tylko UI</h4>
 <p>Najważniejszym celem jest renderowanie. Pozostałe elementy aplikacji można dowolnie skonfigurować. </p>
@@ -954,50 +1005,40 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 <p>Dodatkowa warstwa abstrakcji nad DOM upraszcza komunikację z przeglądarką.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-20">
+  <div class="slide hidden" id="slide-17">
     <section class="slide-content"><h3 id="komponenty">Komponenty</h3>
-<ul>
-<li><p>Layout podzielony na małe kawałki - <strong>komponenty</strong></p>
-</li>
-<li><p>Komponenty składają się z innych komponentów tworząc <strong>drzewo komponentów</strong></p>
-</li>
-<li><p>Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty (<strong>Single Responsibility Principle</strong>)</p>
-</li>
-<li><p>Mały komponent jest łatwy do <strong>zrozumienia</strong>, <strong>utrzymania</strong> i <strong>testowania</strong></p>
-</li>
-</ul>
+<p>Każdy komponent, z którego składa się layout aplikacji to niezależny klocek.
+Komponenty składają się z innych komponentów tworząc <strong>drzewo komponentów</strong></p>
+<h4 id="single-responsibility-principle">Single Responsibility Principle</h4>
+<p>Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty.
+Mały komponent jest łatwy do <strong>zrozumienia</strong>, <strong>utrzymania</strong> i <strong>testowania</strong>.</p>
+<p><img src="images/components-layout.svg" width="800" /></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-21">
+  <div class="slide hidden" id="slide-18">
     <section class="slide-content"><h3 id="virtual-dom">Virtual DOM</h3>
-<ul>
-<li><p>Operacje na DOM są kosztowne</p>
-</li>
-<li><p>Rozwiązaniem jest wirtualne drzewo komponentów (<strong>Virtual DOM</strong>)</p>
-</li>
-<li><p>Podczas renderowania React porównuje stare i nowe drzewo i <strong>modyfikuje tylko niezbędne elementy w DOM</strong></p>
-</li>
-<li><p>Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność <em>O(n<sup>3</sup>)</em></p>
-</li>
-<li><p>React używa kilku heurystyk optymalizując złożoność do <em>O(n)</em></p>
-</li>
-</ul>
+<p><strong>Operacje na DOM są kosztowne</strong>.</p>
+<p>Zamiast operować na poszczególnych elementach DOM, React tworzy wirtualne drzewo komponentów (<strong>Virtual DOM</strong>), wykrywa zmiany i podmienia drzewo.</p>
+<p><img src="images/virtual-dom.svg" width="600" /></p>
+<p>Podczas renderowania React porównuje stare i nowe drzewo i <strong>modyfikuje tylko niezbędne elementy w DOM</strong>.
+Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność <em>O(n<sup>3</sup>)</em></p>
+<p>React używa kilku heurystyk optymalizując złożoność do <em>O(n)</em>.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-22">
+  <div class="slide hidden" id="slide-19">
     <section class="slide-content"><h3 id="diff-algorithm">Diff algorithm</h3>
 <h4 id="klasy-komponent-w">Klasy komponentów</h4>
 <p>Dwa komponenty o różnych klasach na tych samych miejscach w drzewie są różne.</p>
-<p><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/3.png" alt="Components" title="Components"></p>
+<p><img src="images/react-diff-class.svg" width="600" /></p>
 <h4 id="listy">Listy</h4>
 <p>Komponenty są porównywane za pomocą podanych kluczy.</p>
-<p><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/2.png" alt="List" title="List"></p>
+<p><img src="images/react-diff-list.svg" width="600" /></p>
 <h4 id="poziom-po-poziomie">Poziom po poziomie</h4>
 <p>Porównywane są komponenty tylko z tych samych poziomów.</p>
-<p><img src="http://calendar.perfplanet.com/wp-content/uploads/2013/12/vjeux/1.png" alt="Level by Level" title="Level by Level"></p>
+<p><img src="images/react-diff-levels.svg" width="600" /></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-23">
+  <div class="slide hidden" id="slide-20">
     <section class="slide-content"><h3 id="punkt-wej-cia-aplikacji">Punkt wejścia aplikacji</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// &lt;div id="main"&gt;&lt;/div&gt;</span>
 
@@ -1008,7 +1049,7 @@ Exp.prototype.calculate = <span class="hljs-function"><span class="hljs-keyword"
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.querySelector('#main'));</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-24">
+  <div class="slide hidden" id="slide-21">
     <section class="slide-content"><h3 id="przyk-adowy-komponent">Przykładowy komponent</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
@@ -1036,33 +1077,50 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
 });</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-25">
+  <div class="slide hidden" id="slide-22">
     <section class="slide-content"><h3 id="jsx">JSX</h3>
-<h4 id="input">Input</h4>
+<p>Tag <code>&lt;div&gt;</code> tworzy instancję klasy <code>div</code>.</p>
+<p><code>ReactDOM</code> implementuje wszystkie tagi HTML wraz z odpowiednimi atrybutami jako pochodne klasy <code>React.Component</code>.</p>
+<h4 id="przyk-ad">Przykład</h4>
+<h5 id="input">Input</h5>
 <pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Nav</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">Header</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"primary"</span>&gt;</span>Hello world<span class="hljs-tag">&lt;/<span class="hljs-name">Header</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">active</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">Logo</span> /&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">Nav</span>&gt;</span></code></pre>
-<h4 id="output">Output</h4>
+<h5 id="output">Output</h5>
 <pre><code class="lang-js">React.createElement(Nav, <span class="hljs-literal">null</span>,
     React.createElement(Header, { className: <span class="hljs-string">"primary"</span> }, <span class="hljs-string">"Hello world"</span>),
     React.createElement(Link, { active: <span class="hljs-literal">true</span> }, <span class="hljs-string">"Home"</span>),
     React.createElement(Logo, <span class="hljs-literal">null</span>),
 );</code></pre>
+<h4 id="uwaga">Uwaga</h4>
+<p>Dowolny kod JavaScript może być umieszczony wewnątrz nawiasów <code>{ }</code>.</p>
+<h4 id="warto-atrybutu-typu-string-">Wartość atrybutu typu <em>string</em></h4>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"container"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></code></pre>
+<h4 id="warto-atrybutu-typu-boolean-">Wartość atrybutu typu <em>boolean</em></h4>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">disabled</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
+<h4 id="dowolna-warto-atrybutu">Dowolna wartość atrybutu</h4>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">cols</span>=<span class="hljs-string">{6}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{this.handleChange}</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span></code></pre>
+<h4 id="-self-closing-tag-"><em>Self-closing tag</em></h4>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"XYZ"</span> /&gt;</span></code></pre>
+<h4 id="spread">Spread</h4>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> props = {
+    title,
+    onClick
+};</code></pre>
+<p>then</p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Component</span> {<span class="hljs-attr">...props</span>} /&gt;</span></code></pre>
+<p>is equal to</p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Component</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{title}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{onClick}</span> /&gt;</span></code></pre>
+<h4 id="wa-ne">Ważne</h4>
+<p>JSX nie jest częścią języka JavaScript w żadnej wersji (w tym ES6), dlatego do poprawnego działania w przeglądarce potrzebny jest kod po transpilacji.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-26">
+  <div class="slide hidden" id="slide-23">
     <section class="slide-content"><h3 id="props">Props</h3>
-<ul>
-<li><p>Dane komponentu na wejściu</p>
-</li>
-<li><p><strong>Jednokierunkowy przepływ danych</strong> z góry do dołu drzewa komponentów</p>
-</li>
-<li><p>Dostępne za pomocą <code>this.props</code></p>
-</li>
-</ul>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> Hello = React.createClass({
+<p><em>Props</em> to <strong>dane wejściowe</strong> komponentu.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> Hello = React.createClass({
     render() {
         <span class="hljs-keyword">return</span> (
             <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, {this.props.name}!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
@@ -1073,17 +1131,13 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Hello</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Pawel"</span> /&gt;</span>, document.querySelector('#main'));</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-27">
+  <div class="slide hidden" id="slide-24">
     <section class="slide-content"><h3 id="state">State</h3>
-<ul>
-<li><p>Każdy komponent może mieć swój <strong>stan</strong>.</p>
-</li>
-<li><p>Stan powinien być modyfikowany tylko za pomocą metody <code>setState</code>. Wywoływanie <code>setState</code> wyzwala przerenderowanie komponentu i wszystkich jego dzieci.</p>
-</li>
-</ul>
+<p>Każdy komponent może mieć swój <strong>stan</strong>.</p>
+<p>Stan powinien być modyfikowany tylko za pomocą metody <code>setState</code>. </p>
+<p>Wywoływanie <code>setState</code> wyzwala przerenderowanie komponentu i wszystkich jego dzieci.</p>
 <pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
-
-React.createClass({
+<span class="hljs-keyword">const</span> Counter = React.createClass({
     getInitialState() {
         <span class="hljs-keyword">return</span> {
             count: <span class="hljs-number">5</span>
@@ -1096,8 +1150,7 @@ React.createClass({
     }
 });</code></pre>
 <pre><code class="lang-js"><span class="hljs-comment">// ES6</span>
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CountComponent</span> </span>{
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> </span>{
     <span class="hljs-keyword">constructor</span>() {
         <span class="hljs-keyword">this</span>.state = {
             count: <span class="hljs-number">5</span>
@@ -1112,22 +1165,19 @@ React.createClass({
 });</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-28">
-    <section class="slide-content"><h3 id="props-vs-state">Props vs State</h3>
-<ul>
-<li><p>O komponentach można myśleć jak o <strong>maszynach stanu</strong></p>
-</li>
-<li><p>Jak najwięcej komponentów powinno być <strong>bezstanowych</strong></p>
-</li>
-<li><p>Dobra praktyka: Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci powinny używać tylko propsów do wyrenderowania.</p>
-</li>
-</ul>
-<p><img src="./images/unidirectional-flow.png" alt="Unidirectional flow" title="Unidirectional flow"></p>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="przep-yw-danych">Przepływ danych</h3>
+<p>Komponent to <strong>funkcja dwóch zmiennych zmiennych</strong>: <em>props</em> i <em>state</em> zwracająca wynik renderowania - drzewo węzłów DOM.</p>
+<p>Przepływ danych jest <strong>jednokierunkowy</strong> - od góry do dołu drzewa komponentów.</p>
+<h4 id="dobre-praktyki">Dobre praktyki</h4>
+<p>Jak najwięcej komponentów powinno być <strong>bezstanowych</strong>.</p>
+<p>Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci do wyrenderowania powinny używać wyłącznie propsów.</p>
+<p><img src="images/top-down.svg" alt="Jednokierunkowy przepływ danych" width="800" /></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-29">
-    <section class="slide-content"><h3 id="interaktywny-ui">Interaktywny UI</h3>
-<pre><code class="lang-js">React.createClass({
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="events">Events</h3>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> Counter = React.createClass({
     getInitialState() {
         <span class="hljs-keyword">return</span> {
             count: <span class="hljs-number">5</span>
@@ -1144,13 +1194,20 @@ React.createClass({
         )</span>;
     }
 });</code></pre>
-<p><strong>Autobinding:</strong> Każda funkcja ma automatycznie dowiązany kontekst <code>this</code></p>
-<p><strong>Dobra praktyka:</strong> Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.</p>
+<h4 id="dobra-praktyka">Dobra praktyka</h4>
+<p>Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.</p>
+<h4 id="autobinding">Autobinding</h4>
+<p>Metody komponentu utworzonego poprzez <code>createClass</code> mają <strong>automatycznie dowiązany kontekst <code>this</code></strong>.</p>
+<p>Tworząc komponent za pomocą dziedzieczenia po klasie <code>Component</code> należy pamiętać o <strong>ręcznym dowiązaniu kontekstu do funkcji</strong>, które nie należą do specyfikacji komponentu.</p>
+<p>Najprostszy sposób to zamiast tworzenia metody metody, <strong>utworzenie pola, które jest funkcją lambda</strong>.</p>
+<pre><code class="lang-js">handleClick: (event) =&gt; {
+    event.stopPropagation();
+}</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-30">
-    <section class="slide-content"><h3 id="state-z-e-praktyki">State: złe praktyki</h3>
-<h4 id="przypisywanie-props-do-stanu">Przypisywanie <code>props</code> do stanu</h4>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="z-e-praktyki">Złe praktyki</h3>
+<h4 id="przepisywanie-warto-ci-props-">Przepisywanie wartości <code>props</code></h4>
 <pre><code class="lang-js"><span class="hljs-comment">// so bad!</span>
 getInitialState() {
     <span class="hljs-keyword">return</span> {
@@ -1173,7 +1230,7 @@ render() {
         <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>{fullName}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     )</span>;
 }</code></pre>
-<h4 id="komponenty-jako-zawarto-stanu">Komponenty jako zawartość stanu</h4>
+<h4 id="przetrzymywanie-komponent-w-w-stanie">Przetrzymywanie komponentów w stanie</h4>
 <pre><code class="lang-js"><span class="hljs-comment">// so bad!</span>
 showForm() {
     <span class="hljs-keyword">this</span>.setState({
@@ -1203,145 +1260,104 @@ render() {
 }</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-31">
+  <div class="slide hidden" id="slide-28">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
-<ol>
-<li><p>Montowanie</p>
-</li>
-<li><p>Modyfikacja</p>
-</li>
-<li><p>Odmontowanie</p>
-</li>
-</ol>
+<p><img src="images/component-lifecycle.svg" alt="Component Lifecycle" width="600" /></p>
 <p><a href="https://facebook.github.io/react/docs/component-specs.html">Component Specs and Lifecycle reference</a></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-32">
-    <section class="slide-content"><h3 id="-render-"><code>render</code></h3>
+<h3 id="-render-"><code>render</code></h3>
 <ul>
-<li><p>Jedyna wymagana metoda</p>
+<li><p><strong>Wymagana metoda</strong> (jedyna).</p>
 </li>
-<li><p>Może zwracać <code>null</code>, <code>false</code> lub <code>undefined</code> jeżeli nie chcemy nic nie renderować</p>
+<li><p>Może zwracać <code>null</code> lub <code>false</code> jeżeli komponent ma nic nie renderować.</p>
 </li>
-<li><p>Konstruuje poddrzewo komponentów, dlatego musi zawierać tylko jeden węzeł korzenia</p>
+<li><p>Musi zawierać dokładnie jeden węzeł korzenia zwracanego drzewa.</p>
 </li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-33">
-    <section class="slide-content"><h3 id="-getinitialstate-"><code>getInitialState</code></h3>
+<h3 id="mount">Mount</h3>
+<h3 id="-getinitialstate-"><code>getInitialState</code></h3>
 <pre><code class="lang-js">object getInitialState()</code></pre>
 <ul>
 <li><p>Wywoływana raz, przed zamontowaniem komponentu.</p>
 </li>
-<li><p>Zwraca początkową wartość dostępną w <code>this.state</code> podczas pierwszego renderowania</p>
+<li><p>Zwraca początkową wartość dostępną w <code>this.state</code> podczas pierwszego renderowania.</p>
 </li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-34">
-    <section class="slide-content"><h3 id="-getdefaultprops-"><code>getDefaultProps</code></h3>
+<h3 id="-getdefaultprops-"><code>getDefaultProps</code></h3>
 <pre><code class="lang-js">object getDefaultProps()</code></pre>
 <ul>
-<li><p>Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy</p>
+<li><p>Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy.</p>
 </li>
-<li><p>Zwraca domyślne wartości dostępne w <code>this.props</code> jeżeli nie zostaną podane podczas tworzenia instancji komponentu</p>
+<li><p>Zwraca domyślne wartości dostępne w <code>this.props</code> jeżeli nie zostaną podane podczas tworzenia instancji komponentu.</p>
 </li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-35">
-    <section class="slide-content"><h3 id="-componentwillmount-"><code>componentWillMount</code></h3>
+<h3 id="-componentwillmount-"><code>componentWillMount</code></h3>
 <pre><code class="lang-js"><span class="hljs-keyword">void</span> componentWillMount()</code></pre>
 <ul>
-<li>Wywoływana raz, tuż przed pierwszym renderowaniem komponentu</li>
+<li>Wywoływana raz, tuż przed pierwszym renderowaniem komponentu.</li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-36">
-    <section class="slide-content"><h3 id="-componentdidmount-"><code>componentDidMount</code></h3>
+<h3 id="-componentdidmount-"><code>componentDidMount</code></h3>
 <pre><code class="lang-js"><span class="hljs-keyword">void</span> componentDidMount()</code></pre>
 <ul>
-<li><p>Wywoływana raz, tuż po pierwszym renderowaniu komponentu</p>
-</li>
-<li><p>Miejsce na integrację z innymi bibliotekami np. jQuery, D3 oraz wysyłanie requestów</p>
-</li>
+<li>Wywoływana raz, tuż po pierwszym renderowaniu komponentu.</li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-37">
-    <section class="slide-content"><h3 id="-componentwillreceiveprops-"><code>componentWillReceiveProps</code></h3>
+<h4 id="dobra-praktyka">Dobra praktyka</h4>
+<p>Miejsce na integrację z innymi bibliotekami np. jQuery, D3 oraz wysyłanie requestów.</p>
+<h3 id="update">Update</h3>
+<h3 id="-componentwillreceiveprops-"><code>componentWillReceiveProps</code></h3>
 <pre><code class="lang-js"><span class="hljs-keyword">void</span> componentWillReceiveProps(
   object nextProps
 )</code></pre>
 <ul>
-<li><p>Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych przed komponent</p>
+<li><p>Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych.</p>
 </li>
-<li><p>Nie wywoływana podczas pierwszego renderowania</p>
+<li><p>Nie wywoływana podczas pierwszego renderowania.</p>
 </li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-38">
-    <section class="slide-content"><h3 id="-shouldcomponentupdate-"><code>shouldComponentUpdate</code></h3>
+<h3 id="-shouldcomponentupdate-"><code>shouldComponentUpdate</code></h3>
 <pre><code class="lang-js">boolean shouldComponentUpdate(
   object nextProps, object nextState
 )</code></pre>
 <ul>
-<li><p>Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan</p>
+<li><p>Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan.</p>
 </li>
-<li><p>Nie wywoływana podczas pierwszego renderowania</p>
+<li><p>Nie wywoływana podczas pierwszego renderowania.</p>
 </li>
-<li><p>Jeżeli zwróci <code>false</code> to nie zostaną wywołane metody <code>render</code>, <code>componentWillUpdate</code> oraz <code>componentDidUpdate</code></p>
+<li><p>Jeżeli zwróci <code>false</code> to nie zostaną wywołane metody <code>render</code>, <code>componentWillUpdate</code> oraz <code>componentDidUpdate</code>.</p>
 </li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-39">
-    <section class="slide-content"><h3 id="-componentwillupdate-"><code>componentWillUpdate</code></h3>
+<h3 id="-componentwillupdate-"><code>componentWillUpdate</code></h3>
 <pre><code class="lang-js"><span class="hljs-keyword">void</span> componentWillUpdate(
   object nextProps, object nextState
 )</code></pre>
 <ul>
-<li><p>Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem</p>
+<li><p>Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem.</p>
 </li>
-<li><p>Nie wywoływana podczas pierwszego renderowania</p>
+<li><p>Nie wywoływana podczas pierwszego renderowania.</p>
 </li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-40">
-    <section class="slide-content"><h3 id="-componentdidupdate-"><code>componentDidUpdate</code></h3>
+<h3 id="-componentdidupdate-"><code>componentDidUpdate</code></h3>
 <pre><code class="lang-js"><span class="hljs-keyword">void</span> componentDidUpdate(
   object prevProps, object prevState
 )</code></pre>
 <ul>
-<li><p>Wywoływana tuż po zaaplikowaniu zmian w DOM</p>
+<li><p>Wywoływana tuż po zaaplikowaniu zmian w DOM.</p>
 </li>
-<li><p>Nie wywoływana podczas pierwszego renderowania</p>
+<li><p>Nie wywoływana podczas pierwszego renderowania.</p>
 </li>
 </ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-41">
-    <section class="slide-content"><h3 id="-componentwillunmount-"><code>componentWillUnmount</code></h3>
+<h3 id="unmount">Unmount</h3>
+<h3 id="-componentwillunmount-"><code>componentWillUnmount</code></h3>
 <pre><code class="lang-js"><span class="hljs-keyword">void</span> componentWillUnmount()</code></pre>
 <ul>
-<li><p>Wywoływana tuż przed odmontowaniem komponentu</p>
-</li>
-<li><p>Miejsce na cleanup</p>
-</li>
+<li>Wywoływana tuż przed odmontowaniem komponentu.</li>
 </ul>
+<h4 id="dobra-praktyka">Dobra praktyka</h4>
+<p>Miejsce na cleanup.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-42">
+  <div class="slide hidden" id="slide-29">
     <section class="slide-content"><h3 id="dynamiczne-komponenty">Dynamiczne komponenty</h3>
-<ul>
-<li><p>Każdy dynamiczny komponent powinien zawierać unikalny klucz <code>key</code></p>
-</li>
-<li><p>Jeżeli klucz komponentu w danym miejscu w drzewie ulegnie zmianie to komponent zostaje odmontowany</p>
-</li>
-</ul>
+<p>Każdy dynamicznie tworzony komponent powinien zawierać unikalny klucz <code>key</code>, aby React mógł w optymalny sposób porównać drzewa komponentów.</p>
 <pre><code class="lang-js">render() {
     <span class="hljs-keyword">let</span> results = <span class="hljs-keyword">this</span>.props.results.map(result =&gt; {
         <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{result.id}</span>&gt;</span>{result.text}<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>;</span>
@@ -1352,39 +1368,13 @@ render() {
         <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
     )</span>;
 }</code></pre>
+<h4 id="dobra-praktyka">Dobra praktyka</h4>
+<p>Dobór klucza dla dynamicznych komponentów nie jest trywialny. Klucz powinien być unikalny, dlatego renderowany model powinien dostarczać swój unikalny id.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-43">
-    <section class="slide-content"><h3 id="mixins">Mixins</h3>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> AuthMixin = {
-    componentDidMount() {
-        <span class="hljs-keyword">if</span> (!authorized()) {
-            <span class="hljs-comment">// redirect to login page...</span>
-        }
-    },
-    authorized() {
-        <span class="hljs-comment">// do some OAuth...</span>
-    }
-};
-
-<span class="hljs-keyword">const</span> Page = React.createClass({
-    mixins: [ AuthMixin ],
-    render() {
-        <span class="hljs-keyword">return</span> (
-            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>You are {authorized() ? 'authorized' : 'not authorized'}<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        )</span>;
-    }
-});</code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-44">
-    <section class="slide-content"><h3 id="props-types">Props types</h3>
-<ul>
-<li><p>Walidacja danych wejściowych komponentu</p>
-</li>
-<li><p>Bardzo przydatne przy dużych aplikacjach</p>
-</li>
-</ul>
+  <div class="slide hidden" id="slide-30">
+    <section class="slide-content"><h3 id="-proptypes-"><em>PropTypes</em></h3>
+<p>Walidacja danych wejściowych komponentu.</p>
 <pre><code class="lang-js">React.createClass({
     propTypes: {
         name: React.PropTypes.string,
@@ -1404,81 +1394,338 @@ render() {
         )</span>;
     }
 });</code></pre>
-<p><a href="https://facebook.github.io/react/docs/reusable-components.html">Prop Types reference</a></p>
+<h4 id="dobra-praktyka">Dobra praktyka</h4>
+<p>Każdy element <code>this.props</code> powinien zostać zwalidowany w <code>propsTypes</code>.</p>
+<p>Walidacja danych wejściowych powinna być <strong>wyłączona</strong> na produkcji, ponieważ istotnie spowalnia renderowanie strony.</p>
+<p><a href="https://facebook.github.io/react/docs/reusable-components.html">Prop Types reference @ React Docs</a></p>
+<p><a href="http://benchling.engineering/performance-engineering-with-react/">Performance Engineering with React</a></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-45">
+  <div class="slide hidden" id="slide-31">
     <section class="slide-content"><h3 id="referencje">Referencje</h3>
-<ul>
-<li><p>Za pomocą atrybutu <code>ref</code> można przechować referencję do instancji komponentu potomnego</p>
-</li>
-<li><p>Referencje są dostępne w <code>this.refs</code></p>
-</li>
-</ul>
+<p>Za pomocą atrybutu <code>ref</code> można przechować referencję do komponentów potomnych.</p>
 <pre><code class="lang-js">getValue() {
     <span class="hljs-keyword">return</span> ReactDOM.findDOMNode(<span class="hljs-keyword">this</span>.refs.input).value;
 },
 render() {
     <span class="hljs-keyword">return</span> (
-        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"input"</span> /&gt;</span>
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"input"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
     )</span>;
 }</code></pre>
+<p>Referencje wykorzystuje się do integracji komponentu z bibliotekami, które wymagają elementów DOM np. jQuery lub d3.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> list = ReactDOM.findDOMNode(<span class="hljs-keyword">this</span>.refs.list);
+d3.select(list);</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-46">
-    <section class="slide-content"><h3 id="uncontrolled-component">Uncontrolled Component</h3>
+  <div class="slide hidden" id="slide-32">
+    <section class="slide-content"><h3 id="style-i-klasy-css">Style i klasy CSS</h3>
+<p>Komponenty DOM udostępniają dwa atrybuty do obsługi styli: <code>classNames</code> oraz <code>style</code>.</p>
+<p>Atrybut <code>classNames</code> przyjmuje stringa z nazwami klas, podobnie jak w HTML.</p>
+<p>Pomocną biblioteką do obsługi klas CSS jest pakiet <a href="https://github.com/JedWatson/classnames">classnames</a>.</p>
+<p>Atrybut <code>style</code> przyjmuje obiekt z polami odpowiednimi dla właściwości CSS.</p>
+<pre><code class="lang-js">&lt;div 
+    style={{
+        color: <span class="hljs-string">'red'</span>,
+        borderWidth: <span class="hljs-number">10</span>,
+        textDecoration: <span class="hljs-string">'underline'</span>
+    }}&gt;
+<span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-33">
+    <section class="slide-content"><h3 id="-uncontrolled-component-"><em>Uncontrolled Component</em></h3>
 <ul>
-<li><p>Komponent ma swój stan</p>
+<li><p>Komponent stanowy</p>
 </li>
-<li><p>Stan komponentu może być dostępny na zewnątrz</p>
+<li><p>Nie ma możliwości zmiany prezentowanej wartości z zewnątrz</p>
 </li>
 </ul>
-<h3 id="controlled-component">Controlled Component</h3>
+<h3 id="-controlled-component-"><em>Controlled Component</em></h3>
 <ul>
-<li><p>Komponent nie ma stanu</p>
+<li><p>Komponent bezstanowy</p>
 </li>
-<li><p>Udostępnia dane za pomocą <em>event handlers</em> np. <code>onChange</code></p>
+<li><p>Wartość musi zostać obsłużona w stanie jednego z komponentów nadrzędnych</p>
 </li>
-<li><p>Dane muszą zostać obsłużone przez komponent nadrzędny</p>
+<li><p>Pełna kontrola nad prezentowaną wartością</p>
 </li>
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-47">
-    <section class="slide-content"><h3 id="uncontrolled-component">Uncontrolled Component</h3>
-<p><p data-height="500" data-theme-id="0" data-slug-hash="YwRXJd" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/YwRXJd/'>React Uncontrolled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+  <div class="slide hidden" id="slide-34">
+    <section class="slide-content"><h3 id="-uncontrolled-component-"><em>Uncontrolled Component</em></h3>
+<p><p data-height="500" data-theme-id="0" data-slug-hash="YwRXJd" data-default-tab="js,result" data-user="pawelwieladek" data-embed-version="2" class="codepen">See the Pen <a href='http://codepen.io/pawelwieladek/pen/YwRXJd/'>React Uncontrolled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script></section>
   </div>
-  <div class="slide hidden" id="slide-48">
-    <section class="slide-content"><h3 id="controlled-component">Controlled Component</h3>
-<p><p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js" data-user="pawelwieladek" class='codepen'>See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
+  <div class="slide hidden" id="slide-35">
+    <section class="slide-content"><h3 id="-controlled-component-"><em>Controlled Component</em></h3>
+<p><p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js,result" data-user="pawelwieladek" data-embed-version="2" class="codepen">See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script></section>
   </div>
-  <div class="slide hidden" id="slide-49">
+  <div class="slide hidden" id="slide-36">
+    <section class="slide-content"><h3 id="komponent-jako-funkcja">Komponent jako funkcja</h3>
+<p>Jeżeli komponent nie ma swojego wewnętrznego stanu, ani nie nadpisuje metod z cyklu życia komponentu może być zapisany jako czysta funkcja.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> React, { PropTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">const</span> Todo = ({ onClick, completed, text }) =&gt; (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span>
+        <span class="hljs-attr">onClick</span>=<span class="hljs-string">{onClick}</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+            <span class="hljs-attr">textDecoration:</span> <span class="hljs-attr">completed</span> ? '<span class="hljs-attr">line-through</span>' <span class="hljs-attr">:</span> '<span class="hljs-attr">none</span>'
+        }}&gt;</span>
+        {text}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+)</span>;
+
+Todo.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    completed: PropTypes.bool.isRequired,
+    text: PropTypes.string.isRequired
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Todo;</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-37">
+    <section class="slide-content"><h3 id="testy-jednostkowe">Testy jednostkowe</h3>
+<ul>
+<li><a href="https://mochajs.org/"><strong>Mocha</strong></a> - test runner</li>
+<li><a href="http://chaijs.com/"><strong>Chai</strong></a> - TDD/BDD</li>
+<li><a href="http://sinonjs.org/"><strong>Sinon</strong></a> - spy, stub, mock</li>
+<li><a href="http://airbnb.io/enzyme/"><strong>Enzyme</strong></a> - React Component wrapper</li>
+</ul>
+<h4 id="source">Source</h4>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    <span class="hljs-keyword">constructor</span>(props) {
+        <span class="hljs-keyword">super</span>(props);
+        <span class="hljs-keyword">this</span>.state = {
+            value: <span class="hljs-keyword">this</span>.props.initialValue
+        };
+    }
+
+    static propTypes = {
+        initialValue: PropTypes.number
+    };
+
+    static defaultProps = {
+        initialValue: <span class="hljs-number">0</span>
+    };
+
+    increment = () =&gt; {
+        <span class="hljs-keyword">this</span>.setState({
+            value: <span class="hljs-keyword">this</span>.state.value + <span class="hljs-number">1</span>
+        });
+    };
+
+    reset = () =&gt; {
+        <span class="hljs-keyword">this</span>.setState({
+            value: <span class="hljs-keyword">this</span>.props.initialValue
+        });
+    };
+
+    render() {
+        <span class="hljs-keyword">return</span> (
+            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"value"</span>&gt;</span>{this.state.value}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"increment"</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.increment}</span>&gt;</span>Increment<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+                <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">"reset"</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.reset}</span>&gt;</span>Reset<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+        )</span>;
+    }
+}</code></pre>
+<p><a href="http://codepen.io/pawelwieladek/pen/vGvKXK">CodePen example</a></p>
+<h4 id="unit-tests">Unit tests</h4>
+<pre><code class="lang-js">describe(<span class="hljs-string">'&lt;Counter /&gt; should'</span>, () =&gt; {
+    it(<span class="hljs-string">'render header and two buttons'</span>, () =&gt; {
+        <span class="hljs-keyword">const</span> counter = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> /&gt;</span>)</span>;
+        expect(counter.find(<span class="hljs-string">'h1'</span>)).to.have.length(<span class="hljs-number">1</span>);
+        expect(counter.find(<span class="hljs-string">'button'</span>)).to.have.length(<span class="hljs-number">2</span>);
+    });
+
+    it(<span class="hljs-string">'render default value'</span>, () =&gt; {
+        <span class="hljs-keyword">const</span> counter = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> /&gt;</span>)</span>;
+        expect(counter.ref(<span class="hljs-string">'value'</span>).text()).equal(<span class="hljs-string">'0'</span>);
+    });
+
+    it(<span class="hljs-string">'render initial value'</span>, () =&gt; {
+        <span class="hljs-keyword">const</span> counter = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> <span class="hljs-attr">initialValue</span>=<span class="hljs-string">{3}</span> /&gt;</span>)</span>;
+        expect(counter.find(<span class="hljs-string">'h1'</span>).text()).equal(<span class="hljs-string">'3'</span>);
+    });
+
+    it(<span class="hljs-string">'increment value'</span>, () =&gt; {
+        <span class="hljs-keyword">const</span> counter = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> /&gt;</span>)</span>;
+        counter.find(<span class="hljs-string">'button'</span>).first().simulate(<span class="hljs-string">'click'</span>);
+        expect(counter.state().value).equal(<span class="hljs-number">1</span>);
+    });
+
+    it(<span class="hljs-string">'increment value multiple times'</span>, () =&gt; {
+        <span class="hljs-keyword">const</span> counter = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> /&gt;</span>)</span>;
+        counter.ref(<span class="hljs-string">'increment'</span>).simulate(<span class="hljs-string">'click'</span>);
+        counter.ref(<span class="hljs-string">'increment'</span>).simulate(<span class="hljs-string">'click'</span>);
+        counter.ref(<span class="hljs-string">'increment'</span>).simulate(<span class="hljs-string">'click'</span>);
+        expect(counter.ref(<span class="hljs-string">'value'</span>).text()).equal(<span class="hljs-string">'3'</span>);
+    });
+
+    it(<span class="hljs-string">'reset value to default value'</span>, () =&gt; {
+        <span class="hljs-keyword">const</span> counter = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> /&gt;</span>)</span>;
+        counter.ref(<span class="hljs-string">'increment'</span>).simulate(<span class="hljs-string">'click'</span>);
+        counter.ref(<span class="hljs-string">'reset'</span>).simulate(<span class="hljs-string">'click'</span>);
+        expect(counter.state().value).equal(<span class="hljs-number">0</span>);
+    });
+
+    it(<span class="hljs-string">'reset value to initial value'</span>, () =&gt; {
+        <span class="hljs-keyword">const</span> counter = mount(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Counter</span> <span class="hljs-attr">initialValue</span>=<span class="hljs-string">{3}</span> /&gt;</span>)</span>;
+        counter.find(<span class="hljs-string">'button'</span>).at(<span class="hljs-number">0</span>).simulate(<span class="hljs-string">'click'</span>);
+        counter.find(<span class="hljs-string">'button'</span>).at(<span class="hljs-number">1</span>).simulate(<span class="hljs-string">'click'</span>);
+        expect(counter.ref(<span class="hljs-string">'value'</span>).text()).equal(<span class="hljs-string">'3'</span>);
+    });
+});</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-38">
+    <section class="slide-content"><h3 id="mixin-dekorator">Mixin / Dekorator</h3>
+<h4 id="mixin">Mixin</h4>
+<p>Mixin może nadpisywać metody komponentu lub dodawać nowe metody do klasy.
+Nadpisane metody wykonywane są w kolejności występowania w tablicy <code>mixins</code>, a na końcu wykonuje się metoda z definicji klasy.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> LogMixin = {
+    componentDidMount() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Mixin log'</span>);
+    },
+
+    warn() {
+        <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">'Warning!'</span>);
+    }
+};
+
+<span class="hljs-keyword">const</span> Page = React.createClass({
+    mixins: [ LogMixin ],
+
+    componentDidMount() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Class log'</span>);
+        <span class="hljs-comment">// method `warn` from `LogMixin` is available here</span>
+        <span class="hljs-keyword">this</span>.warn();
+    }
+});
+
+<span class="hljs-comment">// 'Mixin log'</span>
+<span class="hljs-comment">// 'Class log'</span>
+<span class="hljs-comment">// 'Warning!'</span></code></pre>
+<h4 id="dekorator">Dekorator</h4>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">DecoratedComponent</span>) </span>{
+    <span class="hljs-keyword">const</span> componentDidMount = DecoratedComponent.prototype.componentDidMount;
+
+    DecoratedComponent.prototype.componentDidMount = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Decorator log'</span>);
+        componentDidMount.call(DecoratedComponent);
+    };
+}
+
+@log
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+    componentDidMount() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Class log'</span>);
+    }
+}
+
+<span class="hljs-comment">// 'Decorator log'</span>
+<span class="hljs-comment">// 'Class log'</span></code></pre>
+<h5 id="uwaga">Uwaga</h5>
+<p>Dekoratory nie są oficjalną częścią języka ES6, ani ES7. Prawdopodobnie wejdą w jednej z kolejnych iteracji.
+Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-39">
     <section class="slide-content"><h1 id="case-study">Case study</h1>
 </section>
   </div>
-  <div class="slide hidden" id="slide-50">
+  <div class="slide hidden" id="slide-40">
     <section class="slide-content"><p><img src="./images/wireframe.png" alt="Sample app" title="Sample app"></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-51">
+  <div class="slide hidden" id="slide-41">
     <section class="slide-content"><p><img src="./images/top-components.png" alt="Top level components" title="Top level components"></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-52">
+  <div class="slide hidden" id="slide-42">
     <section class="slide-content"><p><img src="./images/bottom-components.png" alt="Lower level components" title="Lower level components"></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-53">
+  <div class="slide hidden" id="slide-43">
     <section class="slide-content"><h1 id="flux">Flux</h1>
 </section>
   </div>
-  <div class="slide hidden" id="slide-54">
-    <section class="slide-content"><p><img src="./images/flux-diagram.png" alt="Flux" title="Flux"></p>
+  <div class="slide hidden" id="slide-44">
+    <section class="slide-content"><h3 id="flux">Flux</h3>
+<p><img src="images/flux.svg" width="600" /></p>
+<h4 id="view">View</h4>
+<p>Widok (np. <code>React.Component</code>) ma dostęp do stanu, ale <strong>nie może go modyfikować</strong>.
+Może natomiast wywoływać akcje.</p>
+<h4 id="action">Action</h4>
+<p>Akcja jest asynchroniczną porcją informacji mówiącej o tym co ma się wydarzyć (i z jakimi argumentami).</p>
+<h4 id="dispatcher">Dispatcher</h4>
+<p>Do niego trafiają wszystkie oddelegowane akcje. Zachowuje kolejność wywoływanych akcji.</p>
+<h4 id="store">Store</h4>
+<p>Główne źródło prawdy. Przetrzymuje i udostępnia informacje o stanie aplikacji. Wie jak dana akcja modyfikuje stan.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-55">
+  <div class="slide hidden" id="slide-45">
+    <section class="slide-content"><h3 id="facebook-flux">Facebook Flux</h3>
+<p><img src="images/flux-logo.svg" alt="Flux logo" width="200" /></p>
+<h4 id="za-o-enia">Założenia</h4>
+<ul>
+<li>Główna idea to <strong>wzorzec Obserwatora</strong>.</li>
+<li>Dispatcher jest singletonem.</li>
+<li>Store może mieć mutowalny stan.</li>
+</ul>
+<h4 id="przep-yw-danych">Przepływ danych</h4>
+<ul>
+<li>Dispatcher rejestruje akcje.</li>
+<li>Widok wywołuje akcję.</li>
+<li>Dispatcher deleguje akcje w odpowiedniej kolejności.</li>
+<li>Store nasłuchuje na wywołanie akcji i zmienia swój stan w odpowiedni dla danej akcji sposób. </li>
+<li>Widok nasłuchuje na Store (jeden lub więcej) i odczytuje z niego stan.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-46">
+    <section class="slide-content"><h3 id="redux">Redux</h3>
+<p><img src="images/redux-logo.png" alt="Redux logo" width="200" /></p>
+<h4 id="za-o-enia">Założenia</h4>
+<ul>
+<li>Głównym założeniem Reduxa jest <strong>przewidywalność</strong> przepływu danych.</li>
+<li>Stan jest niemutowalny.</li>
+<li>Jest jeden store.</li>
+<li>Store przechowuje stan całej aplikacji.</li>
+<li>Nie ma Dispatchera.</li>
+<li>Akcja to obiekt zawierający <strong>minimalną ilość danych reprezentującą to, co się zmieniło</strong></li>
+</ul>
+<pre><code class="lang-js">{
+    type: <span class="hljs-string">'ADD_ITEM'</span>,
+    item: {
+        id: <span class="hljs-number">1</span>
+    }
+}</code></pre>
+<ul>
+<li>Reducer to funkcja, która mapuje aktualny stan i akcję na zaktualizowany stan - <strong>reprezentuje jak akcja zmienia stan</strong>.</li>
+</ul>
+<pre><code class="lang-js">(state, action) =&gt; state</code></pre>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">items</span>(<span class="hljs-params">state = [], action</span>) </span>{
+    <span class="hljs-keyword">switch</span> (action.type) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_ITEM'</span>:
+            <span class="hljs-keyword">return</span> [ ...state, action.item ];
+        <span class="hljs-keyword">default</span>:
+            <span class="hljs-keyword">return</span> state;
+    }
+}</code></pre>
+<ul>
+<li>Reducer musi być czystą funkcją, bez efektów ubocznych.</li>
+<li>Reducery można łączyć, aby każdy z nich operował tylko na tej części stanu aplikacji, za którą jest odpowiedzialny.</li>
+</ul>
+<p><a href="http://redux.js.org/">Redux Docs</a></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-47">
     <section class="slide-content"><div class="author">
   <h1 class="name">Pawel Wieladek</h1>
     <h3 class="twitter">

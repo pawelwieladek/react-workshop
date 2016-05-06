@@ -26,8 +26,13 @@
     width: 1000px;
     height: auto;
     overflow: visible;
-    margin: 30px auto;
+    padding: 30px;
+    margin: 0 auto;
     font-size: 170%;
+}
+
+body {
+    padding: 0;
 }
 
 h3 {
