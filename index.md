@@ -12,14 +12,20 @@ progress: true
 
 # Szkolenie React
 
+<img src="images/react-logo.png" width="200" />
+
 --
 
 ### Agenda
 
 1. ES6
 2. React
-3. Case study (kodowanie)
+3. Case study (warsztaty)
 4. Flux
+
+[pawelwieladek.github.io/react-workshop/](http://pawelwieladek.github.io/react-workshop/)
+
+[http://tinyurl.com/szkolenie-react](http://tinyurl.com/szkolenie-react)
 
 --
 
@@ -31,7 +37,7 @@ progress: true
 
 ### Przydatne linki
 
-[JS Bin](http://jsbin.com/?js,console) - Playground (Zmień język na ES6 / Babel)
+[JS Bin](http://jsbin.com/?js,console) - Online REPL
 
 [Learn Babel](http://babeljs.io/docs/learn-es2015/) - Dokumentacja Babel
 
@@ -148,7 +154,7 @@ Więcej: [Template literals @ MDN](https://developer.mozilla.org/en-US/docs/Web/
 let name = 'Pawel';
 
 // ES5
-var me = { 
+var you = { 
     name: name
 };
 
@@ -165,7 +171,7 @@ console.log(me.name);
 
 ```js
 // ES5
-var me = {
+var you = {
     sayHello: function(name) {
         return 'Hi, ' + name;
     }
@@ -206,7 +212,7 @@ let me = {
     lastName: 'Wieladek',
     get greeting() {
         return `Hello, I'm ${this.firstName} ${this.lastName}`;
-    }
+    },
     set name(value) {
         this.firstName = value;
         this.counter++;
@@ -238,7 +244,7 @@ function createIconClassNames(name, size) {
     return {
         [`icon-${name}`]: !!name,
         [`icon-${size}`]: !!size
-    });
+    };
 }
 
 let iconClassNames = createIconClassNames('square', 'large');
@@ -263,8 +269,6 @@ console.log(c);
 // 3;
 ```
 
-#### *List matching* z pominięciem elementów
-
 ```js
 let [a, , c] = [1, 2, 3, 4];
 
@@ -284,6 +288,8 @@ function createPerson() {
     };
 }
 
+// later on...
+
 let { firstName, lastName } = createPerson();
 
 console.log(firstName);
@@ -292,16 +298,7 @@ console.log(lastName);
 // Wieladek
 ```
 
-#### *Object matching* ze zmianą nazwy
-
 ```js
-function createPerson() {
-    return { 
-        firstName: 'Pawel',
-        lastName: 'Wieladek'
-    };
-}
-
 let { firstName: f, lastName: l } = createPerson();
 
 console.log(f);
@@ -310,7 +307,26 @@ console.log(l);
 // Wieladek
 ```
 
-#### *Object matching* jako argument funkcji
+```js
+let response = {
+    status: 400, 
+    errors: [ 
+        { 
+            text: 'Bad Request', 
+            stack: '...' 
+        }
+    ]
+};
+
+let { status, errors: [ { text: message } ] } = response;
+
+console.log(status);
+// 400
+console.log({ message });
+// { message: 'Bad request' }
+```
+
+#### *Destructuring* jako argument funkcji
 
 ```js
 function sayHello({ first, last }) {
@@ -595,21 +611,18 @@ function fetch() {
         request
             .get('https://api.github.com/zen')
             .end((error, response) => {
-                if (error) reject();
+                if (error) {
+                    reject();
+                    return;
+                }
                 resolve(response);
             });
     });
 }
 
-function main() {
-    return fetch()
-        .then(response => {
-           console.log(response);
-        })
-        .catch(error => {
-           console.log(error);
-        });
-}
+fetch()
+    .then(response => console.log(response))
+    .catch(error => console.log(error));
 ```
 
 --
@@ -683,7 +696,7 @@ Dwa komponenty o różnych klasach na tych samych miejscach w drzewie są różn
 
 #### Listy
 
-Komponenty są porównywane za pomocą podanych kluczy.
+Komponenty porównywane są za pomocą przypisanych kluczy.
 
 <img src="images/react-diff-list.svg" width="600" />
 
@@ -808,13 +821,13 @@ const props = {
 };
 ```
 
-then
+wtedy
 
 ```xml
 <Component {...props} />
 ```
 
-is equal to
+jest równoznaczne z
 
 ```xml
 <Component title={title} onClick={onClick} />
@@ -896,13 +909,13 @@ Przepływ danych jest **jednokierunkowy** - od góry do dołu drzewa komponentó
 
 Jak najwięcej komponentów powinno być **bezstanowych**.
  
-Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci do wyrenderowania powinny używać wyłącznie propsów.
+Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci do wyrenderowania powinny używać wyłącznie danych wejściowych.
 
 <img src="images/top-down.svg" alt="Jednokierunkowy przepływ danych" width="800" />
 
 --
 
-### Events
+### Zdarzenia
 
 ```js
 const Counter = React.createClass({
@@ -934,12 +947,20 @@ Metody komponentu utworzonego poprzez ```createClass``` mają **automatycznie do
 
 Tworząc komponent za pomocą dziedzieczenia po klasie ```Component``` należy pamiętać o **ręcznym dowiązaniu kontekstu do funkcji**, które nie należą do specyfikacji komponentu.
 
-Najprostszy sposób to zamiast tworzenia metody metody, **utworzenie pola, które jest funkcją lambda**.
+```js
+constructor() {
+    this.handleClick = this.handleClick.bind(this);
+}
+```
 
 ```js
 handleClick: (event) => {
-    event.stopPropagation();
+    console.log(event);
 }
+```
+
+```js
+<button onClick={() => this.handleClick()} />
 ```
 
 --
@@ -1071,7 +1092,7 @@ void componentDidMount()
  
 #### Dobra praktyka
 
-Miejsce na integrację z innymi bibliotekami np. jQuery, D3 oraz wysyłanie requestów.
+Miejsce na integrację z innymi bibliotekami np. jQuery, D3.
 
 ### Update
 
@@ -1086,20 +1107,6 @@ void componentWillReceiveProps(
  - Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych.
  
  - Nie wywoływana podczas pierwszego renderowania.
-
-### ```shouldComponentUpdate```
-
-```js
-boolean shouldComponentUpdate(
-  object nextProps, object nextState
-)
-```
-
- - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan.
- 
- - Nie wywoływana podczas pierwszego renderowania.
- 
- - Jeżeli zwróci ```false``` to nie zostaną wywołane metody ```render```, ```componentWillUpdate``` oraz ```componentDidUpdate```.
 
 ### ```componentWillUpdate```
 
@@ -1124,6 +1131,20 @@ void componentDidUpdate(
  - Wywoływana tuż po zaaplikowaniu zmian w DOM.
  
  - Nie wywoływana podczas pierwszego renderowania.
+
+### ```shouldComponentUpdate```
+
+```js
+boolean shouldComponentUpdate(
+  object nextProps, object nextState
+)
+```
+
+ - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan.
+ 
+ - Nie wywoływana podczas pierwszego renderowania.
+ 
+ - Jeżeli zwróci ```false``` to nie zostaną wywołane metody ```render```, ```componentWillUpdate``` oraz ```componentDidUpdate```.
 
 ### Unmount
 
@@ -1171,8 +1192,8 @@ Walidacja danych wejściowych komponentu.
 ```js
 React.createClass({
     propTypes: {
-        name: React.PropTypes.string,
-        onClick: React.PropTypes.func.isRequired
+        name: React.PropTypes.string.isRequired,
+        onClick: React.PropTypes.func
     },
     getDefaultProps() {
         return {
