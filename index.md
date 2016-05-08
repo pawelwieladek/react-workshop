@@ -1512,6 +1512,16 @@ Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela.
 
 --
 
+### Project
+
+Clone repository from [GitHub](https://github.com/pawelwieladek/react-starter-kit)
+
+```
+git clone https://github.com/pawelwieladek/react-starter-kit.git
+```
+
+--
+
 # Flux
 
 --
