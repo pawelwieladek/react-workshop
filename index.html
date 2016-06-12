@@ -523,8 +523,7 @@ pre > code {
 <ol>
 <li>ES6</li>
 <li>React</li>
-<li>Case study (warsztaty)</li>
-<li>Flux</li>
+<li>Warsztat</li>
 </ol>
 <p><a href="http://pawelwieladek.github.io/react-workshop/">pawelwieladek.github.io/react-workshop/</a></p>
 <p><a href="http://tinyurl.com/szkolenie-react"><a href="http://tinyurl.com/szkolenie-react">http://tinyurl.com/szkolenie-react</a></a></p>
@@ -1159,7 +1158,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
     }
 });</code></pre>
 <pre><code class="lang-js"><span class="hljs-comment">// ES6</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> </span>{
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
     <span class="hljs-keyword">constructor</span>() {
         <span class="hljs-keyword">this</span>.state = {
             count: <span class="hljs-number">5</span>
@@ -1648,102 +1647,20 @@ Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela.</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-39">
-    <section class="slide-content"><h1 id="case-study">Case study</h1>
+    <section class="slide-content"><h1 id="warsztat">Warsztat</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-40">
-    <section class="slide-content"><p><img src="./images/wireframe.png" alt="Sample app" title="Sample app"></p>
+    <section class="slide-content"><p><img src="images/workshop.svg" width="800" /></p>
 </section>
   </div>
   <div class="slide hidden" id="slide-41">
-    <section class="slide-content"><p><img src="./images/top-components.png" alt="Top level components" title="Top level components"></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-42">
-    <section class="slide-content"><p><img src="./images/bottom-components.png" alt="Lower level components" title="Lower level components"></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-43">
     <section class="slide-content"><h3 id="project">Project</h3>
 <p>Clone repository from <a href="https://github.com/pawelwieladek/react-starter-kit">GitHub</a></p>
 <pre><code>git clone https://github.com/pawelwieladek/react-starter-kit.git</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-44">
-    <section class="slide-content"><h1 id="flux">Flux</h1>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-45">
-    <section class="slide-content"><h3 id="flux">Flux</h3>
-<p><img src="images/flux.svg" width="600" /></p>
-<h4 id="view">View</h4>
-<p>Widok (np. <code>React.Component</code>) ma dostęp do stanu, ale <strong>nie może go modyfikować</strong>.
-Może natomiast wywoływać akcje.</p>
-<h4 id="action">Action</h4>
-<p>Akcja jest asynchroniczną porcją informacji mówiącej o tym co ma się wydarzyć (i z jakimi argumentami).</p>
-<h4 id="dispatcher">Dispatcher</h4>
-<p>Do niego trafiają wszystkie oddelegowane akcje. Zachowuje kolejność wywoływanych akcji.</p>
-<h4 id="store">Store</h4>
-<p>Główne źródło prawdy. Przetrzymuje i udostępnia informacje o stanie aplikacji. Wie jak dana akcja modyfikuje stan.</p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-46">
-    <section class="slide-content"><h3 id="facebook-flux">Facebook Flux</h3>
-<p><img src="images/flux-logo.svg" alt="Flux logo" width="200" /></p>
-<h4 id="za-o-enia">Założenia</h4>
-<ul>
-<li>Główna idea to <strong>wzorzec Obserwatora</strong>.</li>
-<li>Dispatcher jest singletonem.</li>
-<li>Store może mieć mutowalny stan.</li>
-</ul>
-<h4 id="przep-yw-danych">Przepływ danych</h4>
-<ul>
-<li>Dispatcher rejestruje akcje.</li>
-<li>Widok wywołuje akcję.</li>
-<li>Dispatcher deleguje akcje w odpowiedniej kolejności.</li>
-<li>Store nasłuchuje na wywołanie akcji i zmienia swój stan w odpowiedni dla danej akcji sposób. </li>
-<li>Widok nasłuchuje na Store (jeden lub więcej) i odczytuje z niego stan.</li>
-</ul>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-47">
-    <section class="slide-content"><h3 id="redux">Redux</h3>
-<p><img src="images/redux-logo.png" alt="Redux logo" width="200" /></p>
-<h4 id="za-o-enia">Założenia</h4>
-<ul>
-<li>Głównym założeniem Reduxa jest <strong>przewidywalność</strong> przepływu danych.</li>
-<li>Stan jest niemutowalny.</li>
-<li>Jest jeden store.</li>
-<li>Store przechowuje stan całej aplikacji.</li>
-<li>Nie ma Dispatchera.</li>
-<li>Akcja to obiekt zawierający <strong>minimalną ilość danych reprezentującą to, co się zmieniło</strong></li>
-</ul>
-<pre><code class="lang-js">{
-    type: <span class="hljs-string">'ADD_ITEM'</span>,
-    item: {
-        id: <span class="hljs-number">1</span>
-    }
-}</code></pre>
-<ul>
-<li>Reducer to funkcja, która mapuje aktualny stan i akcję na zaktualizowany stan - <strong>reprezentuje jak akcja zmienia stan</strong>.</li>
-</ul>
-<pre><code class="lang-js">(state, action) =&gt; state</code></pre>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">items</span>(<span class="hljs-params">state = [], action</span>) </span>{
-    <span class="hljs-keyword">switch</span> (action.type) {
-        <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_ITEM'</span>:
-            <span class="hljs-keyword">return</span> [ ...state, action.item ];
-        <span class="hljs-keyword">default</span>:
-            <span class="hljs-keyword">return</span> state;
-    }
-}</code></pre>
-<ul>
-<li>Reducer musi być czystą funkcją, bez efektów ubocznych.</li>
-<li>Reducery można łączyć, aby każdy z nich operował tylko na tej części stanu aplikacji, za którą jest odpowiedzialny.</li>
-</ul>
-<p><a href="http://redux.js.org/">Redux Docs</a></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-48">
+  <div class="slide hidden" id="slide-42">
     <section class="slide-content"><div class="author">
   <h1 class="name">Pawel Wieladek</h1>
     <h3 class="twitter">
