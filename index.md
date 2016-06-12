@@ -20,8 +20,7 @@ progress: true
 
 1. ES6
 2. React
-3. Case study (warsztaty)
-4. Flux
+3. Warsztat
 
 [pawelwieladek.github.io/react-workshop/](http://pawelwieladek.github.io/react-workshop/)
 
@@ -882,7 +881,7 @@ const Counter = React.createClass({
 
 ```js
 // ES6
-class Counter {
+class Counter extends React.Component {
     constructor() {
         this.state = {
             count: 5
@@ -1496,19 +1495,11 @@ Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela.
 
 --
 
-# Case study
+# Warsztat
 
 --
 
-![Sample app](./images/wireframe.png "Sample app")
-
---
-
-![Top level components](./images/top-components.png "Top level components")
-
---
-
-![Lower level components](./images/bottom-components.png "Lower level components")
+<img src="images/workshop.svg" width="800" />
 
 --
 
@@ -1519,96 +1510,3 @@ Clone repository from [GitHub](https://github.com/pawelwieladek/react-starter-ki
 ```
 git clone https://github.com/pawelwieladek/react-starter-kit.git
 ```
-
---
-
-# Flux
-
---
-
-### Flux
-
-<img src="images/flux.svg" width="600" />
-
-#### View
-
-Widok (np. ```React.Component```) ma dostęp do stanu, ale **nie może go modyfikować**.
-Może natomiast wywoływać akcje.
-
-#### Action
-
-Akcja jest asynchroniczną porcją informacji mówiącej o tym co ma się wydarzyć (i z jakimi argumentami).
-
-#### Dispatcher
-
-Do niego trafiają wszystkie oddelegowane akcje. Zachowuje kolejność wywoływanych akcji.
-
-#### Store
-
-Główne źródło prawdy. Przetrzymuje i udostępnia informacje o stanie aplikacji. Wie jak dana akcja modyfikuje stan.
-
---
-
-### Facebook Flux
-
-<img src="images/flux-logo.svg" alt="Flux logo" width="200" />
-
-#### Założenia
-
-- Główna idea to **wzorzec Obserwatora**.
-- Dispatcher jest singletonem.
-- Store może mieć mutowalny stan.
-
-#### Przepływ danych
-
-- Dispatcher rejestruje akcje.
-- Widok wywołuje akcję.
-- Dispatcher deleguje akcje w odpowiedniej kolejności.
-- Store nasłuchuje na wywołanie akcji i zmienia swój stan w odpowiedni dla danej akcji sposób. 
-- Widok nasłuchuje na Store (jeden lub więcej) i odczytuje z niego stan.
-
---
-
-### Redux
-
-<img src="images/redux-logo.png" alt="Redux logo" width="200" />
-
-#### Założenia
-
-- Głównym założeniem Reduxa jest **przewidywalność** przepływu danych.
-- Stan jest niemutowalny.
-- Jest jeden store.
-- Store przechowuje stan całej aplikacji.
-- Nie ma Dispatchera.
-- Akcja to obiekt zawierający **minimalną ilość danych reprezentującą to, co się zmieniło**
-
-```js
-{
-    type: 'ADD_ITEM',
-    item: {
-        id: 1
-    }
-}
-```
-
-- Reducer to funkcja, która mapuje aktualny stan i akcję na zaktualizowany stan - **reprezentuje jak akcja zmienia stan**.
-
-```js
-(state, action) => state
-```
-
-```js
-function items(state = [], action) {
-    switch (action.type) {
-        case 'ADD_ITEM':
-            return [ ...state, action.item ];
-        default:
-            return state;
-    }
-}
-```
-
-- Reducer musi być czystą funkcją, bez efektów ubocznych.
-- Reducery można łączyć, aby każdy z nich operował tylko na tej części stanu aplikacji, za którą jest odpowiedzialny.
-
-[Redux Docs](http://redux.js.org/)
