@@ -962,6 +962,12 @@ handleClick: (event) => {
 <button onClick={() => this.handleClick()} />
 ```
 
+Można też wykorzystać [eksperymentalny syntax ES7](http://babeljs.io/blog/2015/05/14/function-bind):
+
+```js
+<button onClick={::this.handleClick} />
+```
+
 --
 
 ### Złe praktyki
