@@ -49,51 +49,6 @@ let blockScoped;
 const blockScoped;
 ```
 
-#### Var
-
-```js
-var a = 1;
-
-if (a === 1) {
-  var b = 2;
-}
-
-console.log(a);
-// 1
-console.log(b);
-// 2
-```
-
-#### Let
-
-```js
-let c = 1;
-
-if (c === 1) {
-  let d = 2;
-}
-
-console.log(c);
-// 1
-console.log(d);
-// ReferenceError: d is not defined
-
-for (let i = 0; i < 10; i++) {
-    console.log(i);
-}
-
-console.log(i);
-// ReferenceError: i is not defined
-```
-
-#### Const
-
-```js
-const PI = 3.14;
-PI = 3.141593;
-// throws "PI" is read-only
-```
-
 --
 
 ### String
@@ -618,28 +573,10 @@ fetch()
 
 --
 
-### Motywacja
-
-#### Tylko UI
-
-Najważniejszym celem jest renderowanie. Pozostałe elementy aplikacji można dowolnie skonfigurować.
-
-#### Łatwy do zrozumienia przepływ danych
-
-Wynik renderowania jest funkcją stanu i danych wejściowych.
-
-#### Wysoka wydajność - Virtual DOM
-
-Dodatkowa warstwa abstrakcji nad DOM upraszcza komunikację z przeglądarką.
-
---
-
 ### Komponenty
 
 Każdy komponent, z którego składa się layout aplikacji to niezależny klocek.
 Komponenty składają się z innych komponentów tworząc **drzewo komponentów**
-
-#### Single Responsibility Principle
 
 Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty.
 Mały komponent jest łatwy do **zrozumienia**, **utrzymania** i **testowania**.
@@ -657,31 +594,6 @@ Zamiast operować na poszczególnych elementach DOM, React tworzy wirtualne drze
 <img src="images/virtual-dom.svg" width="600" />
 
 Podczas renderowania React porównuje stare i nowe drzewo i **modyfikuje tylko niezbędne elementy w DOM**.
-Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność *O(n<sup>3</sup>)*
-
-React używa kilku heurystyk optymalizując złożoność do *O(n)*.
-
---
-
-### Diff algorithm
-
-#### Klasy komponentów
-
-Dwa komponenty o różnych klasach na tych samych miejscach w drzewie są różne.
-
-<img src="images/react-diff-class.svg" width="600" />
-
-#### Listy
-
-Komponenty porównywane są za pomocą przypisanych kluczy.
-
-<img src="images/react-diff-list.svg" width="600" />
-
-#### Poziom po poziomie
-
-Porównywane są komponenty tylko z tych samych poziomów.
-
-<img src="images/react-diff-levels.svg" width="600" />
 
 --
 
@@ -820,7 +732,7 @@ JSX nie jest częścią języka JavaScript w żadnej wersji (w tym ES6), dlatego
 *Props* to **dane wejściowe** komponentu.
 
 ```js
-const Hello = React.createClass({
+class Hello extends React.Component {
     render() {
         return (
             <h1>Hello, {this.props.name}!</h1>
@@ -840,22 +752,6 @@ Każdy komponent może mieć swój **stan**.
 Stan powinien być modyfikowany tylko za pomocą metody ```setState```.
 
 Wywoływanie ```setState``` wyzwala przerenderowanie komponentu i wszystkich jego dzieci.
-
-```js
-// ES5
-const Counter = React.createClass({
-    getInitialState() {
-        return {
-            count: 5
-        };
-    },
-    render() {
-        return (
-            <h1>{this.state.count}</h1>
-        );
-    }
-});
-```
 
 ```js
 // ES6
@@ -895,23 +791,23 @@ Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a je
 ### Zdarzenia
 
 ```js
-const Counter = React.createClass({
-    getInitialState() {
-        return {
-            count: 5
-        }
-    },
+class Counter extends React.Component {
+    state = {
+        count: 5
+    }
+    
     increment() {
         this.setState({
             count: this.state.count + 1
         });
-    },
+    }
+    
     render() {
         return (
             <button onClick={this.increment}>{this.state.count}</button>
         );
     }
-});
+}
 ```
 
 #### Dobra praktyka
@@ -943,17 +839,6 @@ handleClick = (event) => {
 --
 
 ### Złe praktyki
-
-#### Przepisywanie wartości ```props```
-
-```js
-// so bad!
-getInitialState() {
-    return {
-        name: this.props.name  
-    };
-}
-```
 
 #### Nadmiarowe dane
 
@@ -1167,16 +1052,21 @@ Dobór klucza dla dynamicznych komponentów nie jest trywialny. Klucz powinien b
 Walidacja danych wejściowych komponentu.
 
 ```js
-React.createClass({
-    propTypes: {
-        name: React.PropTypes.string.isRequired,
-        onClick: React.PropTypes.func
-    },
-    getDefaultProps() {
+import React from 'react';
+import PropTypes from 'prop-types';
+
+class extends React.Component {
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        onClick: PropTypes.func
+    }
+    
+    static defaultProps = {
         return {
             onClick: () => {}
         };
-    },
+    }
+    
     render() {
         return (
             <div>
@@ -1185,7 +1075,7 @@ React.createClass({
             </div>
         );
     }
-});
+}
 ```
 
 #### Dobra praktyka
@@ -1310,19 +1200,16 @@ export default Todo;
 
 ```js
 class Counter extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: this.props.initialValue
-        };
-    }
-
     static propTypes = {
         initialValue: PropTypes.number
     };
 
     static defaultProps = {
         initialValue: 0
+    };
+    
+    state = {
+        value: this.props.initialValue
     };
 
     increment = () => {
@@ -1404,47 +1291,16 @@ describe('<Counter /> should', () => {
 
 --
 
-### Mixin / Dekorator
-
-#### Mixin
-
-Mixin może nadpisywać metody komponentu lub dodawać nowe metody do klasy.
-Nadpisane metody wykonywane są w kolejności występowania w tablicy ```mixins```, a na końcu wykonuje się metoda z definicji klasy.
-
-```js
-const LogMixin = {
-    componentDidMount() {
-        console.log('Mixin log');
-    },
-
-    warn() {
-        console.warn('Warning!');
-    }
-};
-
-const Page = React.createClass({
-    mixins: [ LogMixin ],
-
-    componentDidMount() {
-        console.log('Class log');
-        // method `warn` from `LogMixin` is available here
-        this.warn();
-    }
-});
-
-// 'Mixin log'
-// 'Class log'
-// 'Warning!'
-```
-
-#### Dekorator
+### Dekoratory
 
 ```js
 function log(DecoratedComponent) {
     const componentDidMount = DecoratedComponent.prototype.componentDidMount;
 
     DecoratedComponent.prototype.componentDidMount = function() {
+        
         console.log('Decorator log');
+        
         componentDidMount.call(DecoratedComponent);
     };
 }
@@ -1467,6 +1323,20 @@ Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela.
 
 --
 
+### Podsumowanie
+
+#### Tylko UI
+
+Jedyne zadanie biblioteki - wyrenderowanie danych.
+
+#### Łatwy do zrozumienia przepływ danych
+
+Wynik renderowania jest funkcją stanu i danych wejściowych.
+
+#### Wysoka wydajność - Virtual DOM
+
+Dodatkowa warstwa abstrakcji nad DOM upraszcza komunikację z przeglądarką.
+
 # Warsztat
 
 --
@@ -1481,328 +1351,4 @@ Clone repository from [GitHub](https://github.com/pawelwieladek/react-starter-ki
 
 ```
 git clone https://github.com/pawelwieladek/react-starter-kit.git
-```
-
---
-
-<img src="images/redux-logo.png" width="200" />
-
---
-
-### Redux
-
-```
-Redux is a predictable state container for JavaScript apps.
-```
-
-**Separacja stanu aplikacji od warstwy prezentacji**
-
-1. Stan aplikacji jest **jednym obiektem**
-2. Zmiana stanu jest **asynchroniczna**
-3. Zmiana stanu jest **funkcją bez efektów ubocznych**
-
---
-
-### Store
-
-- Singleton
-- Przechowuje stan aplikacji
-
-Store API
-
-#### ```getState()```
-#### ```dispatch(action)```
-#### ```subscribe(listener)```
-
---
-
-### Action
-
-**Reprezentuje zmianę stanu.**
-
-```js
-const CHANGE_QUERY = 'CHANGE_QUERY'
-```
-
-```js
-{
-  type: CHANGE_QUERY,
-  query: 'car'
-}
-```
-
-### Action creator
-
-```js
-function changeQuery(query) {
-  return {
-    type: CHANGE_QUERY,
-    query
-  }
-}
-```
-
---
-
-### Reducer
-
-**Definiuje jak zmienić stan.**
-
-```js
-(prevState, action) => nextState
-```
-
-- stan musi pozostać **niemutowalny**
-- reducer może obsługiwać wiele akcji
-- niezmieniony stan musi zostać zwrócony gdy reducer nie obsługuje danej akcji
-
-```js
-function query(state, action) {
-  switch (action.type) {
-    case CHANGE_QUERY:
-      return Object.assign({}, state, {
-        query: action.query
-      });
-    default:
-      return state;
-  }
-}
-```
-
---
-
-### Kompozycja reducerów
-
-**Kluczowy problem: zaprojektowanie stanu aplikacji**
-
-```js
-{
-  query: 'Car',
-  filters: {
-    packstation: false,
-    freeShipping: false,
-  },
-  price: {
-    from: null,
-    to: null
-  },
-  items: [
-    {
-      name: 'Car',
-      price: 7000,
-      tags: [
-        'freeShipping'
-      ]
-    }
-  ]
-}
-```
-
-```js
-function rootReducer(state, action) {
-  return Object.assign({}, state, {
-    query: queryReducer(state.query, action),
-    filters: filtersReducer(state.filters, action),
-    price: priceReducer(state.price, action),
-    items: itemsReducer(state.items, action),
-  });
-}
-```
-
-#### ```combineReducers```
-
-```js
-const rootReducer = combineReducers({
-  query: queryReducer,
-  filters: filtersReducer,
-  price: priceReducer,
-  items: itemsReducer
-});
-```
-
---
-
-### Inicjalizacja
-
-#### 1. Utworzenie stanu początkowego
-
-```js
-const initialState = {
-  items: [
-    {
-      name: 'iPhone 7',
-      price: 4000
-    }
-  ]
-};
-```
-
-#### 2. Utworzenie root reducera
-
-```js
-const rootReducer = combineReducers({
-  query,
-  price,
-  filters
-});
-```
-
-#### 3. Utworzenie Store'a
-
-```js
-const store = createStore(rootReducer, initialState);
-```
-
---
-
-### Jednokierunkowy przepływ danych
-
-1. Komponent emituje **akcję** ```store.dispatch(action)```.
-2. **Store** wywołuje odpowiedni **reducer**.
-3. **Root reducer** komponuje końcowy stan aplikacji na podstawie reducerów potomnych.
-4. Store zapisuje gotowy stan.
-5. Komponent nasłuchujący na zmiany za pomocą ```store.subscribe(listener)``` ma dostęp do stanu poprzez ```store.getState()```.
-
---
-
-### Redux i React
-
-**Redux i React mogą działać całkowicie niezależnie.**
-
-```
-npm install --save react-redux
-```
-
-#### ```<Provider store={store} />```
-
-#### ```@connect(mapStateToProps, mapDispatchToProps)```
-
-#### ```mapStateToProps(state)```
-
-#### ```mapDispatchToProps(dispatch)```
-
---
-
-### Wstrzykiwanie propsów
-
-```js
-const mapStateToProps = (state) => ({
-  query: state.query
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChange: (nextQuery) => {
-    dispatch(changeQuery(nextQuery));
-  }
-});
-
-@connect(mapStateToProps, mapDispatchToProps)
-class Query extends Component {
-  static propsTypes = {
-    query: PropsTypes.string,
-    onChange: PropsTypes.string
-  };
-}
-```
-
---
-
-### Punkt wejścia
-
-```js
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-
-import rootReducer from './reducers';
-import App from './components/App';
-
-const store = createStore(rootReducer);
-
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('root')
-);
-```
-
---
-
-### Middlewares
-
-#### Akcja synchroniczna
-```js
-function increment() {
-  return {
-    type: INCREMENT_COUNTER
-  };
-}
-```
-
-#### Akcja asynchroniczna
-
-```js
-function loadItems() {
-  store.dispatch({
-    type: LOAD_ITEMS_REQUEST
-  });
-  fetch('/api/items')
-    .then(response => store.dispatch({
-      type: LOAD_ITEMS_SUCCESS,
-      payload: response
-    }))
-    .catch(error => store.dispatch({
-      type: LOAD_ITEMS_FAILURE,
-      error
-    }));
-}
-```
-
-#### Middleware
-
-```js
-const thunk = store => next => action =>
-  if (typeof action === 'function') {
-    action(store.dispatch, store.getState);
-  } else {
-    next(action);
-  }
-```
-
-#### Inicjalizacja
-
-```js
-const store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);
-```
-
-#### Akcja asynchroniczna
-
-```js
-function loadItems() {
-  return dispatch => {
-    dispatch({
-      type: LOAD_ITEMS_REQUEST
-    });
-    fetch('/api/items')
-      .then(response => dispatch({
-        type: LOAD_ITEMS_SUCCESS,
-        payload: response
-      }))
-      .catch(error => dispatch({
-        type: LOAD_ITEMS_FAILURE,
-        error
-      }));
-  };
-}
-```
-
-#### ```redux-thunk```
-
-```
-npm install redux-thunk
 ```

@@ -541,39 +541,6 @@ pre > code {
 <span class="hljs-keyword">let</span> blockScoped;</code></pre>
 <pre><code class="lang-js"><span class="hljs-comment">// ES6</span>
 <span class="hljs-keyword">const</span> blockScoped;</code></pre>
-<h4 id="var">Var</h4>
-<pre><code class="lang-js"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;
-
-<span class="hljs-keyword">if</span> (a === <span class="hljs-number">1</span>) {
-  <span class="hljs-keyword">var</span> b = <span class="hljs-number">2</span>;
-}
-
-<span class="hljs-built_in">console</span>.log(a);
-<span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">console</span>.log(b);
-<span class="hljs-comment">// 2</span></code></pre>
-<h4 id="let">Let</h4>
-<pre><code class="lang-js"><span class="hljs-keyword">let</span> c = <span class="hljs-number">1</span>;
-
-<span class="hljs-keyword">if</span> (c === <span class="hljs-number">1</span>) {
-  <span class="hljs-keyword">let</span> d = <span class="hljs-number">2</span>;
-}
-
-<span class="hljs-built_in">console</span>.log(c);
-<span class="hljs-comment">// 1</span>
-<span class="hljs-built_in">console</span>.log(d);
-<span class="hljs-comment">// ReferenceError: d is not defined</span>
-
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++) {
-    <span class="hljs-built_in">console</span>.log(i);
-}
-
-<span class="hljs-built_in">console</span>.log(i);
-<span class="hljs-comment">// ReferenceError: i is not defined</span></code></pre>
-<h4 id="const">Const</h4>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> PI = <span class="hljs-number">3.14</span>;
-PI = <span class="hljs-number">3.141593</span>;
-<span class="hljs-comment">// throws "PI" is read-only</span></code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-5">
@@ -989,49 +956,23 @@ fetch()
 </section>
   </div>
   <div class="slide hidden" id="slide-14">
-    <section class="slide-content"><h3 id="motywacja">Motywacja</h3>
-<h4 id="tylko-ui">Tylko UI</h4>
-<p>Najważniejszym celem jest renderowanie. Pozostałe elementy aplikacji można dowolnie skonfigurować.</p>
-<h4 id="-atwy-do-zrozumienia-przep-yw-danych">Łatwy do zrozumienia przepływ danych</h4>
-<p>Wynik renderowania jest funkcją stanu i danych wejściowych.</p>
-<h4 id="wysoka-wydajno-virtual-dom">Wysoka wydajność - Virtual DOM</h4>
-<p>Dodatkowa warstwa abstrakcji nad DOM upraszcza komunikację z przeglądarką.</p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-15">
     <section class="slide-content"><h3 id="komponenty">Komponenty</h3>
 <p>Każdy komponent, z którego składa się layout aplikacji to niezależny klocek.
 Komponenty składają się z innych komponentów tworząc <strong>drzewo komponentów</strong></p>
-<h4 id="single-responsibility-principle">Single Responsibility Principle</h4>
 <p>Kiedy problem staje się zbyt złożony komponent powinien być podzielony na mniejsze komponenty.
 Mały komponent jest łatwy do <strong>zrozumienia</strong>, <strong>utrzymania</strong> i <strong>testowania</strong>.</p>
 <p><img src="images/components-layout.svg" width="800" /></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-16">
+  <div class="slide hidden" id="slide-15">
     <section class="slide-content"><h3 id="virtual-dom">Virtual DOM</h3>
 <p><strong>Operacje na DOM są kosztowne</strong>.</p>
 <p>Zamiast operować na poszczególnych elementach DOM, React tworzy wirtualne drzewo komponentów (<strong>Virtual DOM</strong>), wykrywa zmiany i podmienia drzewo.</p>
 <p><img src="images/virtual-dom.svg" width="600" /></p>
-<p>Podczas renderowania React porównuje stare i nowe drzewo i <strong>modyfikuje tylko niezbędne elementy w DOM</strong>.
-Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma złożoność <em>O(n<sup>3</sup>)</em></p>
-<p>React używa kilku heurystyk optymalizując złożoność do <em>O(n)</em>.</p>
+<p>Podczas renderowania React porównuje stare i nowe drzewo i <strong>modyfikuje tylko niezbędne elementy w DOM</strong>.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-17">
-    <section class="slide-content"><h3 id="diff-algorithm">Diff algorithm</h3>
-<h4 id="klasy-komponent-w">Klasy komponentów</h4>
-<p>Dwa komponenty o różnych klasach na tych samych miejscach w drzewie są różne.</p>
-<p><img src="images/react-diff-class.svg" width="600" /></p>
-<h4 id="listy">Listy</h4>
-<p>Komponenty porównywane są za pomocą przypisanych kluczy.</p>
-<p><img src="images/react-diff-list.svg" width="600" /></p>
-<h4 id="poziom-po-poziomie">Poziom po poziomie</h4>
-<p>Porównywane są komponenty tylko z tych samych poziomów.</p>
-<p><img src="images/react-diff-levels.svg" width="600" /></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-18">
+  <div class="slide hidden" id="slide-16">
     <section class="slide-content"><h3 id="punkt-wej-cia-aplikacji">Punkt wejścia aplikacji</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// &lt;div id="main"&gt;&lt;/div&gt;</span>
 
@@ -1042,7 +983,7 @@ Znajdowanie minimalnej liczby modyfikacji pomiędzy dwoma dowolnymi drzewami ma 
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>, document.querySelector('#main'));</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-19">
+  <div class="slide hidden" id="slide-17">
     <section class="slide-content"><h3 id="przyk-adowy-komponent">Przykładowy komponent</h3>
 <pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
 <span class="hljs-keyword">var</span> React = <span class="hljs-built_in">require</span>(<span class="hljs-string">'react'</span>);
@@ -1070,7 +1011,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
 });</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-20">
+  <div class="slide hidden" id="slide-18">
     <section class="slide-content"><h3 id="jsx">JSX</h3>
 <p>Tag <code>&lt;div&gt;</code> tworzy instancję klasy <code>div</code>.</p>
 <p><code>ReactDOM</code> implementuje wszystkie tagi HTML wraz z odpowiednimi atrybutami jako pochodne klasy <code>React.Component</code>.</p>
@@ -1110,10 +1051,10 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
 <p>JSX nie jest częścią języka JavaScript w żadnej wersji (w tym ES6), dlatego do poprawnego działania w przeglądarce potrzebny jest kod po transpilacji.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-21">
+  <div class="slide hidden" id="slide-19">
     <section class="slide-content"><h3 id="props">Props</h3>
 <p><em>Props</em> to <strong>dane wejściowe</strong> komponentu.</p>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> Hello = React.createClass({
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hello</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
     render() {
         <span class="hljs-keyword">return</span> (
             <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello, {this.props.name}!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
@@ -1124,24 +1065,11 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
 ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Hello</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Pawel"</span> /&gt;</span>, document.querySelector('#main'));</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-22">
+  <div class="slide hidden" id="slide-20">
     <section class="slide-content"><h3 id="state">State</h3>
 <p>Każdy komponent może mieć swój <strong>stan</strong>.</p>
 <p>Stan powinien być modyfikowany tylko za pomocą metody <code>setState</code>.</p>
 <p>Wywoływanie <code>setState</code> wyzwala przerenderowanie komponentu i wszystkich jego dzieci.</p>
-<pre><code class="lang-js"><span class="hljs-comment">// ES5</span>
-<span class="hljs-keyword">const</span> Counter = React.createClass({
-    getInitialState() {
-        <span class="hljs-keyword">return</span> {
-            count: <span class="hljs-number">5</span>
-        };
-    },
-    render() {
-        <span class="hljs-keyword">return</span> (
-            <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{this.state.count}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
-        )</span>;
-    }
-});</code></pre>
 <pre><code class="lang-js"><span class="hljs-comment">// ES6</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
     <span class="hljs-keyword">constructor</span>() {
@@ -1158,7 +1086,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
 });</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-23">
+  <div class="slide hidden" id="slide-21">
     <section class="slide-content"><h3 id="przep-yw-danych">Przepływ danych</h3>
 <p>Komponent to <strong>funkcja dwóch zmiennych zmiennych</strong>: <em>props</em> i <em>state</em> zwracająca wynik renderowania - drzewo węzłów DOM.</p>
 <p>Przepływ danych jest <strong>jednokierunkowy</strong> - od góry do dołu drzewa komponentów.</p>
@@ -1168,25 +1096,25 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
 <p><img src="images/top-down.svg" alt="Jednokierunkowy przepływ danych" width="800" /></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-24">
+  <div class="slide hidden" id="slide-22">
     <section class="slide-content"><h3 id="zdarzenia">Zdarzenia</h3>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> Counter = React.createClass({
-    getInitialState() {
-        <span class="hljs-keyword">return</span> {
-            count: <span class="hljs-number">5</span>
-        }
-    },
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+    state = {
+        count: <span class="hljs-number">5</span>
+    }
+
     increment() {
         <span class="hljs-keyword">this</span>.setState({
             count: <span class="hljs-keyword">this</span>.state.count + <span class="hljs-number">1</span>
         });
-    },
+    }
+
     render() {
         <span class="hljs-keyword">return</span> (
             <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.increment}</span>&gt;</span>{this.state.count}<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
         )</span>;
     }
-});</code></pre>
+}</code></pre>
 <h4 id="dobra-praktyka">Dobra praktyka</h4>
 <p>Stan powinien zawierać tylko te dane, które mogą być dynamicznie modyfikowane przez użytkownika.</p>
 <h4 id="autobinding">Autobinding</h4>
@@ -1201,15 +1129,8 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-n
 <pre><code class="lang-js">&lt;button onClick={() =&gt; <span class="hljs-keyword">this</span>.handleClick()} /&gt;</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-25">
+  <div class="slide hidden" id="slide-23">
     <section class="slide-content"><h3 id="z-e-praktyki">Złe praktyki</h3>
-<h4 id="przepisywanie-warto-ci-props-">Przepisywanie wartości <code>props</code></h4>
-<pre><code class="lang-js"><span class="hljs-comment">// so bad!</span>
-getInitialState() {
-    <span class="hljs-keyword">return</span> {
-        name: <span class="hljs-keyword">this</span>.props.name  
-    };
-}</code></pre>
 <h4 id="nadmiarowe-dane">Nadmiarowe dane</h4>
 <pre><code class="lang-js"><span class="hljs-comment">// so bad!</span>
 handleChange(firstName, lastName) {
@@ -1256,7 +1177,7 @@ render() {
 }</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-26">
+  <div class="slide hidden" id="slide-24">
     <section class="slide-content"><h3 id="cykl-ycia-komponentu">Cykl życia komponentu</h3>
 <p><img src="images/component-lifecycle.svg" alt="Component Lifecycle" width="600" /></p>
 <p><a href="https://facebook.github.io/react/docs/component-specs.html">Component Specs and Lifecycle reference</a></p>
@@ -1351,7 +1272,7 @@ render() {
 <p>Miejsce na cleanup.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-27">
+  <div class="slide hidden" id="slide-25">
     <section class="slide-content"><h3 id="dynamiczne-komponenty">Dynamiczne komponenty</h3>
 <p>Każdy dynamicznie tworzony komponent powinien zawierać unikalny klucz <code>key</code>, aby React mógł w optymalny sposób porównać drzewa komponentów.</p>
 <pre><code class="lang-js">render() {
@@ -1368,19 +1289,24 @@ render() {
 <p>Dobór klucza dla dynamicznych komponentów nie jest trywialny. Klucz powinien być unikalny, dlatego renderowany model powinien dostarczać swój unikalny id.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-28">
+  <div class="slide hidden" id="slide-26">
     <section class="slide-content"><h3 id="-proptypes-"><em>PropTypes</em></h3>
 <p>Walidacja danych wejściowych komponentu.</p>
-<pre><code class="lang-js">React.createClass({
-    propTypes: {
-        name: React.PropTypes.string.isRequired,
-        onClick: React.PropTypes.func
-    },
-    getDefaultProps() {
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> PropTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'prop-types'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        onClick: PropTypes.func
+    }
+
+    static defaultProps = {
         <span class="hljs-keyword">return</span> {
             onClick: () =&gt; {}
         };
-    },
+    }
+
     render() {
         <span class="hljs-keyword">return</span> (
             <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
@@ -1389,7 +1315,7 @@ render() {
             <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
         )</span>;
     }
-});</code></pre>
+}</code></pre>
 <h4 id="dobra-praktyka">Dobra praktyka</h4>
 <p>Każdy element <code>this.props</code> powinien zostać zwalidowany w <code>propsTypes</code>.</p>
 <p>Walidacja danych wejściowych powinna być <strong>wyłączona</strong> na produkcji, ponieważ istotnie spowalnia renderowanie strony.</p>
@@ -1397,7 +1323,7 @@ render() {
 <p><a href="http://benchling.engineering/performance-engineering-with-react/">Performance Engineering with React</a></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-29">
+  <div class="slide hidden" id="slide-27">
     <section class="slide-content"><h3 id="referencje">Referencje</h3>
 <p>Za pomocą atrybutu <code>ref</code> można przechować referencję do komponentów potomnych.</p>
 <pre><code class="lang-js">getValue() {
@@ -1415,7 +1341,7 @@ render() {
 d3.select(list);</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-30">
+  <div class="slide hidden" id="slide-28">
     <section class="slide-content"><h3 id="style-i-klasy-css">Style i klasy CSS</h3>
 <p>Komponenty DOM udostępniają dwa atrybuty do obsługi styli: <code>classNames</code> oraz <code>style</code>.</p>
 <p>Atrybut <code>classNames</code> przyjmuje stringa z nazwami klas, podobnie jak w HTML.</p>
@@ -1430,7 +1356,7 @@ d3.select(list);</code></pre>
 <span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-31">
+  <div class="slide hidden" id="slide-29">
     <section class="slide-content"><h3 id="-uncontrolled-component-"><em>Uncontrolled Component</em></h3>
 <ul>
 <li><p>Komponent stanowy</p>
@@ -1449,17 +1375,17 @@ d3.select(list);</code></pre>
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-32">
+  <div class="slide hidden" id="slide-30">
     <section class="slide-content"><h3 id="-uncontrolled-component-"><em>Uncontrolled Component</em></h3>
 <p><p data-height="500" data-theme-id="0" data-slug-hash="YwRXJd" data-default-tab="js,result" data-user="pawelwieladek" data-embed-version="2" class="codepen">See the Pen <a href='http://codepen.io/pawelwieladek/pen/YwRXJd/'>React Uncontrolled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script></section>
   </div>
-  <div class="slide hidden" id="slide-33">
+  <div class="slide hidden" id="slide-31">
     <section class="slide-content"><h3 id="-controlled-component-"><em>Controlled Component</em></h3>
 <p><p data-height="500" data-theme-id="0" data-slug-hash="bEQVww" data-default-tab="js,result" data-user="pawelwieladek" data-embed-version="2" class="codepen">See the Pen <a href='http://codepen.io/pawelwieladek/pen/bEQVww/'>React Controlled Component</a> by Pawel Wieladek (<a href='http://codepen.io/pawelwieladek'>@pawelwieladek</a>) on <a href='http://codepen.io'>CodePen</a>.</p></p>
 <script async src="//assets.codepen.io/assets/embed/ei.js"></script></section>
   </div>
-  <div class="slide hidden" id="slide-34">
+  <div class="slide hidden" id="slide-32">
     <section class="slide-content"><h3 id="komponent-jako-funkcja">Komponent jako funkcja</h3>
 <p>Jeżeli komponent nie ma swojego wewnętrznego stanu, ani nie nadpisuje metod z cyklu życia komponentu może być zapisany jako czysta funkcja.</p>
 <pre><code class="lang-js"><span class="hljs-keyword">import</span> React, { PropTypes } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
@@ -1483,22 +1409,19 @@ Todo.propTypes = {
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Todo;</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-35">
+  <div class="slide hidden" id="slide-33">
     <section class="slide-content"><h3 id="testy-jednostkowe">Testy jednostkowe</h3>
 <pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-    <span class="hljs-keyword">constructor</span>(props) {
-        <span class="hljs-keyword">super</span>(props);
-        <span class="hljs-keyword">this</span>.state = {
-            value: <span class="hljs-keyword">this</span>.props.initialValue
-        };
-    }
-
     static propTypes = {
         initialValue: PropTypes.number
     };
 
     static defaultProps = {
         initialValue: <span class="hljs-number">0</span>
+    };
+
+    state = {
+        value: <span class="hljs-keyword">this</span>.props.initialValue
     };
 
     increment = () =&gt; {
@@ -1576,40 +1499,15 @@ Todo.propTypes = {
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-36">
-    <section class="slide-content"><h3 id="mixin-dekorator">Mixin / Dekorator</h3>
-<h4 id="mixin">Mixin</h4>
-<p>Mixin może nadpisywać metody komponentu lub dodawać nowe metody do klasy.
-Nadpisane metody wykonywane są w kolejności występowania w tablicy <code>mixins</code>, a na końcu wykonuje się metoda z definicji klasy.</p>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> LogMixin = {
-    componentDidMount() {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Mixin log'</span>);
-    },
-
-    warn() {
-        <span class="hljs-built_in">console</span>.warn(<span class="hljs-string">'Warning!'</span>);
-    }
-};
-
-<span class="hljs-keyword">const</span> Page = React.createClass({
-    mixins: [ LogMixin ],
-
-    componentDidMount() {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Class log'</span>);
-        <span class="hljs-comment">// method `warn` from `LogMixin` is available here</span>
-        <span class="hljs-keyword">this</span>.warn();
-    }
-});
-
-<span class="hljs-comment">// 'Mixin log'</span>
-<span class="hljs-comment">// 'Class log'</span>
-<span class="hljs-comment">// 'Warning!'</span></code></pre>
-<h4 id="dekorator">Dekorator</h4>
+  <div class="slide hidden" id="slide-34">
+    <section class="slide-content"><h3 id="dekoratory">Dekoratory</h3>
 <pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span>(<span class="hljs-params">DecoratedComponent</span>) </span>{
     <span class="hljs-keyword">const</span> componentDidMount = DecoratedComponent.prototype.componentDidMount;
 
     DecoratedComponent.prototype.componentDidMount = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Decorator log'</span>);
+
         componentDidMount.call(DecoratedComponent);
     };
 }
@@ -1628,265 +1526,28 @@ Nadpisane metody wykonywane są w kolejności występowania w tablicy <code>mixi
 Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-37">
-    <section class="slide-content"><h1 id="warsztat">Warsztat</h1>
+  <div class="slide hidden" id="slide-35">
+    <section class="slide-content"><h3 id="podsumowanie">Podsumowanie</h3>
+<h4 id="tylko-ui">Tylko UI</h4>
+<p>Jedyne zadanie biblioteki - wyrenderowanie danych.</p>
+<h4 id="-atwy-do-zrozumienia-przep-yw-danych">Łatwy do zrozumienia przepływ danych</h4>
+<p>Wynik renderowania jest funkcją stanu i danych wejściowych.</p>
+<h4 id="wysoka-wydajno-virtual-dom">Wysoka wydajność - Virtual DOM</h4>
+<p>Dodatkowa warstwa abstrakcji nad DOM upraszcza komunikację z przeglądarką.</p>
+<h1 id="warsztat">Warsztat</h1>
 </section>
   </div>
-  <div class="slide hidden" id="slide-38">
+  <div class="slide hidden" id="slide-36">
     <section class="slide-content"><p><img src="images/workshop.svg" width="800" /></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-39">
+  <div class="slide hidden" id="slide-37">
     <section class="slide-content"><h3 id="project">Project</h3>
 <p>Clone repository from <a href="https://github.com/pawelwieladek/react-starter-kit">GitHub</a></p>
 <pre><code>git clone https://github.com/pawelwieladek/react-starter-kit.git</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-40">
-    <section class="slide-content"><p><img src="images/redux-logo.png" width="200" /></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-41">
-    <section class="slide-content"><h3 id="redux">Redux</h3>
-<pre><code>Redux is a predictable state container for JavaScript apps.</code></pre>
-<p><strong>Separacja stanu aplikacji od warstwy prezentacji</strong></p>
-<ol>
-<li>Stan aplikacji jest <strong>jednym obiektem</strong></li>
-<li>Zmiana stanu jest <strong>asynchroniczna</strong></li>
-<li>Zmiana stanu jest <strong>funkcją bez efektów ubocznych</strong></li>
-</ol>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-42">
-    <section class="slide-content"><h3 id="store">Store</h3>
-<ul>
-<li>Singleton</li>
-<li>Przechowuje stan aplikacji</li>
-</ul>
-<p>Store API</p>
-<h4 id="-getstate-"><code>getState()</code></h4>
-<h4 id="-dispatch-action-"><code>dispatch(action)</code></h4>
-<h4 id="-subscribe-listener-"><code>subscribe(listener)</code></h4>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-43">
-    <section class="slide-content"><h3 id="action">Action</h3>
-<p><strong>Reprezentuje zmianę stanu.</strong></p>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> CHANGE_QUERY = <span class="hljs-string">'CHANGE_QUERY'</span></code></pre>
-<pre><code class="lang-js">{
-  type: CHANGE_QUERY,
-  query: <span class="hljs-string">'car'</span>
-}</code></pre>
-<h3 id="action-creator">Action creator</h3>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">changeQuery</span>(<span class="hljs-params">query</span>) </span>{
-  <span class="hljs-keyword">return</span> {
-    type: CHANGE_QUERY,
-    query
-  }
-}</code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-44">
-    <section class="slide-content"><h3 id="reducer">Reducer</h3>
-<p><strong>Definiuje jak zmienić stan.</strong></p>
-<pre><code class="lang-js">(prevState, action) =&gt; nextState</code></pre>
-<ul>
-<li>stan musi pozostać <strong>niemutowalny</strong></li>
-<li>reducer może obsługiwać wiele akcji</li>
-<li>niezmieniony stan musi zostać zwrócony gdy reducer nie obsługuje danej akcji</li>
-</ul>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">query</span>(<span class="hljs-params">state, action</span>) </span>{
-  <span class="hljs-keyword">switch</span> (action.type) {
-    <span class="hljs-keyword">case</span> CHANGE_QUERY:
-      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign({}, state, {
-        query: action.query
-      });
-    <span class="hljs-keyword">default</span>:
-      <span class="hljs-keyword">return</span> state;
-  }
-}</code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-45">
-    <section class="slide-content"><h3 id="kompozycja-reducer-w">Kompozycja reducerów</h3>
-<p><strong>Kluczowy problem: zaprojektowanie stanu aplikacji</strong></p>
-<pre><code class="lang-js">{
-  query: <span class="hljs-string">'Car'</span>,
-  filters: {
-    packstation: <span class="hljs-literal">false</span>,
-    freeShipping: <span class="hljs-literal">false</span>,
-  },
-  price: {
-    <span class="hljs-keyword">from</span>: <span class="hljs-literal">null</span>,
-    to: <span class="hljs-literal">null</span>
-  },
-  items: [
-    {
-      name: <span class="hljs-string">'Car'</span>,
-      price: <span class="hljs-number">7000</span>,
-      tags: [
-        <span class="hljs-string">'freeShipping'</span>
-      ]
-    }
-  ]
-}</code></pre>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">rootReducer</span>(<span class="hljs-params">state, action</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign({}, state, {
-    query: queryReducer(state.query, action),
-    filters: filtersReducer(state.filters, action),
-    price: priceReducer(state.price, action),
-    items: itemsReducer(state.items, action),
-  });
-}</code></pre>
-<h4 id="-combinereducers-"><code>combineReducers</code></h4>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> rootReducer = combineReducers({
-  query: queryReducer,
-  filters: filtersReducer,
-  price: priceReducer,
-  items: itemsReducer
-});</code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-46">
-    <section class="slide-content"><h3 id="inicjalizacja">Inicjalizacja</h3>
-<h4 id="1-utworzenie-stanu-pocz-tkowego">1. Utworzenie stanu początkowego</h4>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> initialState = {
-  items: [
-    {
-      name: <span class="hljs-string">'iPhone 7'</span>,
-      price: <span class="hljs-number">4000</span>
-    }
-  ]
-};</code></pre>
-<h4 id="2-utworzenie-root-reducera">2. Utworzenie root reducera</h4>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> rootReducer = combineReducers({
-  query,
-  price,
-  filters
-});</code></pre>
-<h4 id="3-utworzenie-store-a">3. Utworzenie Store&#39;a</h4>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> store = createStore(rootReducer, initialState);</code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-47">
-    <section class="slide-content"><h3 id="jednokierunkowy-przep-yw-danych">Jednokierunkowy przepływ danych</h3>
-<ol>
-<li>Komponent emituje <strong>akcję</strong> <code>store.dispatch(action)</code>.</li>
-<li><strong>Store</strong> wywołuje odpowiedni <strong>reducer</strong>.</li>
-<li><strong>Root reducer</strong> komponuje końcowy stan aplikacji na podstawie reducerów potomnych.</li>
-<li>Store zapisuje gotowy stan.</li>
-<li>Komponent nasłuchujący na zmiany za pomocą <code>store.subscribe(listener)</code> ma dostęp do stanu poprzez <code>store.getState()</code>.</li>
-</ol>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-48">
-    <section class="slide-content"><h3 id="redux-i-react">Redux i React</h3>
-<p><strong>Redux i React mogą działać całkowicie niezależnie.</strong></p>
-<pre><code>npm install --save react-redux</code></pre>
-<h4 id="-provider-store-store-"><code>&lt;Provider store={store} /&gt;</code></h4>
-<h4 id="-connect-mapstatetoprops-mapdispatchtoprops-"><code>@connect(mapStateToProps, mapDispatchToProps)</code></h4>
-<h4 id="-mapstatetoprops-state-"><code>mapStateToProps(state)</code></h4>
-<h4 id="-mapdispatchtoprops-dispatch-"><code>mapDispatchToProps(dispatch)</code></h4>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-49">
-    <section class="slide-content"><h3 id="wstrzykiwanie-props-w">Wstrzykiwanie propsów</h3>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> mapStateToProps = (state) =&gt; ({
-  query: state.query
-});
-
-<span class="hljs-keyword">const</span> mapDispatchToProps = (dispatch) =&gt; ({
-  onChange: (nextQuery) =&gt; {
-    dispatch(changeQuery(nextQuery));
-  }
-});
-
-@connect(mapStateToProps, mapDispatchToProps)
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Query</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  static propsTypes = {
-    query: PropsTypes.string,
-    onChange: PropsTypes.string
-  };
-}</code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-50">
-    <section class="slide-content"><h3 id="punkt-wej-cia">Punkt wejścia</h3>
-<pre><code class="lang-js"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { render } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
-<span class="hljs-keyword">import</span> { Provider } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-redux'</span>;
-<span class="hljs-keyword">import</span> { createStore } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
-
-<span class="hljs-keyword">import</span> rootReducer <span class="hljs-keyword">from</span> <span class="hljs-string">'./reducers'</span>;
-<span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">'./components/App'</span>;
-
-<span class="hljs-keyword">const</span> store = createStore(rootReducer);
-
-render(
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">{store}</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span>,
-  document.getElementById('root')
-);</span></code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-51">
-    <section class="slide-content"><h3 id="middlewares">Middlewares</h3>
-<h4 id="akcja-synchroniczna">Akcja synchroniczna</h4>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> {
-    type: INCREMENT_COUNTER
-  };
-}</code></pre>
-<h4 id="akcja-asynchroniczna">Akcja asynchroniczna</h4>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadItems</span>(<span class="hljs-params"></span>) </span>{
-  store.dispatch({
-    type: LOAD_ITEMS_REQUEST
-  });
-  fetch(<span class="hljs-string">'/api/items'</span>)
-    .then(response =&gt; store.dispatch({
-      type: LOAD_ITEMS_SUCCESS,
-      payload: response
-    }))
-    .catch(error =&gt; store.dispatch({
-      type: LOAD_ITEMS_FAILURE,
-      error
-    }));
-}</code></pre>
-<h4 id="middleware">Middleware</h4>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> thunk = store =&gt; next =&gt; action =&gt;
-  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> action === <span class="hljs-string">'function'</span>) {
-    action(store.dispatch, store.getState);
-  } <span class="hljs-keyword">else</span> {
-    next(action);
-  }</code></pre>
-<h4 id="inicjalizacja">Inicjalizacja</h4>
-<pre><code class="lang-js"><span class="hljs-keyword">const</span> store = createStore(
-  rootReducer,
-  applyMiddleware(thunk)
-);</code></pre>
-<h4 id="akcja-asynchroniczna">Akcja asynchroniczna</h4>
-<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadItems</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> dispatch =&gt; {
-    dispatch({
-      type: LOAD_ITEMS_REQUEST
-    });
-    fetch(<span class="hljs-string">'/api/items'</span>)
-      .then(response =&gt; dispatch({
-        type: LOAD_ITEMS_SUCCESS,
-        payload: response
-      }))
-      .catch(error =&gt; dispatch({
-        type: LOAD_ITEMS_FAILURE,
-        error
-      }));
-  };
-}</code></pre>
-<h4 id="-redux-thunk-"><code>redux-thunk</code></h4>
-<pre><code>npm install redux-thunk</code></pre>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-52">
+  <div class="slide hidden" id="slide-38">
     <section class="slide-content"><div class="author">
   <h1 class="name">Pawel Wieladek</h1>
     <h3 class="twitter">
