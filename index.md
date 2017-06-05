@@ -20,29 +20,15 @@ progress: true
 
 1. ES6
 2. React
-3. Warsztat
+3. Redux
 
 [pawelwieladek.github.io/react-workshop/](http://pawelwieladek.github.io/react-workshop/)
-
-[http://tinyurl.com/szkolenie-react](http://tinyurl.com/szkolenie-react)
 
 --
 
 # ES6
 
 <img src="images/js-logo.png" width="200" />
-
---
-
-### Przydatne linki
-
-[JS Bin](http://jsbin.com/?js,console) - Online REPL
-
-[Learn Babel](http://babeljs.io/docs/learn-es2015/) - Dokumentacja Babel
-
-[MDN](https://developer.mozilla.org/en-US/) - Mozilla Developer Network
-
-[2ality](http://www.2ality.com/) - Blog o nowinkach w ES6
 
 --
 
@@ -138,7 +124,7 @@ var name = 'world';
 'Hello ' + name + '!';
 
 // ES6
-`Hello ${name}!`; 
+`Hello ${name}!`;
 ```
 
 Więcej: [Template literals @ MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
@@ -153,12 +139,12 @@ Więcej: [Template literals @ MDN](https://developer.mozilla.org/en-US/docs/Web/
 let name = 'Pawel';
 
 // ES5
-var you = { 
+var you = {
     name: name
 };
 
 // ES6
-let me = { 
+let me = {
     name
 };
 
@@ -281,7 +267,7 @@ console.log(c);
 
 ```js
 function createPerson() {
-    return { 
+    return {
         firstName: 'Pawel',
         lastName: 'Wieladek'
     };
@@ -308,11 +294,11 @@ console.log(l);
 
 ```js
 let response = {
-    status: 400, 
-    errors: [ 
-        { 
-            text: 'Bad Request', 
-            stack: '...' 
+    status: 400,
+    errors: [
+        {
+            text: 'Bad Request',
+            stack: '...'
         }
     ]
 };
@@ -333,8 +319,8 @@ function sayHello({ first, last }) {
     return `Hello, I'm ${first} ${last}!`;
 }
 
-let greeting = sayHello({ 
-    first: 'Pawel', 
+let greeting = sayHello({
+    first: 'Pawel',
     last: 'Wieladek'
 });
 
@@ -409,7 +395,7 @@ console.log(b);
 ['a', 'b', 'c', 'd'].map((value, index) => {
     index = index + 1;
     return [index, value];
-}); 
+});
 
 // [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']]
 ```
@@ -419,7 +405,7 @@ console.log(b);
 ```js
 [[1, 'a'], [2, 'b'], [3, 'c'], [4, 'd']].map(([index, value]) => {
     return {
-        [value]: index 
+        [value]: index
     };
 });
 
@@ -445,7 +431,7 @@ class AsyncCounter {
     constructor(initialValue) {
         this.value = initialValue;
     }
-    
+
     increment() {
         setTimeout(() => {
             // `this` is bound to the value of current context
@@ -464,12 +450,6 @@ class AsyncCounter {
 - metody klasy bazowej
 - metody statyczne i metody instancji
 
-ES6 **nie udostępnia** poniższych funkcji języka:
-
-- interfejsy
-- wielodziedziczenie
-- przeciążanie konstruktora
-
 ### Klasa bazowa
 
 ```js
@@ -478,7 +458,7 @@ class Point {
         this.x = x;
         this.y = y;
     }
-  
+
     toString() {
         return `x = ${this.x}, y = ${this.y}`;
     }
@@ -505,11 +485,11 @@ class ColorPoint extends Point {
         super(x, y);
         this.color = color;
     }
-  
+
     static createDefault() {
         return new ColorPoint(0, 0, 'black');
     }
-  
+
     toString() {
         return `${super.toString()}, color = ${this.color}`;
     }
@@ -525,6 +505,12 @@ let q = ColorPoint.createDefault();
 console.log(q.toString());      
 // x = 0, y = 0, color = black
 ```
+
+ES6 **nie udostępnia** poniższych funkcjonalności:
+
+- interfejsy
+- wielodziedziczenie
+- przeciążanie konstruktora
 
 --
 
@@ -632,23 +618,15 @@ fetch()
 
 --
 
-### Przydatne linki
-
-[CodePen](http://codepen.io/pawelwieladek/pen/BjGNxX/?editors=0010)
-
-[React Docs](https://facebook.github.io/react/docs/getting-started.html)
-
---
-
-### Dlaczego React?
+### Motywacja
 
 #### Tylko UI
 
-Najważniejszym celem jest renderowanie. Pozostałe elementy aplikacji można dowolnie skonfigurować. 
+Najważniejszym celem jest renderowanie. Pozostałe elementy aplikacji można dowolnie skonfigurować.
 
 #### Łatwy do zrozumienia przepływ danych
 
-Wynik renderowania jest funkcją stanu i danych wejściowych. 
+Wynik renderowania jest funkcją stanu i danych wejściowych.
 
 #### Wysoka wydajność - Virtual DOM
 
@@ -788,25 +766,25 @@ React.createElement(Nav, null,
 Dowolny kod JavaScript może być umieszczony wewnątrz nawiasów ```{ }```.
 
 #### Wartość atrybutu typu *string*
- 
+
 ```xml
 <div className="container"><div>
 ```
 
 #### Wartość atrybutu typu *boolean*
- 
+
 ```xml
 <button disabled></button>
 ```
 
 #### Dowolna wartość atrybutu
- 
+
 ```xml
 <textarea cols={6} onChange={this.handleChange}></textarea>
 ```
 
 #### *Self-closing tag*
- 
+
 ```xml
 <input type="text" value="XYZ" />
 ```
@@ -858,8 +836,8 @@ ReactDOM.render(<Hello name="Pawel" />, document.querySelector('#main'));
 ### State
 
 Każdy komponent może mieć swój **stan**.
- 
-Stan powinien być modyfikowany tylko za pomocą metody ```setState```. 
+
+Stan powinien być modyfikowany tylko za pomocą metody ```setState```.
 
 Wywoływanie ```setState``` wyzwala przerenderowanie komponentu i wszystkich jego dzieci.
 
@@ -887,7 +865,7 @@ class Counter extends React.Component {
             count: 5
         };
     }
-    
+
     render() {
         return (
             <h1>{this.state.count}</h1>
@@ -907,7 +885,7 @@ Przepływ danych jest **jednokierunkowy** - od góry do dołu drzewa komponentó
 #### Dobre praktyki
 
 Jak najwięcej komponentów powinno być **bezstanowych**.
- 
+
 Korzeń drzewa powinien zawierać stan i implementować logikę biznesową, a jego dzieci do wyrenderowania powinny używać wyłącznie danych wejściowych.
 
 <img src="images/top-down.svg" alt="Jednokierunkowy przepływ danych" width="800" />
@@ -953,9 +931,9 @@ constructor() {
 ```
 
 ```js
-handleClick: (event) => {
+handleClick = (event) => {
     console.log(event);
-}
+};
 ```
 
 ```js
@@ -965,9 +943,9 @@ handleClick: (event) => {
 --
 
 ### Złe praktyki
- 
+
 #### Przepisywanie wartości ```props```
- 
+
 ```js
 // so bad!
 getInitialState() {
@@ -978,7 +956,7 @@ getInitialState() {
 ```
 
 #### Nadmiarowe dane
- 
+
 ```js
 // so bad!
 handleChange(firstName, lastName) {
@@ -999,9 +977,9 @@ render() {
     );
 }
 ```
- 
+
 #### Przetrzymywanie komponentów w stanie
- 
+
 ```js
 // so bad!
 showForm() {
@@ -1046,9 +1024,9 @@ render() {
 ### ```render```
 
  - **Wymagana metoda** (jedyna).
- 
+
  - Może zwracać ```null``` lub ```false``` jeżeli komponent ma nic nie renderować.
- 
+
  - Musi zawierać dokładnie jeden węzeł korzenia zwracanego drzewa.
 
 ### Mount
@@ -1060,7 +1038,7 @@ object getInitialState()
 ```
 
  - Wywoływana raz, przed zamontowaniem komponentu.
- 
+
  - Zwraca początkową wartość dostępną w ```this.state``` podczas pierwszego renderowania.
 
 ### ```getDefaultProps```
@@ -1070,7 +1048,7 @@ object getDefaultProps()
 ```
 
  - Metoda statyczna dla klasy, wywoływana podczas konstruowania klasy.
- 
+
  - Zwraca domyślne wartości dostępne w ```this.props``` jeżeli nie zostaną podane podczas tworzenia instancji komponentu.
 
 ### ```componentWillMount```
@@ -1088,7 +1066,7 @@ void componentDidMount()
 ```
 
  - Wywoływana raz, tuż po pierwszym renderowaniu komponentu.
- 
+
 #### Dobra praktyka
 
 Miejsce na integrację z innymi bibliotekami np. jQuery, D3.
@@ -1104,7 +1082,7 @@ void componentWillReceiveProps(
 ```
 
  - Wywoływana za każdym razem, tuż przed otrzymaniem nowych danych weściowych.
- 
+
  - Nie wywoływana podczas pierwszego renderowania.
 
 ### ```componentWillUpdate```
@@ -1116,7 +1094,7 @@ void componentWillUpdate(
 ```
 
  - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan, tuż przed renderowaniem.
- 
+
  - Nie wywoływana podczas pierwszego renderowania.
 
 ### ```componentDidUpdate```
@@ -1128,7 +1106,7 @@ void componentDidUpdate(
 ```
 
  - Wywoływana tuż po zaaplikowaniu zmian w DOM.
- 
+
  - Nie wywoływana podczas pierwszego renderowania.
 
 ### ```shouldComponentUpdate```
@@ -1140,9 +1118,9 @@ boolean shouldComponentUpdate(
 ```
 
  - Wywoływana za każdym razem, gdy komponent otrzymuje nowe dane wejściowe lub zmienia swój stan.
- 
+
  - Nie wywoływana podczas pierwszego renderowania.
- 
+
  - Jeżeli zwróci ```false``` to nie zostaną wywołane metody ```render```, ```componentWillUpdate``` oraz ```componentDidUpdate```.
 
 ### Unmount
@@ -1158,7 +1136,7 @@ void componentWillUnmount()
 #### Dobra praktyka
 
 Miejsce na cleanup.
- 
+
 --
 
 ### Dynamiczne komponenty
@@ -1219,7 +1197,7 @@ Walidacja danych wejściowych powinna być **wyłączona** na produkcji, poniewa
 [Prop Types reference @ React Docs](https://facebook.github.io/react/docs/reusable-components.html)
 
 [Performance Engineering with React](http://benchling.engineering/performance-engineering-with-react/)
- 
+
 --
 
 ### Referencje
@@ -1259,7 +1237,7 @@ Pomocną biblioteką do obsługi klas CSS jest pakiet [classnames](https://githu
 Atrybut ```style``` przyjmuje obiekt z polami odpowiednimi dla właściwości CSS.
 
 ```js
-<div 
+<div
     style={{
         color: 'red',
         borderWidth: 10,
@@ -1330,13 +1308,6 @@ export default Todo;
 
 ### Testy jednostkowe
 
-- [**Mocha**](https://mochajs.org/) - test runner
-- [**Chai**](http://chaijs.com/) - TDD/BDD
-- [**Sinon**](http://sinonjs.org/) - spy, stub, mock
-- [**Enzyme**](http://airbnb.io/enzyme/) - React Component wrapper
-
-#### Source
-
 ```js
 class Counter extends Component {
     constructor(props) {
@@ -1377,10 +1348,6 @@ class Counter extends Component {
     }
 }
 ```
-
-[CodePen example](http://codepen.io/pawelwieladek/pen/vGvKXK)
-
-#### Unit tests
 
 ```js
 describe('<Counter /> should', () => {
@@ -1430,10 +1397,15 @@ describe('<Counter /> should', () => {
 });
 ```
 
+- [**Mocha**](https://mochajs.org/) - test runner
+- [**Chai**](http://chaijs.com/) - TDD/BDD
+- [**Sinon**](http://sinonjs.org/) - spy, stub, mock
+- [**Enzyme**](http://airbnb.io/enzyme/) - React Component wrapper
+
 --
 
 ### Mixin / Dekorator
- 
+
 #### Mixin
 
 Mixin może nadpisywać metody komponentu lub dodawać nowe metody do klasy.
@@ -1444,7 +1416,7 @@ const LogMixin = {
     componentDidMount() {
         console.log('Mixin log');
     },
-    
+
     warn() {
         console.warn('Warning!');
     }
@@ -1452,7 +1424,7 @@ const LogMixin = {
 
 const Page = React.createClass({
     mixins: [ LogMixin ],
-    
+
     componentDidMount() {
         console.log('Class log');
         // method `warn` from `LogMixin` is available here
@@ -1470,7 +1442,7 @@ const Page = React.createClass({
 ```js
 function log(DecoratedComponent) {
     const componentDidMount = DecoratedComponent.prototype.componentDidMount;
-    
+
     DecoratedComponent.prototype.componentDidMount = function() {
         console.log('Decorator log');
         componentDidMount.call(DecoratedComponent);
@@ -1491,7 +1463,7 @@ class Page extends Component {
 ##### Uwaga
 
 Dekoratory nie są oficjalną częścią języka ES6, ani ES7. Prawdopodobnie wejdą w jednej z kolejnych iteracji.
-Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela. 
+Mimo to, są dostępne dzięki odpowiedniej konfiguracji Babela.
 
 --
 
@@ -1509,4 +1481,328 @@ Clone repository from [GitHub](https://github.com/pawelwieladek/react-starter-ki
 
 ```
 git clone https://github.com/pawelwieladek/react-starter-kit.git
+```
+
+--
+
+<img src="images/redux-logo.png" width="200" />
+
+--
+
+### Redux
+
+```
+Redux is a predictable state container for JavaScript apps.
+```
+
+**Separacja stanu aplikacji od warstwy prezentacji**
+
+1. Stan aplikacji jest **jednym obiektem**
+2. Zmiana stanu jest **asynchroniczna**
+3. Zmiana stanu jest **funkcją bez efektów ubocznych**
+
+--
+
+### Store
+
+- Singleton
+- Przechowuje stan aplikacji
+
+Store API
+
+#### ```getState()```
+#### ```dispatch(action)```
+#### ```subscribe(listener)```
+
+--
+
+### Action
+
+**Reprezentuje zmianę stanu.**
+
+```js
+const CHANGE_QUERY = 'CHANGE_QUERY'
+```
+
+```js
+{
+  type: CHANGE_QUERY,
+  query: 'car'
+}
+```
+
+### Action creator
+
+```js
+function changeQuery(query) {
+  return {
+    type: CHANGE_QUERY,
+    query
+  }
+}
+```
+
+--
+
+### Reducer
+
+**Definiuje jak zmienić stan.**
+
+```js
+(prevState, action) => nextState
+```
+
+- stan musi pozostać **niemutowalny**
+- reducer może obsługiwać wiele akcji
+- niezmieniony stan musi zostać zwrócony gdy reducer nie obsługuje danej akcji
+
+```js
+function query(state, action) {
+  switch (action.type) {
+    case CHANGE_QUERY:
+      return Object.assign({}, state, {
+        query: action.query
+      });
+    default:
+      return state;
+  }
+}
+```
+
+--
+
+### Kompozycja reducerów
+
+**Kluczowy problem: zaprojektowanie stanu aplikacji**
+
+```js
+{
+  query: 'Car',
+  filters: {
+    packstation: false,
+    freeShipping: false,
+  },
+  price: {
+    from: null,
+    to: null
+  },
+  items: [
+    {
+      name: 'Car',
+      price: 7000,
+      tags: [
+        'freeShipping'
+      ]
+    }
+  ]
+}
+```
+
+```js
+function rootReducer(state, action) {
+  return Object.assign({}, state, {
+    query: queryReducer(state.query, action),
+    filters: filtersReducer(state.filters, action),
+    price: priceReducer(state.price, action),
+    items: itemsReducer(state.items, action),
+  });
+}
+```
+
+#### ```combineReducers```
+
+```js
+const rootReducer = combineReducers({
+  query: queryReducer,
+  filters: filtersReducer,
+  price: priceReducer,
+  items: itemsReducer
+});
+```
+
+--
+
+### Inicjalizacja
+
+#### 1. Utworzenie stanu początkowego
+
+```js
+const initialState = {
+  items: [
+    {
+      name: 'iPhone 7',
+      price: 4000
+    }
+  ]
+};
+```
+
+#### 2. Utworzenie root reducera
+
+```js
+const rootReducer = combineReducers({
+  query,
+  price,
+  filters
+});
+```
+
+#### 3. Utworzenie Store'a
+
+```js
+const store = createStore(rootReducer, initialState);
+```
+
+--
+
+### Jednokierunkowy przepływ danych
+
+1. Komponent emituje **akcję** ```store.dispatch(action)```.
+2. **Store** wywołuje odpowiedni **reducer**.
+3. **Root reducer** komponuje końcowy stan aplikacji na podstawie reducerów potomnych.
+4. Store zapisuje gotowy stan.
+5. Komponent nasłuchujący na zmiany za pomocą ```store.subscribe(listener)``` ma dostęp do stanu poprzez ```store.getState()```.
+
+--
+
+### Redux i React
+
+**Redux i React mogą działać całkowicie niezależnie.**
+
+```
+npm install --save react-redux
+```
+
+#### ```<Provider store={store} />```
+
+#### ```@connect(mapStateToProps, mapDispatchToProps)```
+
+#### ```mapStateToProps(state)```
+
+#### ```mapDispatchToProps(dispatch)```
+
+--
+
+### Wstrzykiwanie propsów
+
+```js
+const mapStateToProps = (state) => ({
+  query: state.query
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange: (nextQuery) => {
+    dispatch(changeQuery(nextQuery));
+  }
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
+class Query extends Component {
+  static propsTypes = {
+    query: PropsTypes.string,
+    onChange: PropsTypes.string
+  };
+}
+```
+
+--
+
+### Punkt wejścia
+
+```js
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import rootReducer from './reducers';
+import App from './components/App';
+
+const store = createStore(rootReducer);
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
+```
+
+--
+
+### Middlewares
+
+#### Akcja synchroniczna
+```js
+function increment() {
+  return {
+    type: INCREMENT_COUNTER
+  };
+}
+```
+
+#### Akcja asynchroniczna
+
+```js
+function loadItems() {
+  store.dispatch({
+    type: LOAD_ITEMS_REQUEST
+  });
+  fetch('/api/items')
+    .then(response => store.dispatch({
+      type: LOAD_ITEMS_SUCCESS,
+      payload: response
+    }))
+    .catch(error => store.dispatch({
+      type: LOAD_ITEMS_FAILURE,
+      error
+    }));
+}
+```
+
+#### Middleware
+
+```js
+const thunk = store => next => action =>
+  if (typeof action === 'function') {
+    action(store.dispatch, store.getState);
+  } else {
+    next(action);
+  }
+```
+
+#### Inicjalizacja
+
+```js
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
+```
+
+#### Akcja asynchroniczna
+
+```js
+function loadItems() {
+  return dispatch => {
+    dispatch({
+      type: LOAD_ITEMS_REQUEST
+    });
+    fetch('/api/items')
+      .then(response => dispatch({
+        type: LOAD_ITEMS_SUCCESS,
+        payload: response
+      }))
+      .catch(error => dispatch({
+        type: LOAD_ITEMS_FAILURE,
+        error
+      }));
+  };
+}
+```
+
+#### ```redux-thunk```
+
+```
+npm install redux-thunk
 ```
