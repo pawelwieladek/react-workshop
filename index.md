@@ -1336,6 +1336,8 @@ Wynik renderowania jest funkcją stanu i danych wejściowych.
 
 Dodatkowa warstwa abstrakcji nad DOM upraszcza komunikację z przeglądarką.
 
+--
+
 # Warsztat
 
 --
