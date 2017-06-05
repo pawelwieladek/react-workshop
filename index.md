@@ -20,7 +20,6 @@ progress: true
 
 1. ES6
 2. React
-3. Redux
 
 [pawelwieladek.github.io/react-workshop/](http://pawelwieladek.github.io/react-workshop/)
 
